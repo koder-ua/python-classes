@@ -1,0 +1,41 @@
+% XeLaTeX
+\usepackage{xltxtra}
+\usepackage{xunicode}
+\usepackage{listings}
+\usepackage[landscape]{geometry}
+
+% Fonts
+\setmainfont{Arial}
+\newfontfamily\cyrillicfont{Arial}
+\setmonofont{Courier New}
+%\setmonofont{Ubuntu Mono}
+
+%\setmonofont{DejaVu Sans Mono}
+
+% Lang
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\usepackage[dvipsnames]{xcolor}
+
+
+\ifx\pdfoutput\undefined
+\usepackage{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\fi
+
+\lstset{
+	language=python,
+	keywordstyle=\color{Emerald},%\texttt, 
+	commentstyle=\color{OliveGreen},%\texttt,
+	stringstyle=\color{Bittersweet},%\texttt,
+	tabsize=4,
+	numbers=left,
+	xleftmargin=10pt,
+	morekeywords={with,as},	
+	numberstyle=\large,
+	%identifierstyle=\texttt,
+	%basicstyle=\texttt,
+}
+

@@ -1,0 +1,212 @@
+\documentclass{article}
+
+\input{files/lectures_env}
+
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\center{List comprehension}
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	res = [func(i) for i in some_iter if func2(i)]
+	res = [i ** 0.5 for i in [-1, 0 , 1, 2 ,3] if i >= 0]
+	res = (func(i) for i in some_iter if func2(i))
+	res = {func(i) for i in some_iter if func2(i)}
+\end{lstlisting}
+}
+
+\center{inline if}
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	res = x if x >= 0 else -x
+	# res = (x >= 0 ? x : -x)
+\end{lstlisting}
+}
+
+\newpage
+%-------------------------------------------------------------------------------
+\center{DRY}
+\newpage
+%-------------------------------------------------------------------------------
+\center{Потоки}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	import threading
+
+	th = threading.Thread(None, func, None, args, kwargs)
+	th.daemon = True
+
+	th.start()
+
+	th.is_alive()
+	th.join(timeout)
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Потоки}
+\begin{itemize}
+	\item threading.enumerate
+	\item threading.local
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	mydata = threading.local()
+	mydata.x = 1	
+\end{lstlisting}
+}
+	\item \lstinline!sys.setcheckinterval(N)!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Потоки}
+\begin{itemize}
+	\item winpdb
+	\item GIL (cache, ......)
+	\item Не отменяемые (thread2)
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	class MyTask(object):
+		def my_thread_func(self):
+			pass
+
+		def start_thread(self):
+			self.th = Thread(None, self.my_thread_func)
+\end{lstlisting}
+}
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Примитивы синхронизации}
+\begin{itemize}
+	\item threading.Lock
+	\item threading.Semaphore
+	\item threading.RLock
+	\item threading.Event
+	\item threading.Condition
+\end{itemize}
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	lock = threading.Lock()
+	...
+	# lock.acquire()
+	with lock: 
+		pass
+	# lock.release()
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	cvar = threading.Condition()
+	...
+	def th1():
+		with cvar: 
+			cvar.wait()
+			...
+
+	def th2():
+		with cvar: 
+			cvar.wait()
+			...
+
+	def th3():
+		with cvar:
+			#cvar.notify()
+			cvar.notify_all()
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Queue}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	import Queue
+
+	q = Queue.Queue(maxsize=0)
+	q.put(val, block=True, timeout=None)
+	q.get(block=True, timeout=None)
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{concurrent - python 3.2}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	def worker(param_q, result_q, func):
+		while True:
+			param = param_q.get()
+			if param is None:
+				break
+			result_q.put((param, func(param)))
+
+	result_q = Queue.Queue()
+	param_q = Queue.Queue()
+	workers = []
+	worker_params = (param_q, result_q, func)
+
+	for i in range(pool_sz):
+		th = threading.Thread(None, worker, 
+								"worker-{}".format(i), 
+								worker_params)
+		th.daemon = True
+		th.start()
+		workers.append(th)
+
+	# params_q.put(...)
+	# result_q.get(...)
+
+	for i in range(pool_sz):
+		params_q.put(None)
+
+	for th in workers:
+		th.join()
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{concurrent - python 3.2}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	from concurrent.futures import ThreadPoolExecutor
+	with ThreadPoolExecutor(max_workers=4) as pool:
+		res = pool.map(func, iter)
+		future = pool.submit(func, ....)
+
+		#future.cancel()
+		#future.done()
+		print future.result(timeout=None)
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{multiprocessing}
+\newpage
+
+%-------------------------------------------------------------------------------
+
+\end{document}

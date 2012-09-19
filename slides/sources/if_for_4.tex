@@ -1,0 +1,278 @@
+% python classes slides - control statements
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\center{Блоки кода}
+\begin{itemize}
+	\item Блоки ограничивают участок кода, принадлежащий управляющей конструкции
+	\item Начинаются с “:”, которым оканчивается конструкция 
+	\item Все строки блока имеют уровень отступа равным начальной строке блока
+	\item Отступы делаются с помошью табуляции или пробелов
+	\item Блоки могут содержать другие блоки (с более глубокими отступами)
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	Some_contruction:
+		y = 2
+		z = x + y
+	#end_of_block
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Блоки кода}
+\begin{itemize}
+	\item Блоки это не области видимости переменных. Переменные видны и после выхода из блока
+	\item \lstinline$pass$ – пустой блок
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{if - Условное выполнение участков кода}
+\vspace{15pt}
+\begin{lstlisting}
+	if  condition1 :
+	    pass # excuted if condition1 is true
+	elif condition2 :
+	    pass # excuted if condition1 is false and condition2 is true
+	#... 
+	else:
+	    pass # executed if all conditions is false 
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{if}
+\vspace{15pt}
+\begin{lstlisting}
+	x = 12
+	sign = 0
+	if x > 0:
+	    print x, "positive"
+	    sign = 1
+	elif x < 0:
+	    print x, "negative"
+	    sign = -1
+	else:
+	    print x, "== 0"
+	    sign = 0
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{inline if}
+\vspace{15pt}
+\begin{lstlisting}
+	res = x if x >= 0 else -x
+	# res = (x >= 0 ? x : -x)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{while}
+\vspace{15pt}
+\begin{lstlisting}
+	while condition:
+		pass # executed while condition is true
+	else:
+		pass # if no error or break in body
+
+	x = 1
+	while x < 100:
+		print x, "less than 100"
+		x *= 2
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{for - цикл по множеству}
+\vspace{15pt}
+\begin{lstlisting}
+	for x in iterable:
+		func(x) # for each element in iterable
+	else:
+		pass # if no error or break in body
+
+	sum = 0
+	for x in range(100):
+		sum += x
+	print x  # 99 * 100 / 2
+
+	for i in range(n): # xrange(n)
+	    pass
+
+	n = 121213
+
+    dividers = []
+    while n > 3:
+        for divider in range(2, int(n ** 0.5) + 1):
+            if n % divider == 0:
+                break
+        else:
+            break
+        n //= divider
+        dividers.append(divider)
+
+    if n != 1:
+    	dividers.append(n)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{for undercover}
+\vspace{15pt}
+\begin{lstlisting}
+	for x in container:
+	    f(x)
+
+	# some times equal to
+
+	_tmp = 0
+	while _tmp < len(container):
+	    x = container[_tmp]
+	    f(x)
+	    _tmp += 1
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{break \& сontinue как всегда}
+\begin{itemize}
+	\item \lstinline!break!  выходит из цикла
+	\item \lstinline!continue! переходит к следующей итерации
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Нет}
+\begin{itemize}
+	\item goto 
+	\item switch + case 
+	\item until 
+	\item do{}while, do{}until
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{with}
+\vspace{15pt}
+\begin{lstlisting}
+	with expression as var:
+		block
+
+	# mostly the same as
+	
+	var = expression
+	var.__enter__()
+	
+	block
+	
+	if error_happened:
+		if var.__exit__(error_data):
+			# pass_error_further
+		else:
+			# supress_error
+	else:
+		var.__exit__()
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{использование with}
+\vspace{15pt}
+\begin{lstlisting}
+	with open(r“C:\xxx.bin”, "w") as fd:
+	    fd.write(“-” * 100 + "\n")
+	    fd.write(“+” * 100 + "\n")
+
+	with open(r“C:\xxx.bin”, "r") as fd:
+	    for line in fd:
+	    	print line
+
+	with db.cursor() as cur:
+	    curr.execute(update_request_1)
+	    curr.execute(update_request_2)
+		# commit or rollback
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{List comprehension}
+\vspace{15pt}
+\begin{lstlisting}
+	res = [func(i) for i in some_iter if func2(i)]
+
+	res = ["{:.2f}".format(i ** 0.5) 
+				for i in [-1, 0, 1, 2, 3] 
+					if i >= 0]
+	
+	res == ['0.00', '1.00', '1.41', '1.73']
+
+	res = [(i + 0j) ** 0.5 for i in [-1, 0 ,1, 2, 3]]
+	res = {func(i) for i in some_iter if func2(i)}
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Функции - минимум}
+\begin{lstlisting}
+	def func_name1(param1, param2):
+		"documentation"
+		# block
+		x = param1 + param2
+		return x
+
+	def func_name2(param1, param2):
+		"documentation"
+		# block
+		x = param1 + param2
+		if x > 0:
+			return x
+		else:
+			return 0
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------
+\center{Unit tests - find}
+\begin{lstlisting}
+	assert find("abc", "b") == 1
+	assert find("abc", "b") == "abc".find("b")
+
+	assert func("abc", "a") == 0
+	assert func("abca", "a") == 0
+	assert func("dabca", "a") == 1
+	assert func("", "a") == -1
+	assert func("a", "a") == 0
+	assert func("ab", "abc") == 0
+	assert func("b" * 1000 + "abc", "abc") == 1000
+	assert func("b" * 1000 + "abc", "abcd") == -1
+
+	all_symbols = "".join([chr(i) for i in range(255)])
+	assert func(all_symbols, chr(100)) == 100
+
+	assert find("", "") == 0
+	assert find("", "") == "".find("")
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------
+\center{AA}
+\begin{itemize}
+	\item Написать строковые функции find, replace, 
+			split, join использую срезы строк 
+			(без применения других методов строк)
+	\item Написать интерпретатор подмножества языка forth. 
+		  Со следующими командами push, pop, add, print, sub, dup.
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}

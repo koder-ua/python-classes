@@ -1,0 +1,10 @@
+2012-09-14 15:57:20,753 - example_logging - DEBUG - Debug msg
+2012-09-14 15:57:20,753 - example_logging - INFO - Info msg
+2012-09-14 15:57:20,753 - example_logging - WARNING - Warning msg
+2012-09-14 15:57:20,753 - example_logging - ERROR - Error msg
+2012-09-14 15:57:20,753 - example_logging - CRITICAL - Critical msg
+2012-09-14 15:57:20,763 - example_logging - ERROR - Exception
+Traceback (most recent call last):
+  File "example_logging.py", line 39, in main
+    1 / 0
+ZeroDivisionError: integer division or modulo by zero

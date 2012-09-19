@@ -1,0 +1,214 @@
+\documentclass{article}
+
+
+% XeLaTeX
+\usepackage{xltxtra}
+\usepackage{xunicode}
+\usepackage{listings}
+\usepackage[landscape]{geometry}
+
+% Fonts
+\setmainfont{Arial}
+\newfontfamily\cyrillicfont{Arial}
+\setmonofont{Courier New}
+%\setmonofont{DejaVu Sans Mono}
+
+% Lang
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\usepackage[dvipsnames]{xcolor}
+\include{pythonlisting}
+
+\lstset{
+	language=python,
+	keywordstyle=\color{Emerald}, 
+	commentstyle=\color{OliveGreen},
+	stringstyle=\color{Bittersweet},
+	tabsize=4,
+	numbers=left,
+	xleftmargin=10pt,
+	morekeywords={with,as},
+}
+
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+
+\center{Юнит-тестирование. unittest}
+\begin{itemize}
+\item http://pycheesecake.org/wiki/PythonTestingToolsTaxonomy
+\item \lstinline!assert condition!
+\item unittest
+\item Фильтрация тестов, автопоиск, etc
+\item \lstinline!assertEqual!, \lstinline!assertIn!, \lstinline!assertRaises!, 
+		\lstinline!assertAlmostEqual!, \lstinline!assertDictContainsSubset!
+\item python -m unittest test\_module1 test\_module2
+\item python -m unittest test\_module.TestClass
+\item python -m unittest test\_module.TestClass.test\_method
+\item python -m unittest discover project\_directory '*\_test.py'
+
+\end{itemize}
+\newpage
+%-------------------------------------------------------------------------------
+
+\center{Юнит-тестирование. unittest}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	import unittest
+
+	class DefaultWidgetSizeTestCase(unittest.TestCase):
+	    def setUp(self):
+	        self.widget = Widget('The widget')
+
+	    def runTest(self):
+	    	assert self.widget.size() == (50, 50), "incorrect default size"
+	        self.assertEqual(self.widget.size(), \
+	        	(50, 50), "incorrect default size")
+
+	    def tearDown(self):
+	        self.widget.dispose()
+	        self.widget = None
+	
+	if __name__ == '__main__':
+    	unittest.main()
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+
+\center{Юнит-тестирование. nose}
+\begin{itemize}
+\item Автопоиск и исполнение тестов, плагины 
+		(coverage, исполнение тестов в отдельных процессах)
+\item Юнит тесты в функциях
+\end{itemize}
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	from nose.tools import eq_
+
+	# test_some.py
+	def test1():
+		"test, that 1 == 2"
+		assert 1 == 2
+		eq_(1, 2)
+
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Юнит-тестирование. oktest}
+\begin{itemize}
+
+\item py.test (pytest) 
+\item oktest 
+
+\end{itemize}
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	from oktest import ok
+
+	def test_func():
+		ok (s) == 'foo'
+		ok (s) != 'foo'
+		ok (n) > 0     
+		ok (fn).raises(Error)
+		ok ([]).is_a(list)
+\end{lstlisting}
+}
+
+\newpage
+%-------------------------------------------------------------------------------
+\center{Юнит-тестирование. mock}
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	import mock
+
+	mock = mock.Mock()
+	mock.method(1, 2, 3, test='wow')
+	mock.called == True
+	mock.method.assert_called_with(1, 2, 3, test='wow')
+	
+	attrs = {'method.return_value': 3, \
+			 'other.side_effect': KeyError}
+	mock.configure_mock(**attrs)
+	mock.method() == 3
+	mock.other() # KeyError raised
+\end{lstlisting}
+}
+
+\newpage
+%-------------------------------------------------------------------------------
+\center{Юнит-тестирование. mock}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	from mock import patch
+
+	class Class(object):
+		def method(self):
+			pass
+
+	with patch('__main__.Class') as MockClass:
+		instance = MockClass.return_value
+		instance.method.return_value = 'foo'
+		assert Class() is instance
+		assert Class().method() == 'foo'
+
+	@patch.object(SomeClass, 'class_method')
+	def test(mock_method):
+		SomeClass.class_method(3)
+		mock_method.assert_called_with(3)
+	
+	test()
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Юнит-тестирование. ludibrio}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	from ludibrio import Mock
+
+	with Mock() as MySQLdb:
+		con = MySQLdb.connect('server', 'user', 'XXXX')
+		con.select_db('DB') >> None
+		cursor = con.cursor()
+		cursor.execute('select * from numbers') >> None
+		cursor.fetchall() >> [1,2,3,4,5]
+
+	con = MySQLdb.connect('server', 'user', 'XXXX')
+	con.select_db('DB')
+	cursor = con.cursor()
+	cursor.execute('select * from numbers')
+	cursor.fetchall() == [1, 2, 3, 4, 5]
+
+	MySQLdb.validate()
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}
+
+
+
+
+
+
+
+

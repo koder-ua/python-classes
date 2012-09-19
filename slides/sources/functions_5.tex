@@ -1,0 +1,565 @@
+% python classes slides - functions
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\center{Функции}
+\begin{itemize}
+	\item Именованный изолированный участок кода,
+		принимающий параметры и возвращающий результат
+	\item Все имена уничтожаются после выхода из функции
+	\item Функция "не видит" имена, определенные в других 
+		функциях (кроме случая вложенных функций)
+	\item \lstinline!def name(param1, param2, ...)!
+	\item \lstinline!return something! – возвращает результат
+	\item \lstinline!return! - возвращает None
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Функции: области видимости}
+\begin{itemize}
+	\item Все имена в функции при компиляции делатся на глобальные и локальные.
+	\item Параметры и имена, которым где-либо производится присваивание, - локальные.
+		  Остальные - глобальные. На основании этого производится поиск во время исполнения.
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def add(param1, param2):
+		"returns sum of two objects"
+	    result = param1 + param2
+	    return result
+
+	print add(2, 3) # 5
+	print result # error
+	print add(2, "3") # error
+	print add("2", "3") #"23"
+\end{lstlisting}
+\newpage
+
+\vspace{15pt}
+\begin{lstlisting}
+	help(add)
+	
+	# Help on function add in module __main__:
+	#
+	#add(param1, param2)
+    #    returns sum of two objects
+
+	print add.__doc__ # returns sum of two objects
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Функции: области видимости}
+\vspace{15pt}
+\begin{lstlisting}
+	def add_gv(val):
+	    return val + GLOBAL_VAR
+
+	add_gv(1) # error
+	GLOBAL_VAR = 12
+	add_gv(10) == 22
+
+	def add_gv_second(val):
+	    res = val + GLOBAL_VAR
+	    GLOBAL_VAR = val
+	    return res
+	add_gv_second(10) # error
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Функции: глобальные переменные}
+\vspace{15pt}
+\begin{lstlisting}
+	def never_do_this(value):
+	    global SOME_GLOBAL_VAR
+	    SOME_GLOBAL_VAR = value
+
+	print SOME_GLOBAL_VAR # error
+	never_do_this(1)
+	print SOME_GLOBAL_VAR # 1
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Функции: значения по умолчанию}
+\vspace{15pt}
+\begin{lstlisting}
+	def f1(v1, v2=0):
+	    print v1, v2
+
+	f1(1) # 1 0
+	f1(2, 3) # 2 3
+
+	def f2(a, b=12, c):
+		pass   #error
+
+	def f3(v1, v2=[]):
+	    v2.append(v1)
+	    return v2
+
+	f3(0) == [0]
+	f3(1) == [0, 1] # O_o
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Функции: передача параметров}
+\vspace{15pt}
+\begin{lstlisting}
+	def f3(a, *args):
+	    print a, b
+
+	print f3(1) # 1 ()
+	print f3(1, 2) # 1 (2,)
+	print f3(1, 2, "abc") # 1 (2, "abc")
+
+	def x(a, b):
+	    return a – b
+
+	x(2, 1) == 1
+	x(b=2, a=1) == -1
+	x(1, a=1) # error
+	x(a=1, 2) # error
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Функции: передача параметров}
+\vspace{15pt}
+\begin{lstlisting}
+	def x(a, **kwargs):
+	    print a, b
+
+	x(2) => 2, {}
+	x(2, 1) => error
+	x(a=1, b=2, c=3) => 1, {"c":3, "b":2}
+	x(1, fff=True) => 1, {"fff":True}
+
+	def x(a, b, *args, **kwargs):
+	    pass
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Функции: передача параметров}
+\vspace{15pt}
+\begin{lstlisting}
+	def x(a, b):
+	    print a, b
+
+	params_tuple = (1, 2)
+	x(*params_tuple) # 1 2
+
+	params_dict = {"a":44, "b":33}
+	x(**params_dict) # 44 33
+
+	x(*[1], **{"b":2}) # 1 2
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{ФП - Введение}
+\begin{itemize}
+	\item Имя функции – переменная, указывающая на объект-функцию в памяти
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def sum(x, y):
+	    return x + y
+
+	print sum # <function sum at 0x..>
+	sum2 = sum
+	sum2(1, 2) == 3
+	sum2.func_name == 'sum'
+
+	sum = FunctionType(CodeType(...), globals(), 'sum', ...)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{ФП - Введение}
+\vspace{15pt}
+\begin{lstlisting}
+	def map(func, iter):
+	    res = []
+	    for i in iter:
+	        res.append(func(i))
+	    return res
+
+	def mul2(x):
+	    return x * 2
+
+	map(mul2, (1, 2, 3)) == [2, 4, 6]
+	map(str, (1, 2, 3)) == ["1", "2", "3"]
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{ФП:Вложенные функции}
+\begin{itemize}
+	\item Новая функция создается каждый раз, когда python исполняет конструкцию def
+	\item Функции могут бы вложенными, можно вернуть вложенную функцию
+	\item Вложенная функция имеет доступ к аргументам функции, в которую она вложенна
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def top_func(x):
+	    def embedded_func(val):
+	        return val * 2
+	    return embedded_func
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{ФП:Замыкания}
+\begin{itemize}
+	\item При возврате вложенной функции, использующей переменные родительской,
+		она сохраняет ссылки на используемын переменные и не дает им уничтожиться
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def add_some(x):
+	    def add_closure(val):
+	        return val + x
+	    return add_closure
+
+	add1 = add_some(1)
+	add5 = add_some(5)
+
+	add1 is add5 == False
+
+	add1(10) == 11
+	add5(10) == 15
+
+	map(add_some(10), (1, 2, 3)) == [11, 12, 13]
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{ФП:Каррирование}
+\begin{itemize}
+	\item Каррирование - связывание функции с частью параметров, с созданием новой функции
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def bind_1st(func, val):
+	    def closure(*vals, **params):
+	        return func(val, *vals, **params)
+	    return closure
+
+	def max(x, y):
+		 if y > x:
+	        return y
+	    return x
+
+	not_less_then_10 = bind_1st(max, 10)
+	map(not_less_then_10, (0, 5, 10, 20))
+	# [10, 10, 10, 20]
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Генераторы/Сопроцедуры}
+\begin{itemize}
+	\item Генераторы это функции, которые могут сохранить свое состояние, вернуть 
+		значение в вызывающую функцию и позже продолжить исполнение с точки остановки
+	\item Для приостановки исполнения используется ключевое слово \lstinline!yield!
+	\item Функции-генераторы могут использоваться в \LARGE\lstinline!for! циклах и везде, где
+		принимается итератор
+	\item \lstinline!return! со значением запрещен
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def my_generator(value):
+		while value >= 0:
+			yield value ** 2
+			value -= 1
+
+	for val in my_generator(10):
+		print val
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Генераторы/Сопроцедуры}
+\begin{itemize}
+	\item Функция содержащая \lstinline!yield! при вызове возвращает generator
+		при этом ни одна строка функции не исполняется, указатель исполнения стоит 
+		на первой строке функции
+	\item \lstinline!next(generator)! продолжает исполнение до следующего 
+		\lstinline!yield! или конца функции
+	\item \lstinline!yield! приводит к приостановке исполнения и возврату значения
+	\item \lstinline!return! приводит к созданию исключения \lstinline!StopIteration!
+		которое автоматически обрабатывается циклом \lstinline!for!
+	\item Одновременно может существовать сколько угодно генераторов, созданных из одной функции.
+		Все они будут иметь свой набор локальных переменных и указатель исполнения.
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Генераторы/Сопроцедуры}
+\vspace{15pt}
+\begin{lstlisting}
+	def my_generator(value):
+	    print "Enter with value =", value
+	    while value >= 0:
+	        yield value ** 2
+	        value -= 1
+
+	gen1 = my_generator(2)
+	gen2 = my_generator(200)
+	print next(gen1) 
+	#Enter with value = 2
+	#4
+	print next(gen1)
+	#1
+	print next(gen1)
+	#0
+	print next(gen1) # error
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Генераторы/Сопроцедуры}
+\begin{itemize}
+	\item В генератор можно передать значение через \lstinline!gen.send(val)!
+		или ошибку через \lstinline!gen.raise(error)! они будут переданны, как 
+		результат \lstinline!yield!
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def my_generator(value):
+	    while True:
+	        res = (yield value)
+	        value = res ** 2
+
+	gen = my_generator(1)
+	print next(gen) # 1
+	print gen.send(10) # 100
+	print gen.send(10) # 100
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Генераторы/Сопроцедуры}
+\begin{itemize}
+	\item Бесконечные генераторы
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def numbers():
+	    while True:
+	        yield val
+	        val += 1
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{itertools}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Декораторы}
+\begin{itemize}
+	\item Синтаксический сахар для модификаторов фукций
+	\item \lstinline!@name! или \lstinline!@name(params)!
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	@decorator(x, y)
+	def func():
+		pass
+
+	# equal to
+	def func():
+		pass
+
+	func = decorator(x, y)(func)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Декораторы}
+\vspace{15pt}
+\begin{lstlisting}
+	import functools
+
+	def log_params(func):
+		@functools.wraps(func)
+		def closure(*dt, **mp):
+			res = func(*dt, **mp)
+			print "{}({} {}) = {}".format(\
+					func.__name__, dt, mp, res)
+			return res
+		return closure
+
+	@log_params
+	def some_func(x, y):
+		return x + y
+
+	some_func(1, 2) # some_func((1, 2) {}) = 3
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{lambda}
+\begin{itemize}
+	\item Удобный синтаксис для однострочных функций
+	\item \lstinline!lambda! параметры : выражение
+	\item Запрещенны print, for, if, ....
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	map((lambda x : x * 2), (1,2 )) == [2, 4]
+	cmp = lambda x, y : x > y
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Перегрузка функций}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{AA}
+\begin{itemize}
+	\item Написать функцию map следующими способами: рекурсивным (map\_rq), 
+		на генераторе (map\_yield) и рекурсивно на генераторе(map\_rq\_yield).
+		Функция map принимает два параметра - функцию с одним параметром и итерируемый объект. 
+		Возвращает итерируемый объект (список или генератор), котороый состоит из результатов
+		применения параметра-функции к элементам итерируемого параметра с сохранением последовательности.
+		\lstinline!map(lambda x : x ** 2, [1,2,3]) == [1, 4, 9]!.
+		Рекурсивные функции должны обрабатывать не более одного элемента на шаг рекурсии.
+		Функции-генераторы должны обрабатывать элементы по мере запроса значений генератора.
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{AA}
+\begin{itemize}
+	\item Написать декоратор time\_me, который делает профилирование функции, 
+		используя заданную функцию времени. Вторым параметром передается словарь,
+		который нужно обновлять с каждым вызовом. В его елемент 'num\_calls' нужно
+		заносить количество вызовов, в его элемент 'cum\_time' суммарное время.
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	import time
+
+	statistic = {}
+	@time_me(time.time, statistic)
+	def som_func(x, y):
+		time.sleep(1.1)
+
+	time_me(1, 2)
+	time_me(1, 2)
+
+	assert statistic['num_calls'] == 2
+	assert 2.5 > statistic['cum_time'] > 2
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{ДЗ 2.1}
+\begin{itemize}
+	\item Написать функцию bind который позволяет связать функцию-параметр с любыми заданными 
+		параметрами. По итогу должна получиться функция, которая принимает недостающие параметры
+		и вызывает функцию-параметр. Корректность введенных параметров проверять не надо, просто 
+		вызвать исходную функцию со слитым набором.
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	def func(x, y, z, t):
+		return x, y, z, t
+
+	f1 = bind(func, 1, 2, t=13)
+	assert f1([4]) == (1, 2, [4], 13)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{ДЗ 2.2}
+\begin{itemize}
+	\item Написать декоратор me\_haskell, который позволяет функции вести себя как функция в haskell.
+		Она принимает параметры и возвращает новые функции до тех пор, пока накопленных
+		за все прошлые вызовы параметров не хватает для вызова. Как только их хватает для 
+		вызова - вызывается оригинальная функция и возвращается полученный результат.
+		По мере накопления параметров делает проверка их корректности. 
+		Запрещается передавать один параметр два раза и передавать параметры, которые не 
+		подходят под спецификацию оригинальной функции. При неверных параметрах
+		делать \lstinline!raise ValueError(message)!. 
+		Для этого посмотреть на функцию \lstinline!inspect.getargspec!.
+		Для декорируемой функции должны быть запрещенны * и ** параметры, это
+		нужно проверить сразу про декорировании.
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	@me_haskell
+	def func(x, y, z):
+		return x, y, z
+
+	f1 = func(1)
+	assert f1(2, 3) == (1, 2, 3)
+	
+	f2 = f1(z = True)
+	assert f2("abc") == (1, "abc", True)
+
+	func(1, x=1) # should throw an exception
+	func(1, 2)(y=1) # should throw an exception
+	func(y=12)(1, 2) # should throw an exception (y defined twice)
+	assert func(y=12)(1, z=2) == (1, 12, 2)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{ДЗ 3}
+\begin{itemize}
+	\item Написать декоратор check\_me, который проверяет типа параметров функции.
+		Ограничения на типы переменных задаются в докстринг. При неверном
+		значении делает \lstinline!raise TypeError(mess)! mess - строка,
+		описывающая какой параметр имеет неверный тип и какой тип должен быть.
+		Для этого посмотреть на функцию \lstinline!inspect.getargspec!.
+		Для декорируемой функции должны быть запрещенны * и ** параметры, это
+		нужно проверить сразу про декорировании.
+\end{itemize}
+
+\vspace{15pt}
+\begin{lstlisting}
+	@check_me
+	def my_func(x, y):
+		"""
+		@param x: int
+		@param y: str
+		"""
+		return x + str(y)
+
+	my_func(1, 2) # TypeError
+	my_func(2, "3")# ok
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}

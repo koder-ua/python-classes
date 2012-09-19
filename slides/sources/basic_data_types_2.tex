@@ -1,0 +1,257 @@
+% python classes slides - basic data types
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\center{Переменные (идентификаторы)}
+\begin{itemize}
+	\item Переменные - имена для объектов (ссылки на объект)
+	\item Имя - [a-zA-Z\_][a-zA-Z\_0-9]*
+	\item Переменная создается присваиванием \\ name = val (a = b = 1 работает, но a = (b = 1) нет)
+	\item У одного объекта может быть много имен
+	\item Часть имен зарезервирована (for, while, in, ..) \\
+			\lstinline!import keyword; print keyword.kwlist!
+	\item Типизация динамическая - тип связывается с объектом.
+		  Можно считать что все переменные имеют тип (PyObject *)
+	\item В компилируемых языков другой подход. Переменная как ящик, 
+		  в который кладутся данные и переменная определяет их поведение (тип)
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\includegraphics[scale=0.4]{images/vars.pdf} \\
+\vspace{3cm}
+\includegraphics{files/a2box.png} \hspace{3cm}
+\includegraphics{files/a2tag.png} \hspace{3cm}
+\includegraphics{files/ab2tag.png} \\
+\vspace{1cm}
+last 3 images by David Goodger \\
+http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Базовые типы данных}
+\begin{itemize}
+	\item None
+	\item int (C long int), long
+	\item float (c double)
+	\item str, unicode
+	\item bool – True, False
+	\item complex
+	\item ...
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Операции}
+\begin{itemize}
+	\item Все базовые типы данных - константны. Любая операция создает новый объект
+	\item + - / * \% // **
+	\item Нет --, ++ (Вместо этого -= 1, += 1 )
+	\item +=, -=, *=, ....
+	\item >, <, != (<> - устарел), >=, <=, == Не сравнивайте разные типы данных
+	\item is vs ==, is not
+	\item or and not
+	\item \& \hspace{10pt} \textbar \hspace{10pt} \textasciicircum
+	\item \lstinline!0 < x == y < 10!
+	\item math, cmath
+
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Базовые типы данных}
+\Large
+{
+\begin{itemize}
+	\item Одно и то-же имя(переменная) может в разные моменты указывать на разные типы данных
+	\vspace{15pt}
+	\begin{lstlisting}
+		x = 12
+		x = "12"
+	\end{lstlisting}
+
+	\item Строгая типизация - не производится автоматических приведений типов, кроме очевидных (int -> float)
+	\vspace{15pt}
+	\begin{lstlisting}
+		1 + "2" # error
+		1 + 1.0 == 2.0
+		(-1) ** 0.5 # error - no float -> complex conversion
+	\end{lstlisting}
+
+	\item Однако все приводится к bool при использовании операций and/or/not
+	\begin{lstlisting}
+		Empty objects, 0, 0.0, 0 + 0j, None => False
+		All else => True
+		obj and obj
+		obj or obj
+	\end{lstlisting}
+
+	\item Типы нужно приводить явно
+	\vspace{15pt}
+	\begin{lstlisting}
+		int("12") == 12
+		str(12) == "12"
+		repr("12") == "12"
+		1 + int("2") == 3
+	\end{lstlisting}
+\end{itemize}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Строки}
+\vspace{15pt}
+\begin{lstlisting}
+	"abc"
+	'abc'
+
+	b'abc'
+	B'abc'
+
+	"""abcdef
+	gj
+	h""" == "abcdef\ngj\nh"
+
+	r"C:\temp\dir\fname" == "C:\\temp\\dir\\fname"
+
+	U"Unicode text"
+	RU"Raw unicode text"
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Строковые операции}
+
+В python функции/методы возвращающие значение - делают копию, 
+	возвращающие None - модифицируют объект на месте.
+
+\vspace{15pt}
+\begin{lstlisting}
+	"abc" + "def" == "abcdef"
+
+	# a * N – a + a + a + … + a, N раз
+	"ab" * 3 == "ababab"
+
+	"abcdef"[3] == "d"
+
+	# a[x:y] – substring [x, y)
+	"0123456789"[2:4] == "23"
+
+	a.replace(from, to)
+	"x + y".replace("+", "//") == "x // y"
+
+	a.find(string, pos) 
+	"abcd".find("cd") => 2
+	
+	# for x[:x.index(substr)]
+	"abcd".find("t") => -1
+
+	"cdabcd".find("cd", 1) => 4
+
+	a.index(string)
+	"abc".index("fd") # error
+
+	a.split(string) 
+	"a,b,c,d".split(",") == ("a", "b", "c", "d")
+
+	"abc".startswith("ab") == True
+	"abc".endswith("dabc") == False
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Строки форматирование}
+\begin{itemize}
+	\item \%, format
+\end{itemize}
+
+\vspace{15pt}
+\begin{lstlisting}
+	"size = %d %s" % (12, 'cm') 
+	# "size = 12 cm"
+
+	"size = %(sz)d %(units)s" % dict(sz=1, units='m') 
+	# "size = 1 m"
+
+	"Some {} {}".format("very interesting", "text")
+	#"Some very interecting text"
+
+	"Brown fox {what} over".format(what="jump")
+	#"Brown fox jump over"
+
+	#"{name or index or EMPTY!conversion:format_spec}"
+	"{: ^25}".format(xx) == '           xx            '
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Unicode}
+\begin{itemize}
+	\item Unicode vs encoding
+	\item Unicode libraries
+	\item Unicode libraries complexity and problems
+	\item encode/decode/encoding module
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{type \& id \& hash \& isinstance}
+\begin{itemize}
+	\item type(x) => тип x
+	\item id(x) – int идентификатор значения (адрес в памяти)
+	\item hash(x) - int - хэш значения, широко используется внутри питона
+	\item isinstance(x, X) - проверяет, что x имеет тип X isinstance(1, int)
+		X может быть списком в скобках
+\end{itemize}
+
+\vspace{15pt}
+\begin{lstlisting}
+	type(1) == int
+	d = "asad"
+	type(d) == str
+	type(1 is 2) == bool
+
+	id(1) == 34564790 #example
+	a is b # same as id(a) == id(b)
+
+	hash(1) == 1
+	hash("1") == 1977051568
+\end{lstlisting}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\center{Особенности сравнений}
+\begin{itemize}
+	\item Сравнения между разными типами данных работает, но смысла не имеет
+	\item Кроме комплексных чисел
+	\item И юникодных строк с бинарными (иногда, зависит от кодировки - sys.getdefaultencoding())
+\end{itemize}
+\begin{lstlisting}
+	1 > "d" # False
+	1 > 1 + 1j # error
+	"d" > 2 + 1j # True
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{AA}
+\begin{itemize}
+	\item Прочитать описание строковых операций
+	\item Прочитать описание format
+	\item Посмотреть модули math/cmath с помошью ipython
+	\item Посмотреть приоритет операций
+\end{itemize}
+%-------------------------------------------------------------------------------
+\end{document}

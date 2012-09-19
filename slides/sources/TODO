@@ -1,0 +1,10 @@
+1) Выкачать все библиотеки и инсталляторы
+2) Проверить слайды на синтаксические ошибки
+3) Прогнать их через "проверялку" pep8 на примеры, pylint
+4) Найти python cheat sheet
+5) Написать скрипт для проверки дз - pylint + pep8 + UT
+6) сортировка через DSU, особенности сравнения в этом случае
+
+http://gnosis.cx/TPiP/
+http://www.ibm.com/developerworks/library/l-python-elegance-1/index.html
+http://www.ibm.com/developerworks/library/l-python-elegance-2/index.html
