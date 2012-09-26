@@ -240,6 +240,7 @@
 		else:
 			return 0
 \end{lstlisting}
+\newpage
 
 %-------------------------------------------------------------------------------
 \center{Unit tests - find}
@@ -247,30 +248,94 @@
 	assert find("abc", "b") == 1
 	assert find("abc", "b") == "abc".find("b")
 
-	assert func("abc", "a") == 0
-	assert func("abca", "a") == 0
-	assert func("dabca", "a") == 1
-	assert func("", "a") == -1
-	assert func("a", "a") == 0
-	assert func("ab", "abc") == 0
-	assert func("b" * 1000 + "abc", "abc") == 1000
-	assert func("b" * 1000 + "abc", "abcd") == -1
+	assert find("abc", "a") == 0
+	assert find("abca", "a") == 0
+	assert find("dabca", "a") == 1
+	assert find("", "a") == -1
+	assert find("a", "a") == 0
+	assert find("ab", "abc") == 0
+	assert find("b" * 1000 + "abc", "abc") == 1000
+	assert find("b" * 1000 + "abc", "abcd") == -1
 
 	all_symbols = "".join([chr(i) for i in range(255)])
-	assert func(all_symbols, chr(100)) == 100
+	assert find(all_symbols, chr(100)) == 100
 
 	assert find("", "") == 0
 	assert find("", "") == "".find("")
 \end{lstlisting}
+\newpage
+%-------------------------------------------------------------------------------
+\center{Program template}
+\begin{lstlisting}
+	#!/usr/bin/end python
+	# -*- coding:utf8 -*-
+	......
+
+	def main():
+		res = 0
+		.....
+		return res
+
+	if __name__ == "__main__":
+		exit(main())
+\end{lstlisting}
+\newpage
 
 %-------------------------------------------------------------------------------
-\center{AA}
+\center{ДЗ}
 \begin{itemize}
-	\item Написать строковые функции find, replace, 
-			split, join использую срезы строк 
-			(без применения других методов строк)
+	\item Написать строковые функции xfind, xreplace, xsplit, xjoin используя срезы строк 
+		    (без применения других методов строк). \\
+		  xfind(s1, s2) == s1.find(s2) \\
+		  xreplace(s1, s2, s3) == s1.replace(s2, s3) \\
+		  xsplit(s1, s2) == s1.split(s2) \\
+		  xjoin(s, array) == s.join(array)
+
+	\item Написать кодирование и декодирование файла по Хаффману. 
+		  На диске есть файл с именем "input.txt". 
+		  Его нужно прочитать, закодировать символы использую алгоритм Хаффмана
+		  и записать результат в output.bin. В решении должно быть две функции
+		  hf\_encode(string) str->str, и hf\_decode(string) str->str.
+		  Первая кодирует, вторая декодирует. Входными элементами для алгоритма
+		  являются отдельные байты файла.
+
 	\item Написать интерпретатор подмножества языка forth. 
-		  Со следующими командами push, pop, add, print, sub, dup.
+
+			Программа на Forth состоит из набора команд(слов),
+			некоторые из которых имеют параметры. Для хранения данных используется стек -
+			команды получают свои операнды с вершины стека и туда же сохраняют результаты.
+			В  подмножестве 5 команд: \\
+
+			put значение - ложит значение на вершину стека.
+			Значение может быть числом или строкой. 
+			Строка заключается в кавычки, внутри строки кавычек быть не может \\
+
+			pop - убирает значение с вершины стека \\
+			add - изымает из стека 2 значения, складывает их, кладет результат в стек\\
+			sub - изымает из стека 2 значения, вычитает их, кладет результат в стек \\
+			print - вынимает из стека 1 значение, печатает его. \\
+
+
+\begin{verbatim}
+	put 3
+	put "asdaadasdas"
+\end{verbatim}
+
+			Каждая команда начинается с новой строки. Строки, начинающиеся с '\#' - комментарии.
+			Ваша программа должна содержать функцию eval\_forth(), принимающую строку на языке
+			forth и исполняющую ее. По умолчанию из main вызывать eval\_forth("example.frt")
+			Пример, если в example.rft будет:
+
+\begin{verbatim}
+	put 1
+	put 3
+	add
+	print
+\end{verbatim}
+
+			То программа должна напечатать '4'. Сложение имеет такой же смысл, как и в питоне. 
+			Вычитание для строк не определено, все входные данные проверять с помощью assert.
+
 \end{itemize}
 \newpage
 
