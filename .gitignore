@@ -1,0 +1,6 @@
+notes-dont-commit/*
+*.aux
+*.log
+*.out
+*.pyc
+*.pyo

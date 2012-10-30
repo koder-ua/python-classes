@@ -1,0 +1,162 @@
+\documentclass{article}
+\input{files/lectures_env}
+
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\center{Модули}
+\begin{itemize}
+	\item python файлы в папке с текущим модулем или в sys.path
+	\item .py => \{.pyc, .pyo\}
+	\item .pyo = .pyc - asserts
+	\item .pyd / .so
+	\item \lstinline!import mod_name!
+	\item \lstinline!import mod_name as new_name!
+	\item \lstinline!from mod_name import obj_name, obj_name2!
+	\item \lstinline!from mod_name import obj_name as obj_name2!
+	\item \lstinline!from mod_name import *! все кроме \_.* или все из \lstinline!__all__!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Пример модуля - mod.py}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	__all__ = ["some_val", "func"]
+	
+	some_val = 16
+
+	def func(x):
+		return x + some_val
+\end{lstlisting}
+}
+
+\center{Использование}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	from mod import some_val, func
+
+	print func(1)
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{itemize}
+\item sys.path
+\item sys.modules
+\item \_\_import\_\_
+\item importlib.import\_module
+\item imp
+\end{itemize}
+\newpage
+%-------------------------------------------------------------------------------
+
+\center{\_\_import\_\_}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	fc = open(module_file_path).read()
+	module_code = compile(fc, module_file, "exec")
+	loc = {}
+	eval(module_code, loc)
+	sys.modules[module_name] = ModuleObject(loc)
+	func = loc['func']
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Подмена модуля}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+class SomeClass(object):
+	def m(self):
+		return 1
+
+sys.modules['mod'] = SomeClass()
+from mod import m
+
+print m() # 1
+\end{lstlisting}
+}
+
+\newpage
+%-------------------------------------------------------------------------------
+% \center{Пакеты}
+% \begin{verbatim}
+% xml\
+% 	__init__.py
+%     expat\
+%         __init__.py
+%         bindings.py
+%     dom\
+%         __init__.py
+%         ...
+%     sax\
+%         __init__.py
+%         ...
+%     xmltree\
+%     	__init__.py
+%     	XmlTree.py
+%     	....
+% \end{verbatim}
+% \newpage
+
+%-------------------------------------------------------------------------------
+\center{Пакеты}
+\begin{itemize}
+	\item \lstinline!import xml! => xml/\_\_init\_\_.py
+	\item \lstinline!import xml.expat! => xml/expat/\_\_init\_\_.py
+	\item Циклические импорты
+	\item package.\_\_path\_\_
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{}
+\begin{itemize}
+	\item \_\_autor\_\_
+	\item \_\_name\_\_
+	\item \_\_doc\_\_
+\end{itemize}
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+import sys
+
+def main(argv=None):
+	argv = argv if args is not None else sys.argv
+	...
+	return code
+
+if __name__ == "__main__":
+	sys.exit(main())
+
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{}
+\begin{itemize}
+	\item python -m ....
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}
+
+
+
+
+
+
+
+

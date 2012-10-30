@@ -5,8 +5,8 @@
 \usepackage[landscape]{geometry}
 
 % Fonts
-\setmainfont{Arial}
-\newfontfamily\cyrillicfont{Arial}
+\setmainfont{DejaVu Sans} %{Arial}
+\newfontfamily\cyrillicfont{Nimbus Roman No9 L} %{Arial}
 \setmonofont{Courier New}
 %\setmonofont{Ubuntu Mono}
 
@@ -16,7 +16,7 @@
 \usepackage{polyglossia}
 \setmainlanguage{russian}
 \setotherlanguage{english}
-\usepackage[dvipsnames]{xcolor}
+\usepackage[dvipsnames,table]{xcolor}
 
 
 \ifx\pdfoutput\undefined
@@ -39,3 +39,14 @@
 	%basicstyle=\texttt,
 }
 
+\usepackage{hyperref}
+
+\hypersetup{
+	colorlinks=true,
+	urlcolor=blue
+}
+
+\usepackage{float}
+%\floatstyle{boxed} 
+%\restylefloat{figure}
+\usepackage[normalem]{ulem}

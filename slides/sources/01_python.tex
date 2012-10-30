@@ -1,0 +1,326 @@
+% python classes slides - introduction
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} \includegraphics[]{images/python-logo-master-v3-TM-flattened.png} \end{center}
+\begin{itemize}
+    \item Данилов Константин
+    \item kdanilov@mirantis.com - тему начинайте с "XXX"
+    \item Слайды и доп материалы - \\
+            \href{https://github.com/koder-ua/python-classes/tree/master/slides/pdf}{github/koder-ua}
+\end{itemize}
+\newpage
+%-------------------------------------------------------------------------------
+\begin{center} Почему Python (-) \end{center}
+\begin{itemize}
+    \item Python достаточно сложен для изучения, особенно если разбираться во всех тонкостях
+    \item Невозможность качественного статического анализа
+    \item Слабая поддержка инструментальными средствами (по сравнению с С++/С\#/Java)
+    \item Несколько десятков способов официальных способов выстрелить себе в ногу (и попасть в голову соседу)
+    \item Низкая скорость исполнения (по сравнению с компилируемыми языками)
+    \item Высокая сложность написания JIT (по сравнению с Javascript)
+    \item Поддержку многих высокоуровневых возможностей сложно сделать эффективной 
+          == она скорее всего всегда будет медленной
+            (перегрузка функций, поиск по образцу, оптимизацию хвостовой рекурсии)
+    \item В дизайне языка допускаются ошибки
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Почему Python (+) \end{center}
+\begin{itemize}
+    \item ~Второй по лаконичности язык (уступает Perl) при этом имея строгий 
+            минималистичный синтаксис. Требует значительно меньше кода, чем компилируемые языки.
+    \item Ядро языка чрезвычайно компактно. Нет декларируемых конструкций. 
+            Большая часть конструкция - синтаксический сахар
+    \item В несколько десятков строк можно реализовать большинство отсутствующих языковых возможностей
+           (но скорость...)
+    \item Все это + интроспекция = pythonic библиотеки 
+        (документация по библиотеке умещается на заглавной странице сайта)
+    \item Батарейки в комплекте
+    \item Переносимость, обратная совместимость, прогнозируемая и формализованная модель разработки, ...
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} import antigravity \end{center}
+\begin{itemize}
+    \item \lstinline!import antigravity! (python 2.7+)
+\end{itemize}
+\includegraphics[scale=0.6]{images/antigravity.png}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Python \end{center}
+\begin{itemize}
+    \item Язык программирования ориентированный на скорость работы программиста и
+        быстрое освоение библиотек/легкое использование
+    \item Мультипарадигменный - процедурный, ООП, функциональный. Позволяет легко реализовывать другие парадигмы
+    \item Opensource - hg clone http://hg.python.org/cpython
+    \item С-подобный минималистичный (учитывая уровень языка) строгий синтаксис
+    \item Разрабатывается с конца 80х. В 2001 выходит v2.1 и создается PSF.
+    \item Развивается открытым сообществом под руководством Гвидо Ван Россума
+    \item Роль стандарта выполняет \href{http://www.python.org}{CPython}
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Monty Python's flying circus \end{center}
+\begin{center} \includegraphics{images/montypython.jpg} \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Распространение \end{center}
+\begin{itemize}
+    \item ~4-8й язык по популярности (Javascript/VisualBasic/ObjectiveC/PHP)
+    \item Научные расчеты и постобработка данных
+    \item Web
+    \item GUI, Системы управления, встраиваемый язык
+    \item Склеивание компонентов, написанных на С/С++
+    \item Xen, apt, mercurial, Trac, youtube, GAE, .....
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Версии и реализации \end{center}
+\begin{itemize}
+    \item Две ветви 2.X(2.7.3) и 3.X(3.3.0rc1) 3.3.0 запланирована на 22 сентября
+    \item 2.8 не будет
+    \item Внутри каждой ветви поддерживается полная обратная совместимость (для py файлов)
+    \item 3.X (Python 3k) достаточно близка к 2.Х, содержит несовместимые исправления 
+    		архитектурных ошибок, внесенных в язык на ранних стадиях
+    \item print стал функцией, переработка юникод подсистемы, ввода-вывода и др
+    \item Тем не менее любая нетривиальная программа на 2.X должна быть изменена для запуска на 3.X
+    \item Все реализации в значительноы мере - интерпретаторы
+    \item jython, PyPy, IronPython, Stackless Python, ....
+    \item Работает на всех распространенных платфрмах - Intel win/lin/mac/bsd/.., Sun, Power, 
+    		ARM(Android), Symbian, .....
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Процесс разработки языка \end{center}
+\begin{itemize}
+    \item Формализованный и бюрократический подход к изменениям в языке
+    \item Новые версии каждые 1.5 года
+    \item Разработка ведется через python-dev \& python-ideas списки рассылки
+    \item Все рассылки открытые
+    \item Все изменения и предложения описаны в PEP's (Python Enhancement Proposals) 
+            в т.ч. и отклоненные
+    \item python-ideas -> python-dev -> PEP XXXX -> ... -> {accepted/rejected} by Guido
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Библиотеки \end{center}
+\begin{itemize}
+    \item Очень широкий спектр библиотек
+    \item Web, Сети, DB, Визуализация, Научные расчеты, XML, GUI,...
+    \item Есть привязки почти для всех крупных C/C++ библиотек
+    \item Cython, SWIG, SIP,...
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Установка windows \end{center}
+\begin{itemize}
+    \item Windows: 2.7.3 с http://www.python.org/download/ 
+    или ActivePython c http://www.activestate.com/activepython/downloads
+    \item Почти все библиотеки - http://pypi.python.org/pypi
+    \item Ручная установка библиотеки - exe или распаковать zip, и python setup.py install
+    \item Пакетные менеджеры - pip, setuptools \\
+    	pip или easy\_install install имя\_пакета==версия
+    \item virtualenv - создание изолированных окружений
+    \item C:{\textbackslash}Python2.7{\textbackslash}lib{\textbackslash}site-packages
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Установка linux \end{center}
+\begin{itemize}
+    \item Linux: apt-get install python python-setuptools python-pip python-virtualenv
+    \item Почти все библиотеки - http://pypi.python.org/pypi
+    \item Ручная установка библиотеки - exe или распаковать zip, и python setup.py install
+    \item Пакетные мененджеры - pip, setuptools \\
+        pip или easy\_install install имя\_пакета==версия
+    \item virtualenv - создание изолированных окружений
+    \item /usr/lib/python2.7/dist-packages
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} IDE \& Co \end{center}
+\begin{itemize}
+    \item Eclipse + pydev, PyCharm, PyScripter, Python for VS, ...
+    \item Sublime Text 2, Notepad++, Texmate, Vim, Emacs,....
+    \item ipython (pyreadline, http://ipython.org/pyreadline.html)
+    \item ipython notebook (pyzmq + tornado)
+    \item ipython qtconsole (PyQt4)
+    \item PEP8, pylint >= pychecker >= pyflakes
+    \item winpdb (требует wxpython)
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Интерпретатор \end{center}
+\begin{itemize}
+    \item python
+    \item ipython
+    \item ipython notebook
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Программа на Python \end{center}
+\begin{itemize}
+    \item Набор файлов на Python
+    \item Каждый файл рассматривается как набор строк
+\end{itemize}
+\begin{center} Заголовок программы \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+    #!/usr/bin/env python
+    # -*- coding:utf8 -*-
+\end{lstlisting}
+
+\begin{itemize}
+    \item Часть строки после \# - комментарий
+    \item Длинные строки можно переносить, поставив в конце 
+    		"\textbackslash". После него не должно идти пробелов
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пример программы \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+    #!/usr/bin/env python
+    # -*- coding:utf8 -*-
+    x = 1
+    print "Hello, world!"
+    print "x =", x
+    print "This is definitelly " + \
+            "too long line"
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Исполнение программы \end{center}
+\begin{itemize}
+    \item При первой загрузке программа компилируется в байтокод для 
+    	виртуального стекового процессора, встроенного в CPython
+    \item .py -> .pyc (python compiled)
+    \item python -o  .py -> .pyo. Удаление assert, etc
+    \item .pyd, .so - бинарные модули
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Print \end{center}
+\begin{itemize}
+    \item Вывод набора значений или переменных на экран
+    \item Автоматически вставляет пробелы между значениями и перенос строки в конце
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+    print var1, var2
+    print 1, 2, "34"
+    print x, y, x + y
+    print x, y, x + y, # no new line
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Внешние модули \end{center}
+\begin{itemize}
+    \item Библиотеки на Python называются модулями или пакетами
+    \item \lstinline$import module$ подключает модуль "module" в программу. 
+    После этого его элементы доступны как "module.name"
+    \item \lstinline$from module import *$ напрямую включает все элементы "module" в программу. 
+    \item \lstinline$from module import xxx,yyy$
+        напрямую включает выбранные элементы "module" в программу. 
+\vspace{15pt}
+
+\begin{lstlisting}
+    import os
+    from os import listdir
+    from os import *
+
+    print os.listdir(".")
+\end{lstlisting}
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Ошибки \end{center}
+\begin{itemize}
+    \item При возникновении ошибки python порождает исключение, 
+    			передающееся вверх по стеку до первого обработчика.
+    \item Если в программе не определен ни один обработчик ошибок этого типа, то исключение
+    			передается в обработчик по умолчанию, печатающий информацию о исключении
+    			и завершающий программу.
+\end{itemize}
+
+{
+\Large
+\begin{lstlisting}
+    def f1(a, b):
+        return a / b
+
+    def f2(m):
+        return f1(2, m)
+
+    f2(0)
+\end{lstlisting}
+
+\begin{lstlisting}
+    Traceback (most recent call last):
+      File "/tmp/m.py", line 7, in <module>
+        f2(0)
+      File "/tmp/m.py", line 5, in f2
+        return f1(2, m)
+      File "/tmp/m.py", line 2, in f1
+        return a / b
+    ZeroDivisionError: integer division or modulo by zero
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Справка и исследование объектов \end{center}
+\begin{itemize}
+    \item help(obj)
+    \item obj?    -- help
+    \item obj??   -- help + source
+    \item obj.<tab>  -- extension
+    \item dir(obj)
+\end{itemize}
+
+\begin{lstlisting}
+    In [1]: import antigravity
+
+    In [2]: antigravity??
+    Type:       module
+    String Form:<module 'antigravity' from 'C:\Dev\Python\Python27_x86\lib\antigravity.py'>
+    File:       c:\dev\python\python27_x86\lib\antigravity.py
+    Source:
+
+    import webbrowser
+
+    webbrowser.open("http://xkcd.com/353/")
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}

@@ -1,0 +1,438 @@
+% python classes slides - classes
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} lambda \end{center}
+
+\begin{itemize}
+    \item Способ сделать функцию из выражения
+    \item \lstinline!func = lambda x : x + 2!
+    \item lambda params : expression 
+\end{itemize}
+\begin{lstlisting}
+def func(params):
+    return expression
+\end{lstlisting}
+\begin{itemize}
+    \item в теле lambda нельзя использовать конструкции
+    \item но можно inline if, так как это выражение
+\end{itemize}
+\newpage 
+
+%-------------------------------------------------------------------------------
+\begin{center} Классы \end{center}
+\begin{itemize}
+    \item Класс это объединение данных и функций, работающих над ними
+    \item Данные должны быть взаимосвязанны, а функции формировать API, 
+            достаточное для полноценной работы над данными \sout{без прямого 
+            доступа к ним}
+    \item Язык обеспечивает автоматизацию многих задач по поддержке ООП
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пример класса \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+    class Simple(object):
+        "class documentation"
+
+        def method(self, val):
+            "method documentation"
+            self.some_field = val
+            return val ** 0.3
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Нет инкапсуляции \end{center}
+\begin{itemize}
+    \item "Принцип открытого кимоно" == 
+        "мы не знаем как совместить инкапсуляцию 
+        с остальными возможностями языка"
+    \item Есть property, "скрытые поля" (но они предназначенны для другого)
+    \item В отличии от Java всегда можно изменить поле на свойство 
+            с сохранением совместимости
+    \item Можно реализовать любой вид инкапсуляции динамической
+    \item Документирование API vs чтение заголовков
+    \item Ничего из этого не получило какого-нить распространения в питоне
+    \item Реализуя сокрытие полей объекта вы 
+        создаете проблемы многим библиотекам python
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Наследование \end{center}
+\begin{itemize}
+    \item Поддерживается множественное наследование
+    \item Которое не надо использовать, если на то нет существенных причин
+\end{itemize}
+
+{
+\Large
+\vspace{15pt}
+\begin{lstlisting}
+    class A(object):
+        def some_method(self):
+            print "A.some_meth"
+
+    class B(object):
+        def some_method2(self):
+            print "B.some_meth2"
+
+    b = B(1) 
+    b.some_method2() # B.some_method2 called
+    b.some_method() # A.some_meth called
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Полиморфизм \end{center}
+\begin{itemize}
+    \item Все методы - виртуальные.
+\end{itemize}
+{
+\Large
+\vspace{15pt}
+\begin{lstlisting}
+    class A(object):
+        def some_method(self):
+            print "A.some_meth"
+
+    class B(object):
+        def some_method(self):
+            print "B.some_meth"
+
+    a = B() 
+    a.some_method() # A.some_meth
+    b = B() 
+    b.some_method() # B.some_meth
+
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Вызов метода базового класса \end{center}
+{
+\Large
+\vspace{15pt}
+\begin{lstlisting}
+    class A(object):
+        def some_method(self, val):
+            print "A inited with value", val
+
+    class B(A):
+        def some_method(self, val):
+            print "B inited with value", val
+            A.some_method(self, val)
+
+    b = B(1) 
+    # B inited with value 1
+    # A inited with value 1
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} super \end{center}
+\begin{lstlisting}
+    class A(object):
+        def draw(self, pt):
+            some_action()
+
+    class B(A):
+        def draw(self, pt):
+            #A.draw(self, pt)
+            super(B, self).draw(pt)
+\end{lstlisting}
+\href{http://www.python.org/download/releases/2.3/mro/}{Подробное описание super}.
+\newpage
+%-------------------------------------------------------------------------------
+\begin{center}Пример линеаризации (очередность в super)\end{center}
+\includegraphics{images/inheritance_1.eps}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Пример линеаризации 2\end{center}
+\includegraphics{images/inheritance_2.eps}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Нелинеаризуемая иерархия классов\end{center}
+\includegraphics{images/linearization_fail.eps}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Ошибки при построении иерархии\end{center}
+\includegraphics{images/missed_base_class.eps}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Ошибки при построении иерархии\end{center}
+\includegraphics{images/missed_base_class_2.eps}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Конструктор \lstinline!__init__! \end{center}
+\begin{itemize}
+    \item \lstinline!__init__! конструктор, вызывается 
+        при создании экземпляра класса
+    \item 
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+    class A(object):
+        def __init__(self, val):
+            self.var = val
+            print "A inited with value", val
+
+    a = A(1) # A inited with value 1
+    print a.var # 1
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Деструктор \lstinline!__del__! \end{center}
+\begin{itemize}
+    \item \lstinline!__del__! Должен вызываться перед удалением объекта 
+        (и, обычно, вызывается достаточно предсказуемо)
+    \item Если нет циклических ссылок
+    \item Или объект не попал во фрейм, где произошла ошибка
+    \item Использовать with вместо надежд на \_\_del\_\_
+    \item \lstinline!def __del__(self):...!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} Аллокатор \lstinline!__new__! \end{center}
+\begin{itemize}
+    \item \lstinline!__new__! аналог перегрузки new в С++
+    \item Классовый метод(автоматически), вызываемый для создания 
+        нового экземпляра объекта, который затем будет проинициализирован 
+        с помощью \lstinline!__init__!. classmethod использовать не надо.
+    \item Получает те-же параметры, что и \lstinline!__init__!.
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+    class X(object):
+        def __new__(cls, val):
+            print "{}.__new__({!r})".format(
+                    cls.__name__, val)
+            return object.__new__(cls, val)
+        
+        def __init__(self, val):
+            print "{}.__init__({!r})".format(
+                    self.__class__.__name__, val)
+
+    X(1)
+    #X.__new__(1)
+    #X.__init__(1)
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} Аллокатор \lstinline!__new__! \end{center}
+\begin{itemize}
+    \item \lstinline!__new__! может вернуть объект другого типа
+    \item Наверное, не самая лучшая идея
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+    class A(object):
+        def __init__(self, x):
+            pass
+
+    class B(object):
+        def __init__(self, x, y):
+            pass
+
+        def __new__(cls, x, y=None):
+            if y is None:
+                return A(x)
+            else:
+                return super(B, cls).__new__(cls, x, y)
+
+    print B(1, 2) #<__main__.B at 0x...>
+    print B(1) # <__main__.A at 0x...>    
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}isinstance, issubclass\end{center}
+\begin{itemize}
+    \item \lstinline!isinstance(x, Y)! - проверяет, что x экземпляр Y или
+              одного из классов, наследованных от Y
+    \item \lstinline!isinstance(x, (Y1, Y2, ..., YN))!
+    \item \lstinline!issubclass(X, Y)! - проверяет, что X is Y или X
+            прямо или косвенно раследует Y.
+    \item \lstinline!issubclass(X, (Y1, Y2, ..., YN))!
+\end{itemize}
+
+\begin{lstlisting}
+    isinstance(1, int) == True
+    isinstance(2.0, int) == False
+    isinstance("as", (str, unicode)) == True
+    issubclass(int, int) == True
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} Скрытие полей \end{center}
+\begin{itemize}
+    \item \lstinline!__xxxx! - "скрытые поля и методы" 
+        - переименовываются для избежания пересечения имен
+    \item \lstinline!A.__xxx! -> \lstinline!A._A__xxx!
+    \item Не для инкапсуляции
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Связанные и не связанные методы \end{center}
+\begin{itemize}
+    \item \lstinline!a = A(); a.b(1) == A.b(a, 1)!
+    \item \lstinline!A.b! несвязанный метод. 
+    \item \lstinline!A.b(1)! - ошибка, первым параметром должен идти экземпляр класса А. 
+    \item \lstinline!(A.b)(a, 1)! - ok
+    \item \lstinline!a.b! - связанный метод, эквивалентен функции.
+\end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+    a = A()
+    t = a.b
+    t(1) # a.b(1)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Классовые и статические методы \end{center}
+\begin{itemize}
+    \item \lstinline!classmethod! превращяет метод в классовый, первым параметром вместо
+          экземпляра такой метод получает класс и может быть вызван как от класса, 
+          так и от экземпляра
+    \item \lstinline!staticmethod! превращяет метод в статический (обычную функцию).
+          может быть вызван как от класса, 
+          так и от экземпляра
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Классовые и статические методы \end{center}
+\begin{lstlisting}
+    class A(object):
+        val = 12
+
+        @classmethod
+        def meth1(cls, x):
+            return x + cls.val
+
+        @staticmethod
+        def meth2(x, y):
+            return x + y
+
+    A.meth1(1) == 13
+    A().meth2(1,2) == 3 
+
+    class B(A):
+        val = 13
+
+    B.meth1(1) == 14
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Сортировка и сравнение \end{center}
+\begin{itemize}
+    \item По-умолчанию == для пользовательских классов использует is
+    \item \lstinline!object_list.sort(cmp=lambda x,y : x.some_attr > y.some_attr)!
+    \item \lstinline!object_list.sort(key=lambda x : x.some_attr)!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Классы/объекты внутри\end{center}
+\_\_dict\_\_, \_\_class\_\_, \_\_mro\_\_
+\newpage
+
+%-------------------------------------------------------------------------------
+
+\begin{center}Задача\end{center}
+Написать my\_super, которая работает, как встроенный super 
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}присваивание классовым полям и полям экземпляра\end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+property. ДЗ \_\_get\_\_, \_\_set\_\_, \_\_del\_\_
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Протоколы/перенругзка операторов \end{center}
+\begin{center} int \end{center}
+\begin{itemize}
+    \item \lstinline!__add__(self, obj) # self + obj!
+    \item \lstinline!__radd__(self, obj) #  obj + self!
+    \item \lstinline!__iadd__(self, obj) #  self += obj!
+    \item \lstinline!__int__(self) # int(self)!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=TBD
+\begin{center} Работа некоторых встроенных функций (протоколы встроенных функций) \end{center}
+\begin{itemize}
+    \item \lstinline!int(x) == x.__int__()!
+    \item \lstinline!str(x) == x.__str__()!
+    \item \lstinline!repr(x) == x.__repr__()!
+    \item \lstinline!len(x) == x.__len__()!
+    \item \lstinline!iter(x) == x.__iter__()!
+    \item \lstinline!next(x) == x.next()! O\_o
+    \item \lstinline!hex, oct, hash!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+% level=3
+\begin{center} Специальные методы - контейнер \end{center}
+\begin{itemize}
+    \item \lstinline!x.__getitem__(index) # x[index]!
+    \item \lstinline!x.__setitem__(index, val) # x[index] = val!
+    \item \lstinline!x.__delitem__(index) # del x[index]!
+    \item ...
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Специальные методы - доступ к атрибутам \end{center}
+\begin{itemize}
+    \item \lstinline!x.__getattribute__(name)!
+    \item \lstinline!x.__getattr__(name)!
+    \item \lstinline!x.__setattr__(name, val)!
+    \item \lstinline!x.__delattr__(name)!
+    \item \lstinline!getattr(x, name[, val])!
+    \item \lstinline!setattr(x, name, val)!
+    \item \lstinline!delattr(x, name)!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Видео лекции \end{center}
+	\href{http://www.youtube.com/watch?v=rDXuPBjVfSc&feature=related}{OOP Programming}
+\newpage
+%-------------------------------------------------------------------------------
+\end{document}
