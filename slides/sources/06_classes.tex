@@ -11,49 +11,65 @@
 \LARGE
 
 %-------------------------------------------------------------------------------
-\begin{center} Класс\end{center}
+\begin{center} Класс \end{center}
 \begin{itemize}
-    \item Класс это тип данных (множетво объектов, 
-                принадлежащих этому типу и операции над ними)
-    \item Он объединеняет данные и функций, работающие над ними.
+    \item Класс - это тип данных.
+    \item Он содержит методы, работающие над объектами
+    \item Объекты - экземпляры класса. Они хранят данные, используемые методами
     \item Данные должны быть взаимосвязанны, а функции формировать API, 
             достаточной для полноценной работы над данными   \sout{без прямого 
             доступа к ним}
+    \item Структура класса чаще всего должна отображать структуру задачи
     \item Язык обеспечивает автоматизацию многих задач по поддержке ООП
 \end{itemize}
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Объект, интерфейс и инстанцирование \end{center}
+\begin{center} Объект и инстанцирование \end{center}
 \begin{itemize}
-    \item Объект - экземпляр класса
-    \item Объект получается путем инстанцирования типа. 
+    \item Объект - экземпляр класса. Хранилище данных.
+    \item Объект получается путем инстанцирования класса. 
           В питоне инстанцирование это вызов
-               \lstinline!obj = Type(...)!
+               \lstinline!obj = Class(...)!
     \item Одновременно может существовать неограниченное количество 
           экземпляров класса, все они независимы
-    \item Интерфейс - это набор операций, которые можно проделать над типом
-          Например файл - это интерфейс. Из него можно читать, в него можно писать.
-    \item Классы реализуют интерфейсы
-    \item Экзампляры классов предоставляют интерфейсы
-    \item Вообще интерфейсов нет, но ABS
 \end{itemize}
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Пример класса \end{center}
+\begin{center} Интерфейсы \end{center}
+\begin{itemize}
+    \item Интерфейс - это логически взаимосвязанный набор операций, 
+          которые можно проделать над типом
+          Например файл - это интерфейс. Из него можно читать, в него можно писать.
+    \item Классы реализуют интерфейсы
+    \item Экземпляры классов предоставляют интерфейсы
+    \item Класс может реализовывать множество интерфейсов
+    \item Вообще в питоне интерфейсы используются редко, 
+          так как плохо совместимы с утиной типизацией (но см. модуль ABС)
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \includegraphics[scale=0.8]{images/ukr_zalilnitsya.eps} \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пример класса на python \end{center}
 \vspace{15pt}
 \begin{lstlisting}
     class Simple(object):
         "class documentation"
+        def set_power(self, power):
+            self.power = power
 
         def method(self, val):
             "method documentation"
-            self.some_field = val
-            return val ** 0.333333333333333333333333
+            return val ** self.power
 
     simple = Simple()
-    simple.method(8)  # 2.0
+    simple.set_power(1.0 / 3)
+    simple.method(8) == 2.0  # not the best idea, but works
 \end{lstlisting}
 \newpage
 
@@ -132,7 +148,7 @@
         def some_method2(self):
             print "B.some_meth2"
 
-    b = B(1) 
+    b = B() 
     b.some_method2() # B.some_method2 called
     b.some_method() # A.some_meth called
 \end{lstlisting}
@@ -158,103 +174,151 @@
         def some_method(self):
             print "B.some_meth"
 
-    a = B() 
+    a = A() 
     a.some_method() # A.some_meth
+
     b = B() 
     b.some_method() # B.some_meth
-
 \end{lstlisting}
 }
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center} Вызов метода базового класса \end{center}
-{
-\Large
 \vspace{15pt}
 \begin{lstlisting}
     class A(object):
         def some_method(self, val):
-            print "A inited with value", val
+            print "A.some_method({!r})".format(val)
 
     class B(A):
         def some_method(self, val):
-            print "B inited with value", val
+            print "B.some_method({!r})".format(val)
             A.some_method(self, val)
 
-    b = B(1) 
-    # B inited with value 1
-    # A inited with value 1
+    b = B() 
+    b.some_method(1)
+    # B.some_method(1)
+    # A.some_method(1)
 \end{lstlisting}
-}
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center} super \end{center}
+\begin{itemize}
+    \item Прямой метод хорошо работает при одиночном наследовании
+    \item super(CurrentClass, self).method позволяет корректно вызывать 
+            метод у базового класса
+    \item Даже в случае множественного наследования вызывать super нужно только один раз
+    \item super использует линеаризацию - упорядочивание иерархии базовых классов в последовательность
+    \item \href{http://www.python.org/download/releases/2.3/mro/}{Подробное описание линеаризации}.
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Прямой вызов при множественном наследовании \end{center}
 \begin{lstlisting}
     class A(object):
         def draw(self, pt):
-            some_action()
+            some_action(pt)
 
     class B(A):
         def draw(self, pt):
-            #A.draw(self, pt)
-            super(B, self).draw(pt)
+            A.draw(pt)
+
+    class C(A):
+        def draw(self, pt):
+            A.draw(pt)
+
+    class D(C, B):
+        def draw(self, pt):
+            C.draw(pt)
+            B.draw(pt)
 \end{lstlisting}
-\href{http://www.python.org/download/releases/2.3/mro/}{Подробное описание super}.
 \newpage
+
 %-------------------------------------------------------------------------------
-\begin{center}Пример линеаризации (очередность в super)\end{center}
-\includegraphics{images/inheritance_1.eps}
+\begin{center} super при множественном наследовании \end{center}
+\begin{lstlisting}
+    class A(object):
+        def draw(self, pt):
+            some_action(pt)
+
+    class B(A):
+        def draw(self, pt):
+            super(B, self).draw(pt)
+
+    class C(A):
+        def draw(self, pt):
+            super(C, self).draw(pt)
+
+    class D(C, B):
+        def draw(self, pt):
+            super(D, self).draw(pt)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}direct call VS super\end{center}
+\begin{center} \includegraphics{images/linearization_simple.eps} \end{center} 
+\newpage
+
+
+%-------------------------------------------------------------------------------
+\begin{center}Пример линеаризации\end{center}
+\begin{center} \includegraphics{images/inheritance_1.eps} \end{center} 
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center}Пример линеаризации 2\end{center}
-\includegraphics{images/inheritance_2.eps}
+\begin{center} \includegraphics{images/inheritance_2.eps} \end{center} 
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center}Нелинеаризуемая иерархия классов\end{center}
-\includegraphics{images/linearization_fail.eps}
+\begin{center} \includegraphics{images/linearization_fail.eps} \end{center} 
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center}Ошибки при построении иерархии\end{center}
-\includegraphics{images/missed_base_class.eps}
+Если имена совпали случайно, то нельзя использовать super в E \\
+\begin{center} \includegraphics[scale=0.9]{images/missed_base_class.eps} \end{center}
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center}Ошибки при построении иерархии\end{center}
-\includegraphics{images/missed_base_class_2.eps}
+Если имена совпали не случайно, то нужно добавить базовый класс и super будет работать нормально\\
+\begin{center} \includegraphics[scale=0.9]{images/missed_base_class_2.eps} \end{center}
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center} Конструктор \lstinline!__init__! \end{center}
 \begin{itemize}
-    \item \lstinline!__init__! конструктор, вызывается 
-        при создании экземпляра класса
-    \item 
+    \item \lstinline!__init__!(конструктор) - метод, который автоматически вызывается 
+        при создании экземпляра класса и должен его проинициализировать - 
+        присвоить всем переменным начальные значения.
+    \item К сожалению \_\_init\_\_ это типичный пример ошибки
 \end{itemize}
 \vspace{15pt}
 \begin{lstlisting}
     class A(object):
         def __init__(self, val):
-            self.var = val
+            self.msg = "val = {}".format(val)
             print "A inited with value", val
 
     a = A(1) # A inited with value 1
-    print a.var # 1
+    print a.msg # val = 1
 \end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center} Деструктор \lstinline!__del__! \end{center}
 \begin{itemize}
-    \item \lstinline!__del__! Должен вызываться перед удалением объекта 
-        (и, обычно, вызывается достаточно предсказуемо)
+    \item \lstinline!__del__! должен вызываться перед удалением объекта 
+        (и, обычно, вызывается).
     \item Если нет циклических ссылок
     \item Или объект не попал во фрейм, где произошла ошибка
-    \item Использовать with вместо надежд на \_\_del\_\_
+    \item Правильно - использовать with вместо надежд на \_\_del\_\_
     \item \lstinline!def __del__(self):...!
 \end{itemize}
 \newpage
@@ -345,11 +409,18 @@
 \newpage
 
 %-------------------------------------------------------------------------------
+% ООП проектирование 
+% функции vs методы - в питоне методы единственный способ перенрузить функции
+% Лисков
+% has a, is a
+% Правильные иерархии
+% Приведение к базовому типу
+%-------------------------------------------------------------------------------
 \begin{center} Связанные и не связанные методы \end{center}
 \begin{itemize}
     \item \lstinline!a = A(); a.b(1) == A.b(a, 1)!
-    \item \lstinline!A.b! несвязанный метод. 
-    \item \lstinline!A.b(1)! - ошибка, первым параметром должен идти экземпляр класса А. 
+    \item \lstinline!A.b! несвязанный метод. Требует получения экземпляра A первым параметром.
+    \item \lstinline!A.b(1)! - ошибка. 
     \item \lstinline!(A.b)(a, 1)! - ok
     \item \lstinline!a.b! - связанный метод, эквивалентен функции.
 \end{itemize}

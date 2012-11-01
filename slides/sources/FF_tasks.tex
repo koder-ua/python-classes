@@ -32,10 +32,10 @@
 %-------------------------------------------------------------------------------
 \begin{center} AI \end{center}
 \begin{itemize}
-  \item Прочитать описание строковых операций
-  \item Прочитать описание format
-  \item \href{http://www.youtube.com/watch?feature=player_embedded&v=sgHbC6udIqc}{Pragmatic Unicode, or, How do I stop the pain?}
-  \item \href{http://www.youtube.com/watch?v=kWyoYtvJpe4}{Google Python Class Day 2 Part 1: regular exression}
+    \item Прочитать описание строковых операций
+    \item Прочитать описание format
+    \item \href{http://www.youtube.com/watch?feature=player_embedded&v=sgHbC6udIqc}{Pragmatic Unicode, or, How do I stop the pain?}
+    \item \href{http://www.youtube.com/watch?v=kWyoYtvJpe4}{Google Python Class Day 2 Part 1: regular exression}
 \end{itemize}
 
 
@@ -139,27 +139,27 @@ print (печатает все операнды через пробел). Сло
 
 
 \begin{lstlisting}
-  put 3
-  put "asdaadasdas"
+    put 3
+    put "asdaadasdas"
 \end{lstlisting}
 
-      Каждая команда начинается с новой строки. Строки, начинающиеся с '\#' - комментарии.
-      Ваша программа должна содержать функцию eval\_forth(), принимающую строку на языке
-      forth и исполняющую ее. По умолчанию из main вызывать eval\_forth("example.frt")
-      Пример, если в example.rft будет:
+    Каждая команда начинается с новой строки. Строки, начинающиеся с '\#' - комментарии.
+    Ваша программа должна содержать функцию eval\_forth(), принимающую строку на языке
+    forth и исполняющую ее. По умолчанию из main вызывать eval\_forth("example.frt")
+    Пример, если в example.rft будет:
 
 \begin{lstlisting}
-  put 1
-  put 3
-  add
-  print
+    put 1
+    put 3
+    add
+    print
 \end{lstlisting}
 
-      То программа должна напечатать '4'. 
+    То программа должна напечатать '4'. 
 
-  Сложение имеет такой же смысл, как и в питоне. Вычитание для строк не определено
-  Программа должна содержать функцию eval\_forth(), принимающую строку на языке forth и исполняющую ее. 
-  По умолчанию из main вызывать eval\_forth("example.frt")
+    Сложение имеет такой же смысл, как и в питоне. Вычитание для строк не определено
+    Программа должна содержать функцию eval\_forth(), принимающую строку на языке forth и исполняющую ее. 
+    По умолчанию из main вызывать eval\_forth("example.frt")
 \newpage
 
 %------------------------------------------------------------------------------
@@ -280,16 +280,16 @@ CherryPy привращает HTTP запрос (та строка, котору
 RootObject.x.y.z.index(var1=val1, var2=val2) в зависимости от того, что есть.
 
 \begin{lstlisting}
-  import cherrypy
+    import cherrypy
 
-  class Router(object):
-      pass
+    class Router(object):
+        pass
 
-  Router.base = BasicSite()
-  Router.pollite1 = PolliteSite()
-  Router.pollite2 = PolliteSite()
+    Router.base = BasicSite()
+    Router.pollite1 = PolliteSite()
+    Router.pollite2 = PolliteSite()
 
-  cherrypy.quickstart(HelloWorld())
+    cherrypy.quickstart(HelloWorld())
 \end{lstlisting}
 
 Запускаем эту программу, запускаем браузер и вводим в адресной строке '127.0.0.1:8080'.
@@ -309,14 +309,51 @@ RootObject.x.y.z.index(var1=val1, var2=val2) в зависимости от то
 \newpage
 %-------------------------------------------------------------------------------
 \begin{center}Задание - композиция функций\end{center}
-  Написать функцию haskell\_dot, которая принимает неограниченное количество функций
-  и возвращает новую функцию, поторая при вызове последовательно применяет все 
-  сохраненные функции к параметру. \\
+    Написать функцию haskell\_dot, которая принимает неограниченное количество функций
+    и возвращает новую функцию, поторая при вызове последовательно применяет все 
+    сохраненные функции к параметру. \\
 
-  haskell\_dot(f1, f2, f3, ....) -> fC \\
-  fC(x) = f1(f2(f3(...(x))))
+    haskell\_dot(f1, f2, f3, ....) -> fC \\
+    fC(x) = f1(f2(f3(...(x))))
 \newpage
 
+%------------------------------------------------------------------------------
+\begin{center} ООП 1 \end{center}
+\begin{itemize}
+    \item Сделать класс рациональное число (BasicRationalNumber),
+        имеющий два поля - числитель и знаменатель. Значения этих полей 
+        должны передаваться в конструктор класса BasicRationalNumber.
+    \item Сделать класс CalcRationalNumber, который имеет методы add,
+        sub, mul and div. Которые, соответсвенно, вычисляю сумму, разность,
+        произведение и отношение текущего RationalNumber и переданного в качестве 
+        параметра.
+    \item Сделать класс SimplRationalNumber, который автоматически делит
+        числитель и знаменатель на наибольший общий делитель после каждой операции
+    \item Добавить в класс BasicRationalNumber метод __str__ из которого возвращать
+        строковое представление объекта
+\end{itemize}
+
+\begin{lstlisting}
+    def mk_str(rn):
+        return "{}/{}".format(rn.numer, rn.denom)
+
+    rn = BasicRationalNumber(2, 3)
+    print mk_str(rn) # 2/3
+
+    x1 = CalcRationalNumber(1, 2)
+    x2 = CalcRationalNumber(1, 3)
+    x3 = x1.sub(x2)
+    print mk_str(x3) # 1/6
+
+    x3 = x3.add(x3)
+    print mk_str(x3) # 2/6
+
+    x4 = SimplRationalNumber(1, 6)
+    x4.add(x4)
+    print mk_str(x4) # 1/3
+\end{lstlisting}
+
+\newpage
 
 %------------------------------------------------------------------------------
 \begin{center} web crawler \end{center}
