@@ -106,7 +106,6 @@
     simple = Simple()
     simple.method(12) == Simple.method(simple, 12)
 \end{lstlisting}
-
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -153,7 +152,6 @@
     b.some_method() # A.some_meth called
 \end{lstlisting}
 }
-
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -263,7 +261,6 @@
 \begin{center} \includegraphics{images/linearization_simple.eps} \end{center} 
 \newpage
 
-
 %-------------------------------------------------------------------------------
 \begin{center}Пример линеаризации\end{center}
 \begin{center} \includegraphics{images/inheritance_1.eps} \end{center} 
@@ -333,7 +330,9 @@
         с помощью \lstinline!__init__!. classmethod использовать не надо.
     \item Получает те-же параметры, что и \lstinline!__init__!.
 \end{itemize}
-\vspace{15pt}
+\newpage
+%-------------------------------------------------------------------------------
+\begin{center} Аллокатор \lstinline!__new__! \end{center}
 \begin{lstlisting}
     class X(object):
         def __new__(cls, val):
@@ -349,6 +348,7 @@
     #X.__new__(1)
     #X.__init__(1)
 \end{lstlisting}
+\newpage
 
 %-------------------------------------------------------------------------------
 %level=3
@@ -366,7 +366,6 @@
     class B(object):
         def __init__(self, x, y):
             pass
-
         def __new__(cls, x, y=None):
             if y is None:
                 return A(x)
@@ -388,7 +387,6 @@
             прямо или косвенно раследует Y.
     \item \lstinline!issubclass(X, (Y1, Y2, ..., YN))!
 \end{itemize}
-
 \begin{lstlisting}
     isinstance(1, int) == True
     isinstance(2.0, int) == False
@@ -408,13 +406,6 @@
 \end{itemize}
 \newpage
 
-%-------------------------------------------------------------------------------
-% ООП проектирование 
-% функции vs методы - в питоне методы единственный способ перенрузить функции
-% Лисков
-% has a, is a
-% Правильные иерархии
-% Приведение к базовому типу
 %-------------------------------------------------------------------------------
 \begin{center} Связанные и не связанные методы \end{center}
 \begin{itemize}
