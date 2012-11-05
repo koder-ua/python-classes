@@ -1,0 +1,1356 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ns0:graphml xmlns:ns0="http://graphml.graphdrawing.org/xmlns" xmlns:ns2="http://www.yworks.com/xml/graphml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  
+  <ns0:key attr.name="url" attr.type="string" for="edge" id="d0" />
+  <ns0:key attr.name="description" attr.type="string" for="edge" id="d1" />
+  <ns0:key for="edge" id="d2" yfiles.type="edgegraphics" />
+  <ns0:key attr.name="Description" attr.type="string" for="graph" id="d3" />
+  <ns0:key for="port" id="d4" yfiles.type="portgraphics" />
+  <ns0:key for="port" id="d5" yfiles.type="portgeometry" />
+  <ns0:key for="port" id="d6" yfiles.type="portuserdata" />
+  <ns0:key for="graphml" id="d7" yfiles.type="resources" />
+  <ns0:key attr.name="url" attr.type="string" for="node" id="d8" />
+  <ns0:key attr.name="description" attr.type="string" for="node" id="d9" />
+  <ns0:key for="node" id="d10" yfiles.type="nodegraphics" />
+  <ns0:graph edgedefault="directed" id="G">
+    <ns0:data key="d3" />
+    <ns0:node id="n0" yfiles.foldertype="group">
+      <ns0:data key="d8" />
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:ProxyAutoBoundsNode>
+          <ns2:Realizers active="0">
+            <ns2:GroupNode>
+              <ns2:Geometry height="211.2109375" width="190.5" x="-176.25" y="529.2890625" />
+              <ns2:Fill color="#CAECFF84" transparent="false" />
+              <ns2:BorderStyle color="#666699" type="dotted" width="1.0" />
+              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="190.5" x="0.0" y="0.0">"Компиляторы" в exe</ns2:NodeLabel>
+              <ns2:Shape type="roundrectangle" />
+              <ns2:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
+              <ns2:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0" />
+              <ns2:BorderInsets bottom="4" bottomF="3.75" left="0" leftF="0.0" right="18" rightF="17.5" top="0" topF="0.0" />
+            </ns2:GroupNode>
+            <ns2:GroupNode>
+              <ns2:Geometry height="50.0" width="50.0" x="0.0" y="60.0" />
+              <ns2:Fill color="#F5F5F5" transparent="false" />
+              <ns2:BorderStyle color="#000000" type="dashed" width="1.0" />
+              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 4</ns2:NodeLabel>
+              <ns2:Shape type="roundrectangle" />
+              <ns2:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
+              <ns2:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0" />
+              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
+            </ns2:GroupNode>
+          </ns2:Realizers>
+        </ns2:ProxyAutoBoundsNode>
+      </ns0:data>
+      <ns0:graph edgedefault="directed" id="n0:">
+        <ns0:node id="n0::n0">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="-161.25" y="565.75" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="48.220703125" x="47.3896484375" y="6.015625">py2exe<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n0::n1">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="-161.25" y="607.75" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="66.77734375" x="38.111328125" y="6.015625">PyInstaller<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n0::n2">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="-161.25" y="649.75" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="58.6796875" x="42.16015625" y="6.015625">CxFrezze<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n0::n3">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="-161.25" y="691.75" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="48.94140625" x="47.029296875" y="6.015625">py2app<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+      </ns0:graph>
+    </ns0:node>
+    <ns0:node id="n1" yfiles.foldertype="group">
+      <ns0:data key="d8" />
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:ProxyAutoBoundsNode>
+          <ns2:Realizers active="0">
+            <ns2:GroupNode>
+              <ns2:Geometry height="258.328125" width="233.0" x="22.375" y="528.48046875" />
+              <ns2:Fill color="#CAECFF84" transparent="false" />
+              <ns2:BorderStyle color="#666699" type="dotted" width="1.0" />
+              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="233.0" x="0.0" y="0.0">Доп. средства разработки</ns2:NodeLabel>
+              <ns2:Shape type="roundrectangle" />
+              <ns2:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
+              <ns2:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0" />
+              <ns2:BorderInsets bottom="8" bottomF="7.7890625" left="23" leftF="23.125" right="37" rightF="36.875" top="0" topF="0.0" />
+            </ns2:GroupNode>
+            <ns2:GroupNode>
+              <ns2:Geometry height="50.0" width="50.0" x="0.0" y="60.0" />
+              <ns2:Fill color="#F5F5F5" transparent="false" />
+              <ns2:BorderStyle color="#000000" type="dashed" width="1.0" />
+              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 7</ns2:NodeLabel>
+              <ns2:Shape type="roundrectangle" />
+              <ns2:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
+              <ns2:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0" />
+              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
+            </ns2:GroupNode>
+          </ns2:Realizers>
+        </ns2:ProxyAutoBoundsNode>
+      </ns0:data>
+      <ns0:graph edgedefault="directed" id="n1:">
+        <ns0:node id="n1::n0">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="60.5" y="607.2109375" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="44.880859375" x="49.0595703125" y="6.015625">Sphinx<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n1::n1">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="60.5" y="564.94140625" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="61.87890625" x="40.560546875" y="6.015625">nosetests<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n1::n2">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="60.5" y="649.48046875" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="59.828125" x="41.5859375" y="6.015625">Mercurial<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n1::n3">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="60.5" y="691.75" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="39.4140625" x="51.79296875" y="6.015625">Scons<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n1::n4">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="60.5" y="734.01953125" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="53.787109375" x="44.6064453125" y="6.015625">Buildbot<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+      </ns0:graph>
+    </ns0:node>
+    <ns0:node id="n2" yfiles.foldertype="group">
+      <ns0:data key="d8" />
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:ProxyAutoBoundsNode>
+          <ns2:Realizers active="0">
+            <ns2:GroupNode>
+              <ns2:Geometry height="210.5" width="188.0" x="558.5" y="441.7109375" />
+              <ns2:Fill color="#CAECFF84" transparent="false" />
+              <ns2:BorderStyle color="#666699" type="dotted" width="1.0" />
+              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="188.0" x="0.0" y="0.0">Управление пакетами</ns2:NodeLabel>
+              <ns2:Shape type="roundrectangle" />
+              <ns2:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
+              <ns2:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0" />
+              <ns2:BorderInsets bottom="0" bottomF="0.0" left="15" leftF="15.0" right="0" rightF="0.0" top="0" topF="0.0" />
+            </ns2:GroupNode>
+            <ns2:GroupNode>
+              <ns2:Geometry height="50.0" width="50.0" x="0.0" y="60.0" />
+              <ns2:Fill color="#F5F5F5" transparent="false" />
+              <ns2:BorderStyle color="#000000" type="dashed" width="1.0" />
+              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 6</ns2:NodeLabel>
+              <ns2:Shape type="roundrectangle" />
+              <ns2:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
+              <ns2:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0" />
+              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
+            </ns2:GroupNode>
+          </ns2:Realizers>
+        </ns2:ProxyAutoBoundsNode>
+      </ns0:data>
+      <ns0:graph edgedefault="directed" id="n2:">
+        <ns0:node id="n2::n0">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="588.5" y="478.171875" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="22.568359375" x="60.2158203125" y="6.015625">pip<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n2::n1">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="588.5" y="520.171875" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="128.880859375" x="7.0595703125" y="6.015625">pypi.python.org/pypi<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n2::n2">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="588.5" y="562.171875" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="61.4453125" x="40.77734375" y="6.015625">pypi local<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n2::n3">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="143.0" x="588.5" y="607.2109375" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="66.537109375" x="38.2314453125" y="6.015625">setuptools<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+      </ns0:graph>
+    </ns0:node>
+    <ns0:node id="n3" yfiles.foldertype="group">
+      <ns0:data key="d8" />
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:ProxyAutoBoundsNode>
+          <ns2:Realizers active="0">
+            <ns2:GroupNode>
+              <ns2:Geometry height="226.4609375" width="263.0" x="281.0" y="474.5" />
+              <ns2:Fill color="#CAECFF84" transparent="false" />
+              <ns2:BorderStyle color="#666699" type="dotted" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="263.0" x="0.0" y="0.0">Web Интерпретаторы</ns2:NodeLabel>
+              <ns2:Shape type="roundrectangle" />
+              <ns2:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
+              <ns2:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0" />
+              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
+            </ns2:GroupNode>
+            <ns2:GroupNode>
+              <ns2:Geometry height="50.0" width="50.0" x="0.0" y="60.0" />
+              <ns2:Fill color="#F5F5F5" transparent="false" />
+              <ns2:BorderStyle color="#000000" type="dashed" width="1.0" />
+              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 5</ns2:NodeLabel>
+              <ns2:Shape type="roundrectangle" />
+              <ns2:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
+              <ns2:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0" />
+              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
+            </ns2:GroupNode>
+          </ns2:Realizers>
+        </ns2:ProxyAutoBoundsNode>
+      </ns0:data>
+      <ns0:graph edgedefault="directed" id="n3:">
+        <ns0:node id="n3::n0">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="233.0" x="296.0" y="510.9609375" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="167.857421875" x="32.5712890625" y="6.015625">www.pythonanywhere.com<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n3::n1">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="233.0" x="296.0" y="558.4609375" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="137.96875" x="47.515625" y="6.015625">www.pythontutor.com<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n3::n2">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="233.0" x="296.0" y="607.2109375" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="138.642578125" x="47.1787109375" y="6.015625">www.codeskulptor.org<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+        <ns0:node id="n3::n3">
+          <ns0:data key="d9" />
+          <ns0:data key="d10">
+            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <ns2:Geometry height="30.0" width="233.0" x="296.0" y="655.9609375" />
+              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="119.681640625" x="56.6591796875" y="6.015625">www.trypython.org<ns2:LabelModel>
+                  <ns2:SmartNodeLabelModel distance="4.0" />
+                </ns2:LabelModel>
+                <ns2:ModelParameter>
+                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+                </ns2:ModelParameter>
+              </ns2:NodeLabel>
+              <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+          </ns0:data>
+        </ns0:node>
+      </ns0:graph>
+    </ns0:node>
+    <ns0:node id="n4">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="109.0" width="110.0" x="331.25" y="317.4609375" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="45.595703125" x="32.2021484375" y="45.515625">Python<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n5">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="738.5" y="105.0" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="96.12109375" x="23.439453125" y="6.015625">PyDev - Eclipse<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:DropShadow color="#B3A691" offsetX="2" offsetY="2" />
+        <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n6">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="828.5" y="185.73046875" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="53.201171875" x="44.8994140625" y="6.015625">Komodo<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n7">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="858.5" y="230.73046875" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="96.150390625" x="23.4248046875" y="6.015625">Idea - PyCharm<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n8">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="828.5" y="285.0" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="65.458984375" x="38.7705078125" y="6.015625">PyScripter<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n9">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="828.5" y="356.4609375" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="74.3359375" x="34.33203125" y="6.015625">Vim, Emacs<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n10">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="521.5" y="95.73046875" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="111.61328125" x="15.693359375" y="6.015625">MS - VisualPython<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n11">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="708.5" y="396.4609375" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="49.65625" x="46.671875" y="6.015625">Winpdb<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n12">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="69.0625" width="72.1875" x="615.0" y="255.0" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="24.361328125" x="23.9130859375" y="25.546875">IDE<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n13">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-138.5" y="-117.80859375" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="82.92578125" x="30.037109375" y="6.015625">ActivePython<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n14">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-248.0" y="-73.5390625" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="95.5" x="23.75" y="6.015625">PortablePython<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n15">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-311.5" y="-29.26953125" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="69.162109375" x="36.9189453125" y="6.015625">Python(xy)<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n16">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-278.0" y="15.0" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="104.142578125" x="19.4287109375" y="6.015625">Scientific Python<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n17">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-176.25" y="59.26953125" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="96.080078125" x="23.4599609375" y="6.015625">MovablePython<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n18">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="18.5" y="15.0" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="108.677734375" x="17.1611328125" y="6.015625">.NET - IronPython<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n19">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-41.5" y="101.095703125" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="94.984375" x="24.0078125" y="6.015625">Java =&gt; Jython<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n20">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-101.5" y="161.095703125" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="60.443359375" x="41.2783203125" y="6.015625">Stackless<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n21">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-41.5" y="221.095703125" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="32.67578125" x="55.162109375" y="6.015625">PyPy<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n22">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="-101.5" y="281.095703125" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="115.52734375" x="13.736328125" y="6.015625">Python for android<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n23">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="90.25" width="86.5625" x="166.71875" y="184.26953125" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="78.94140625" x="3.810546875" y="36.140625">Реализации<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n24">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="143.0" x="138.5" y="-45.0" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="53.974609375" x="44.5126953125" y="6.015625">CPython<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:node id="n25">
+      <ns0:data key="d9" />
+      <ns0:data key="d10">
+        <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+          <ns2:Geometry height="30.0" width="30.0" x="-105.0" y="-15.0" />
+          <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
+          <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
+          <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="96.015625" x="-33.0078125" y="6.015625">Дистрибутивы<ns2:LabelModel>
+              <ns2:SmartNodeLabelModel distance="4.0" />
+            </ns2:LabelModel>
+            <ns2:ModelParameter>
+              <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
+            </ns2:ModelParameter>
+          </ns2:NodeLabel>
+          <ns2:StyleProperties>
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
+		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
+		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
+		</ns2:StyleProperties>
+	</ns2:GenericNode>
+      </ns0:data>
+    </ns0:node>
+    <ns0:edge id="e0" source="n4" target="n12">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e1" source="n12" target="n10">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e2" source="n12" target="n5">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e3" source="n12" target="n6">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e4" source="n12" target="n7">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e5" source="n12" target="n8">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e6" source="n12" target="n9">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e7" source="n12" target="n11">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e8" source="n23" target="n18">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e9" source="n23" target="n19">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e10" source="n23" target="n20">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e11" source="n23" target="n21">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e12" source="n23" target="n22">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e13" source="n23" target="n4">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e14" source="n23" target="n24">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e15" source="n24" target="n25">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e16" source="n25" target="n13">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="30.0" ty="-6.4609375" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e17" source="n25" target="n14">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e18" source="n25" target="n15">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e19" source="n25" target="n16">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+    <ns0:edge id="e20" source="n25" target="n17">
+      <ns0:data key="d1" />
+      <ns0:data key="d2">
+        <ns2:PolyLineEdge>
+          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
+          <ns2:LineStyle color="#000000" type="line" width="1.0" />
+          <ns2:Arrows source="none" target="none" />
+          <ns2:BendStyle smoothed="false" />
+        </ns2:PolyLineEdge>
+      </ns0:data>
+    </ns0:edge>
+  </ns0:graph>
+  <ns0:data key="d7">
+    <ns2:Resources />
+  </ns0:data>
+</ns0:graphml>

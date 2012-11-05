@@ -1,0 +1,165 @@
+\documentclass{article}
+
+\input{files/lectures_env}
+
+\begin{document}
+\LARGE
+
+%--------------------------------------------------------------------
+\center{Стандартная библиотека: сокеты}
+\begin{itemize}
+\item \lstinline!socket! - низкоуровневая работа с сетью
+\end{itemize}
+{
+\Large \vspace{15pt}
+\begin{lstlisting}
+	def client(host, port=12000):
+		# tcp сокет
+		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		# socket.SOCK_DGRAM - udp
+		sock.connect((host, port))
+		sock.send("HELLO")
+		print sock.recv()
+
+	def server(host='0.0.0.0', port=12000):
+		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		sock.bind((host, port))
+		sock.listen(5)
+
+		while True:
+			cs, client_addr_info = sock.accept()
+			print "connection from ", client_addr_info
+			cs.recv(5)
+			cs.send("BYE!")
+			cs.close()
+\end{lstlisting}
+}
+\newpage
+
+%--------------------------------------------------------------------
+\center{Стандартная библиотека: сокеты}
+\begin{itemize}
+\item \lstinline!gethostbyname!, \lstinline!socket.gethostbyname_ex! - DNS запрос
+\item \lstinline!gethostbyaddr! - reverse DNS
+\item \lstinline!setdefaulttimeout(timeout)! - установка таймаута для операциях на сокетах
+\item \lstinline!htonl! - преобразование порядка байтов,.....
+\item \lstinline!ssl! - ssl сокеты
+\end{itemize}
+
+{
+\vspace{15pt}
+\begin{lstlisting}
+	import socket
+	
+	print socket.gethostbyaddr('8.8.8.8')
+	# ('google-public-dns-a.google.com', [], ['8.8.8.8'])
+
+	print socket.gethostbyname_ex("www.google.com")
+	# ('www.l.google.com', ['www.google.com'], 
+	#	['173.194.35.145', '173.194.35.146', '173.194.35.147', 
+	#            '173.194.35.148', '173.194.35.144'])
+
+\end{lstlisting}
+}
+
+\newpage
+
+%--------------------------------------------------------------------
+\center{Стандартная библиотека: сокеты}
+\begin{itemize}
+\item \lstinline!select! - асинхронная работа с сокетами
+\item \lstinline!select.select(read_list, write_list, error_list, timeout=None)!
+\item \lstinline!select.pool!, \lstinline!select.epool! - быстрее на больших списках дескрипторов
+\end{itemize}
+
+{
+\vspace{15pt}
+\begin{lstlisting}
+	import select
+	
+	sc1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sc2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)	
+	sc1.connect(("www.google.com", 80))
+	sc2.connect(("www.google.com", 80))
+
+	r,w,e = select.select([sc1, sc2], [], [], 0.1)
+
+	r == []
+	w == []
+	e == []
+\end{lstlisting}
+}
+
+\newpage
+
+%--------------------------------------------------------------------
+\center{Другие сетевые библиотеки}
+\begin{itemize}
+
+\item scapy - ICMP, ARP, манипуляция сетевыми пакетами, etc
+\item twisted - асинхроннай фреймворк, поддерживает большую 
+		часть используемых сетевых протоколов
+\item gevent - асинхронный фреймворк, поддерживает программирование без callback,
+				эмулирует потоки
+
+
+\end{itemize}
+\newpage
+
+%--------------------------------------------------------------------
+\center{twisted}
+{
+\vspace{15pt}
+\begin{lstlisting}
+	from twisted.web import server, resource
+	from twisted.internet import reactor
+
+	class HelloResource(resource.Resource):
+	    isLeaf = True
+	    numberRequests = 0
+	    
+	    def render_GET(self, request):
+	        self.numberRequests += 1
+	        request.setHeader("content-type", "text/plain")
+	        return "I am request #" + str(self.numberRequests) + "\n"
+
+	reactor.listenTCP(8080, server.Site(HelloResource()))
+	reactor.run()
+\end{lstlisting}
+}
+
+\newpage
+
+%--------------------------------------------------------------------
+\center{HTTP}
+\begin{itemize}
+\item Стандартная библиотека: httplib, urllib, urllib2
+{
+\vspace{15pt}
+\begin{lstlisting}
+	import urllib2
+	url = "http://search.yahoo.com/search?p=test"
+	search_res = urllib2.urlopen(url).read()
+\end{lstlisting}
+}
+\item urllib3
+\item requests
+\end{itemize}
+
+\newpage
+
+%--------------------------------------------------------------------
+\center{Стандартная библиотека: Другие протоколы}
+\begin{itemize}
+\item poplib
+\item imaplib
+\item ftplib
+\item telnetlib
+\item BaseHttpServer
+\item ...
+\end{itemize}
+
+\newpage
+
+%--------------------------------------------------------------------
+\end{document}

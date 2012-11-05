@@ -1,0 +1,157 @@
+%  python classes clides - advanced OOP
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%---------------------------------------------------------------------------------
+\center{TODO}
+\begin{itemize}
+    \item \_\_slots\_\_
+    \item type conversion
+    \item Метаклассы
+    \item property
+    \item Поиск атрибута
+    \item weakref + \_\_weakref\_\_ + имитация \_\_del\_\_
+    \item implementing protocols - container, contextmanager, generator
+    \item приведениие типов, как int(x)
+    \item ABC
+    \item zope.interfaces
+    \item PEAK PyProtocols
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Внутреннее устройство экземпляра}
+\begin{itemize}
+\item Экземпляр состоит из \lstinline!__dict__! - словаря атрибутов и 
+        \lstinline!__class__! - ссылки на свой класс (тип)
+\item \lstinline!a.b == a.__dict__['b'] _or_ a.__class__.__dict__['b'] _or_ ..!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Внутреннее устройство класса}
+\begin{itemize}
+\item \lstinline!class! это синтаксический сахар
+\end{itemize}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+    def method(self, val):
+        "method documentation"
+        self.some_field = val
+        return val ** 0.3
+
+    Simple = type('Simple', 
+                  (ParentClass,), 
+                  {'method':method, 
+                   '__doc__': "class documentation"}
+                 )
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Внутреннее устройство класса}
+\begin{itemize}
+
+\item Блок внутри \lstinline!class! исполняется и 
+        полученный \lstinline!locals()! становится 
+            \lstinline!__dict__! класса
+\item Класс может быть модифицирован в любое время и эта модификация 
+        тут-же отобразится на всех экземплярах 
+
+\end{itemize}
+\newpage
+
+%---------------------------------------------------------------------------------
+\center{Множественное Наследование}
+{
+\Large \vspace{15pt}
+\begin{lstlisting}
+class A(object):
+    def draw(self, pt):
+        some_action()
+
+    def clear(self):
+        pass
+
+class B(A):
+    def draw(self, pt):
+        A.draw(self, pt)
+
+class C(A):
+    def draw(self, pt):
+        A.draw(self, pt)
+
+    def clear(self):
+        pass
+
+class D(B, C):
+    def draw(self, pt):
+        B.draw(self, pt)
+        C.draw(self, pt)
+
+print A.__mro__ 
+# (<class '__main__.A'>, <type 'object'>)
+
+print B.__mro__ 
+# (<class '__main__.B'>, <class '__main__.A'>, <type 'object'>)
+
+print C.__mro__ 
+# (<class '__main__.C'>, <class '__main__.A'>, <type 'object'>)
+
+\end{lstlisting}
+%print D.__mro__ 
+% (<class '__main__.D'>, <class '__main__.B'>, 
+%  <class '__main__.C'>, <class '__main__.A'>, 
+% <type 'object'>)
+}
+\newpage
+%-------------------------------------------------------------------------------
+\center{super}
+\begin{lstlisting}
+class A(object):
+    def draw(self, pt):
+        some_action()
+
+class B(A):
+    def draw(self, pt):
+        super(B, self).draw(pt)
+
+class C(A):
+    def draw(self, pt):
+        super(C, self).draw(pt)
+
+class D(B, C):
+    def draw(self, pt):
+        super(D, self).draw(pt)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+
+\begin{lstlisting}
+class B(object):
+    def draw(self, pt):
+        pass
+
+class C(object):
+    def draw(self, pt):
+        pass
+
+class D(B, C):
+    def draw(self, pt):
+        super(D, self).draw(pt) # ?????
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}

@@ -1,0 +1,87 @@
+1) Интроспекция
+
+* Добраться можно до всего чего угодно (почти) и бОльшую часть этого можно поменять "на лету"
+* help
+* locals() + globals(). function locals can't be modified
+* dir(obj) - ipython x? + x??
+* obj.__dict__, obj.__class__
+* __name__
+* func attrs
+* sys._getframe
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+import sys
+import urllib2
+
+req = urllib2.Request("http://www.google.com")
+print "req.__class__.__name__ => {req.__class__.__name__!r}".format(req=req)
+print "req.__class__.__module__ => {req.__class__.__module__!r}".format(req=req)
+print "sys.modules[req.__class__.__module__] => {!r}".format(sys.modules[req.__class__.__module__])
+print "sys.modules[req.__class__.__module__].__file__ => {!r}".format(sys.modules[req.__class__.__module__].__file__)
+print
+print "type(req.add_header) => {!r}".format(type(req.add_header))
+print "req.add_header.im_func => {!r}".format(req.add_header.im_func)
+print "req.add_header.im_self => {!r}".format(req.add_header.im_self)
+print "req.add_header.im_class => {!r}".format(req.add_header.im_class)
+print "req.add_header.im_func.func_code.co_firstlineno = {}".format(req.add_header.im_func.func_code.co_firstlineno)
+
+fname = sys.modules[req.__class__.__module__].__file__[:-1]
+fline = req.add_header.im_func.func_code.co_firstlineno - 1
+lline = req.add_header.im_func.func_code.co_firstlineno +3
+
+print "\n\n>>> " + ">>> ".join(open(fname).readlines()[fline:lline])
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+def func(x, y=12):
+	a = x + y
+	return a
+
+func.t = 12
+
+print "func.__name__ == func.func_name => {func.__name__!r}".format(func=func)
+print "func.__dict__ => {func.__dict__!r}".format(func=func)
+print "func.__class__ => {func.__class__!r}".format(func=func)
+print "func.__class__.__doc__ => \n{}\n\n".format("    " + func.__class__.__doc__.replace("\n", "\n    "))
+
+print "func.func_code => {func.__name__!r}".format(func=func)
+print "func.func_code.__class__.__doc__ => \n{}\n\n".format("    " + func.func_code.__class__.__doc__.replace("\n", "\n    "))
+
+print "func.func_defaults => {func.func_defaults!r}".format(func=func)
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+import dis
+
+def func(x, y=12):
+	a = x + y
+	return a
+
+dis.dis(func)
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+import ast
+print ast.dump(ast.parse("x=1"))
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+import inspect
+
+def func(x,y=13):
+    pass
+
+print inspect.getargspec(func)
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+import pickle
+import urllib2
+
+for obj in (None, 1, [1,2,[3]], "xxx", urllib2.Request("http://www.google.com")):
+	print "pickle.dumps({!r}) = {!r}".format(obj, pickle.dumps(obj))
+
+print "pickle.loads(pickle.dumps(1)) =", pickle.loads(pickle.dumps(1))
+#----------------------------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sun Nov 04 23:46:54 EET 2012
+makeIndSty=
+markTmpDer=true
+builderNum=7
+outputFormat=pdf
+langSpell=en
+tempDir=tmp
+mainTexFile=lectures.tex
+outputFile=python-classes.pdf
+srcDir=sources
+markDer=true
+outputDir=pdf
+bibrefDir=

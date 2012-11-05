@@ -1,0 +1,212 @@
+% python classes slides - classes
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\usepackage[normalem]{ulem}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+numpy/scipy/sympy
+http://numpy.scipy.org/
+
+%---------------------------------------------------------------------------------------------
+import numpy
+import scipy.linalg
+
+vals = numpy.arange(25, dtype=numpy.float64).reshape(5, 5)
+
+print vals
+vals[1:3,2:5][0,0] = 12
+print vals
+print scipy.linalg.eigvals(vals)
+
+
+http://docs.scipy.org/doc/scipy/reference/index.html
+
+http://matplotlib.org/gallery.html
+
+from matplotlib import mpl,pyplot
+# make a color map of fixed colors
+cmap = mpl.colors.LinearSegmentedColormap.from_list('my_colormap',
+                                           ['blue','black','red'],
+                                           256)
+
+img = pyplot.imshow(vals,
+					interpolation='nearest',
+                    cmap=cmap,
+                    origin='lower')
+
+pyplot.colorbar(img,cmap=cmap)
+pyplot.show()
+
+%---------------------------------------------------------------------------------------------
+
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib
+import numpy as np
+from matplotlib import cm
+from matplotlib import pyplot as plt
+step = 0.04
+maxval = 1.0
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# create supporting points in polar coordinates
+r = np.linspace(0,1.25,50)
+p = np.linspace(0,2*np.pi,50)
+R,P = np.meshgrid(r,p)
+# transform them to cartesian system
+X,Y = R*np.cos(P),R*np.sin(P)
+
+Z = ((R**2 - 1)**2)
+ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.jet)
+ax.set_zlim3d(0, 1)
+ax.set_xlabel(r'$\phi_\mathrm{real}$')
+ax.set_ylabel(r'$\phi_\mathrm{im}$')
+ax.set_zlabel(r'$V(\phi)$')
+plt.show()
+
+%---------------------------------------------------------------------------------------------
+http://docs.enthought.com/chaco/
+%---------------------------------------------------------------------------------------------
+% sqlalchemy (DB2API http://www.python.org/dev/peps/pep-0249/)
+http://www.sqlalchemy.org/
+
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, MetaData, create_engine
+from sqlalchemy.orm import sessionmaker
+
+Base = declarative_base()
+class User(Base):
+	__tablename__ = 'users'
+	id = Column(Integer, primary_key=True)
+	name = Column(String)
+	fullname = Column(String)
+	password = Column(String)
+
+	def __init__(self, name, fullname, password):
+		self.name = name
+		self.fullname = fullname
+		self.password = password
+	
+	def __repr__(self):
+		return "<User('%s','%s', '%s')>" % (self.name, self.fullname, self.password)
+
+engine = create_engine('sqlite:///C:/temp/x.db', echo=True)
+Base.metadata.create_all(engine)
+
+user1 = User(name='ed', fullname='Ed Jones', password='foobar')
+session = sessionmaker(bind=engine)()
+session.add(user1)
+
+user2 = session.query(User).filter_by(name='ed').first() 
+print "user1 is user2 =", user1 is user2
+session.commit()
+
+engine = create_engine('sqlite:///C:/temp/x.db', echo=True)
+meta = MetaData()
+meta.reflect(bind=engine)
+
+print meta.tables
+
+% picloud
+http://www.picloud.com/
+
+% cherrypy
+http://www.cherrypy.org/
+
+import cherrypy as cp
+class HelloWorld(object):
+    
+    @cp.expose
+    def index(self):
+        return "Hello World!"
+ 
+class Hello(object):
+    @cp.expose
+    def index(self, name):
+    	return "Hello, " + name
+
+HelloWorld.hello_Im = Hello()
+
+cp.quickstart(HelloWorld())
+
+http://localhost:8080/hello_Im/?name=koder
+
+% jinia2
+http://jinja.pocoo.org/
+{% extends "layout.html" %}
+{% block body %}
+  <ul>
+  {% for user in users %}
+    <li><a href="{{ user.url }}">{{ user.username }}</a></li>
+  {% endfor %}
+  </ul>
+{% endblock %}
+
+
+% cheetah
+cheetah compile cheetah.html --iext html
+
+<HTML>
+<HEAD><TITLE>$title</TITLE></HEAD>
+<BODY>
+
+<TABLE>
+#for $client in $clients
+<TR>
+<TD>$client.surname, $client.firstname</TD>
+<TD><A HREF="mailto:$client.email">$client.email</A></TD>
+</TR>
+#end for
+</TABLE>
+
+</BODY>
+</HTML>
+
+% xmlbuilder
+from xmlbuilder import XMLBuilder
+
+x = XMLBuilder('root')
+x.some_tag
+x.some_tag_with_data('text', a='12')
+
+with x.some_tree(a='1'):
+    with x.data:
+        x.mmm
+        for i in range(10):
+            x.node(val=str(i))
+
+print str(x)
+
+
+% pygments
+http://pygments.org/
+
+from pygments import highlight
+from pygments.lexers import PythonLexer
+from pygments.formatters import HtmlFormatter
+
+code = 'print "Hello World"'
+print highlight(code, PythonLexer(), HtmlFormatter())
+
+% pycrypto (CryptoAPI)
+http://arquivos.victorjabur.com/python/modules/pycrypto-2.3.win32-py2.7.exe
+
+from Crypto.Cipher import AES
+cypher = AES.new('0123456789123456', AES.MODE_ECB)
+data = "Some textXXXXXXX" 
+encrypted = cypher.encrypt(data)
+print repr(encrypted)
+print cypher.decrypt(encrypted)
+
+% fabric
+
+
+

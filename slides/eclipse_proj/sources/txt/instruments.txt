@@ -1,0 +1,101 @@
+* logging - so java.....
+
+#---------------------------------------------------------------------------------------
+import logging
+
+logging.basicConfig(format="%(levelname)s:%(relativeCreated).0f:%(message)s")
+
+logging.debug("Some message")
+logging.info("Some message")
+logging.warning("Some message")
+logging.error("Some message")
+logging.critical("Some message")
+#---------------------------------------------------------------------------------------
+    * loggers
+    * filters    
+    * formatters
+    * handlers
+
+* logging.getLogger
+* logging.config.fileConfig
+* logging.config.listen - eva(i)l inside
+
+#---------------------------------------------------------------------------------------
+import logging
+
+logger = logging.getLogger('spam_application')
+logger.setLevel(logging.DEBUG)
+
+fh = logging.FileHandler('spam.log')
+fh.setLevel(logging.DEBUG)
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.ERROR)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+
+logger.addHandler(fh)
+logger.addHandler(ch) 
+
+#---------------------------------------------------------------------------------------
+* ipython embed
+
+import IPython
+IPython.embed()
+
+#---------------------------------------------------------------------------------------
+
+* traceback
+* cgitb
+
+#---------------------------------------------------------------------------------------
+
+* sys.settrace
+* pdb
+* http://winpdb.org/
+
+import rpdb2
+rpdb2.start_embedded_debugger(password)
+
+#---------------------------------------------------------------------------------------
+
+отладчики регулярных выражений - kodos + regexbuddy
+
+#---------------------------------------------------------------------------------------
+
+* timeit
+* sys.setprofile
+* http://www.aminus.net/wiki/Dowser
+
+* hotspot
+* runsnakerun
+	> python -m cProfile -o test.pystone C:\Users\koder\Dropbox\lectures\python-lectures\pystone_run.py
+	> c:\Dev\Python\Python27_x86\Scripts\runsnake.exe test.pystone
+
+* perf - http://koder-ua.blogspot.com/2012/03/perf-linux.html
+
+#---------------------------------------------------------------------------------------
+memory profilers
+
+* sys.getsizeof
+* http://pypi.python.org/pypi/memory_profiler
+* heapy 
+
+#---------------------------------------------------------------------------------------
+
+* http://mg.pov.lt/objgraph/ - построение графов объектов в runtime
+
+#---------------------------------------------------------------------------------------
+
+* epydoc.sourceforge.net
+* http://sphinx.pocoo.org/
+* http://apydia.ematia.de/
+* doxygene
+
+#---------------------------------------------------------------------------------------
+
+
+
+

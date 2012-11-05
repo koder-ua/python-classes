@@ -1,0 +1,165 @@
+\documentclass{article}
+
+\input{files/lectures_env}
+
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+
+\center{Исключения}
+\begin{itemize}
+\item Исключение – это событие, после которого дальнейшее продолжение 
+		работы в данной точке бессмысленно. По итогу такого события 
+		генерируется объект-исключение, и исполнение передается обработчику 
+		ошибок этого типа
+\item Пример – деление на 0, выбрасывается ошибка ZeroDivisionError
+\item Исключения помогают упростить код, убрав из него множество 
+		проверок и значительно облегчить восстановление программы после сбоя
+\item Исключения упрощают доставку информации о ошибке от той точке, 
+		в которой она возникла к той точке где она может быть обработанны
+\end{itemize}
+\newpage
+
+
+%-------------------------------------------------------------------------------
+
+\center{Исключения}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+
+	try:
+		block1
+	except tp2 as var2:
+		block2
+	except (tp3, tp4) as var3:
+		block3
+	else:
+		block5
+	finally:
+		block4
+
+\end{lstlisting}
+}
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Исключения}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	try:
+		raise tp2("xxx")  # <<<<
+	except tp2 as var2:
+		block2            # <<<<
+	except (tp3, tp4) as var3:
+		block3
+	else:
+		block5
+	finally:
+		block4            # <<<<
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Исключения}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	try:
+		pass           # <<<
+	except tp2 as var2:
+		block2
+	except (tp3, tp4) as var3:
+		block3
+	else:
+		block5         # <<<
+	finally:
+		block4         # <<<
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Исключения}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	def f1(t, d, x, y):
+		if t – d  == 0:
+		    return None
+		else:
+		    t1 = ((x + y) / (t - d))
+		    if t1 == 0:
+		        return None
+		    else:
+		        return 1 / ((x + y) / (t - d))
+
+	def f2(t, d, x, y):
+		try:
+		    return 1 / ((x + y) / (t - d))
+		except ZeroDivisionError:
+		    return None
+
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+
+\center{Исключения. raise}
+\begin{itemize}
+\item \lstinline!raise ExceptionType("Some message")! порождает исключение
+\item \lstinline!ExceptionType! должно наследовать \lstinline!Exception!
+\item \lstinline!raise! без параметров разрешено только в блоке except. 
+	Оно повторно выбрасывает исключение, которое сейчас обрабатывается
+\end{itemize}
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	try:
+		func()
+	except Exception:
+		print "func cause exception"
+		raise
+\end{lstlisting}
+}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\center{Исключения. traceback}
+\begin{itemize}
+\item В обработчике исключения \lstinline!sys.exc_info()! возвращает тройку
+	(Тип исключения, Объект исключения, Состояние Стека)
+
+{
+\LARGE \vspace{15pt}
+\begin{lstlisting}
+	try:
+	    raise ValueError("ddd")
+	except Exception as x:
+		tb = sys.exc_info()[2]
+
+	print tb.tb_frame # <frame at 0x....>
+	print tb.tb_frame.f_lineno # 4
+	print tb.tb_frame.f_code.co_name # '<module>'
+	print tb.tb_frame.f_code.co_filename 
+		# '<ipython-input-7-492d537cf800>'
+	print tb.tb_next # <frame at 0x....> or None
+	del tb
+\end{lstlisting}
+}
+
+\end{itemize}
+\newpage
+%-------------------------------------------------------------------------------
+
+
+\end{document}
+
