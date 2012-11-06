@@ -1,0 +1,46 @@
+%% pp4slide.sty                                    10 Feb 2000
+%%------------------------------------------------------------
+%% initally named     pdfslide.sty                on 30 Aug 99
+%% renamed to avoid conflict with other package.
+%%
+%% Adapt foiltex to be used to prepare slides in pdf format
+%% using backgrounds and partial builds.
+%%
+%% Disable some pdf commands, when not used in pdf(la)tex.
+%%
+%% Special (PDF) effects:
+%% - make background blue, write normally in white and
+%%   headings in yellow.
+%% - use colorful labels in itemized lists.
+%% - avoid footline usage, because that would interfere with
+%%   partial builds of a page. Move the page number to the
+%%   upper right corner. This means also suppression of Logo
+%%   etc.
+%% - make sure that links are displayed in text color, not
+%%   with frames.
+%% - Do not use paragraph indentation and justified text on
+%%   slides (shouldn't that be the default?)
+\rightfooter{} % no more page numbers bottom right
+\MyLogo{} % no logo bottom left
+\rightheader{\rlap{\quad\textsf{\tiny\thepage}}} % page number
+\parindent 0pt % do not indent paragraphs
+\rightskip 0pt plus 1fil % allow ragged right
+%% select colors
+\RequirePackage{color}
+%%   for the frames/page numbers etc.
+\renewcommand\Black{\color{white}}
+%%   for the headline etc.
+\renewcommand\normalcolor{\color{yellow}}
+%%   for the background
+\pagecolor{blue}
+%%   for the text
+\color{white}
+%% choose some colored item labels
+\renewcommand{\labelitemi}{\textcolor{red}{$\bullet$}}
+\renewcommand{\labelitemii}{\textcolor{yellow}{$\star$}}
+\renewcommand{\labelitemiii}{\textcolor{magenta}{$\ast$}}
+\renewcommand{\labelitemiv}{\textcolor{cyan}{$\circ$}}
+% Make hyperlinks colored, not framed, if hypersetup is used
+\ifx\hypersetup\undefined\relax\else
+\hypersetup{colorlinks=true}
+\fi

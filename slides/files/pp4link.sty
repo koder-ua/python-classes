@@ -1,0 +1,29 @@
+%% pp4link.sty                                   18 Jun 2000
+%%----------------------------------------------------------
+%% History:
+%% initial version                               05 May 2000
+%% updated to insert an anchor unconditionally   18 Jun 2000
+%%
+%% Make links to the first part of a built sequence of slides prepared 
+%% with PPower4.
+%%
+%% Usage:
+%% Mark the target page with \toptarget{label}
+%%
+%% Install a hyperlink to it with \toplink{label}{text}
+%% "text" will be the active link to the target page.
+%%
+%% Notes:
+%%  1. "label" may consist only of letters, not digits or special
+%%     characters.
+%%  2. You will need two runs of (pdf)LaTeX on your file.
+%%  3. The link will only be working after postprocessing with PPower4
+%%
+\RequirePackage{hyperref}
+\def\toplink#1#2{%
+  \csname pppplink@#1\endcsname{#2}%
+}
+\def\toptarget#1{%
+  \hypertarget{first.\arabic{page}}{}%
+  \protected@write\@auxout{}%
+  {\gdef\string\pppplink@#1{\string\hyperlink{first.\arabic{page}}}}}

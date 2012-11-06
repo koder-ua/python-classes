@@ -1,0 +1,40 @@
+%% texpause.sty       Version 1.2                     10 Feb 2000
+%%---------------------------------------------------------------
+%% This is a quick hack to enable repeated pages with incremental
+%% contents e.g. for displaying slides uncovering step by step.
+%%
+%% The initial version (numbered 1.0) was written 07 May 99.
+%% Version 1.1 was created 25 May 99 and fixed a naming problem.
+%% Version 1.2 removed test for \pdfoutput on 10 Feb 2000
+%%
+%% Possible extensions: make the page numbering optional (maybe using
+%% subnumbering)
+%% Make action optional (for printed versions via pdf).
+%%
+%% Plan of attack (should work with TeX and LaTeX):
+%% - Get some ressources, i.e. one counter, one token register and one
+%%   box.
+%% - When activated save the current page count in the counter and the
+%%   output routine in the token register.
+%% - Setup a new output routine, which saves away a copy of the
+%%   current page.
+%% - Trigger this output routine to save the cumulated page contents.
+%% - Restore the former output routine and run it with the restored
+%%   saved contents.
+%% - Reset the page count and reinsert the contents once again,
+%%   removing the last glue item on the page.
+%%
+\newbox\p@uses@vebox
+\newtoks\p@uses@veoutput
+\newcount\p@uses@vepage
+\def\pause{\global\p@uses@vepage=\count0\relax %save pagenumber
+  \p@uses@veoutput=\output % make backup copy of output routine
+  \output={\global\setbox\p@uses@vebox=\box255}% copy current contents
+          % only, when triggered
+  \vfill\eject %trigger now
+  \output=\p@uses@veoutput % restore output routine
+  \unvcopy\p@uses@vebox % insert contents
+  \eject % now really show the output
+  \global\count0=\p@uses@vepage\relax %restore page number
+  \unvbox\p@uses@vebox\vskip-\lastskip % and insert again for next turn
+}%
