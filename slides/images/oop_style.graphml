@@ -1,642 +1,503 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<ns0:graphml xmlns:ns0="http://graphml.graphdrawing.org/xmlns" xmlns:ns2="http://www.yworks.com/xml/graphml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
-  
-  <ns0:key attr.name="url" attr.type="string" for="edge" id="d0" />
-  <ns0:key attr.name="description" attr.type="string" for="edge" id="d1" />
-  <ns0:key for="edge" id="d2" yfiles.type="edgegraphics" />
-  <ns0:key attr.name="Description" attr.type="string" for="graph" id="d3" />
-  <ns0:key for="port" id="d4" yfiles.type="portgraphics" />
-  <ns0:key for="port" id="d5" yfiles.type="portgeometry" />
-  <ns0:key for="port" id="d6" yfiles.type="portuserdata" />
-  <ns0:key for="graphml" id="d7" yfiles.type="resources" />
-  <ns0:key attr.name="url" attr.type="string" for="node" id="d8" />
-  <ns0:key attr.name="description" attr.type="string" for="node" id="d9" />
-  <ns0:key for="node" id="d10" yfiles.type="nodegraphics" />
-  <ns0:graph edgedefault="directed" id="G">
-    <ns0:data key="d3" />
-    <ns0:node id="n0" yfiles.foldertype="group">
-      <ns0:data key="d8" />
-      <ns0:data key="d9" />
-      <ns0:data key="d10">
-        <ns2:ProxyAutoBoundsNode>
-          <ns2:Realizers active="0">
-            <ns2:GroupNode>
-              <ns2:Geometry height="180.0" width="249.0" x="55.0" y="353.75" />
-              <ns2:Fill color="#CAECFF84" transparent="false" />
-              <ns2:BorderStyle color="#666699" type="dotted" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="249.0" x="0.0" y="0.0">Интерфейсы</ns2:NodeLabel>
-              <ns2:Shape type="roundrectangle" />
-              <ns2:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
-              <ns2:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0" />
-              <ns2:BorderInsets bottom="11" bottomF="10.5390625" left="0" leftF="0.0" right="8" rightF="7.5" top="0" topF="0.0" />
-            </ns2:GroupNode>
-            <ns2:GroupNode>
-              <ns2:Geometry height="50.0" width="50.0" x="0.0" y="60.0" />
-              <ns2:Fill color="#F5F5F5" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="dashed" width="1.0" />
-              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 4</ns2:NodeLabel>
-              <ns2:Shape type="roundrectangle" />
-              <ns2:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
-              <ns2:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0" />
-              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
-            </ns2:GroupNode>
-          </ns2:Realizers>
-        </ns2:ProxyAutoBoundsNode>
-      </ns0:data>
-      <ns0:graph edgedefault="directed" id="n0:">
-        <ns0:node id="n0::n0">
-          <ns0:data key="d8" />
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:UMLClassNode>
-              <ns2:Geometry height="118.0" width="100.0" x="181.5" y="390.2109375" />
-              <ns2:Fill color="#FFCC00" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="custom" textColor="#000000" visible="true" width="69.70458984375" x="15.147705078125" y="3.0">IRational<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
-                <ns2:AttributeLabel />
-                <ns2:MethodLabel>add
-sub
-neg
-....</ns2:MethodLabel>
-              </ns2:UML>
-            </ns2:UMLClassNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n0::n1">
-          <ns0:data key="d8" />
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:UMLClassNode>
-              <ns2:Geometry height="67.0" width="100.0" x="70.0" y="390.2109375" />
-              <ns2:Fill color="#FFCC00" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="custom" textColor="#000000" visible="true" width="76.05224609375" x="11.973876953125" y="3.0">IPrintable<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
-                <ns2:AttributeLabel />
-                <ns2:MethodLabel>tostr</ns2:MethodLabel>
-              </ns2:UML>
-            </ns2:UMLClassNode>
-          </ns0:data>
-        </ns0:node>
-      </ns0:graph>
-    </ns0:node>
-    <ns0:node id="n1" yfiles.foldertype="group">
-      <ns0:data key="d8" />
-      <ns0:data key="d9" />
-      <ns0:data key="d10">
-        <ns2:ProxyAutoBoundsNode>
-          <ns2:Realizers active="0">
-            <ns2:GroupNode>
-              <ns2:Geometry height="393.23046875" width="148.0" x="346.75" y="68.5" />
-              <ns2:Fill color="#CAECFF84" transparent="false" />
-              <ns2:BorderStyle color="#666699" type="dotted" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="148.0" x="0.0" y="0.0">Классы</ns2:NodeLabel>
-              <ns2:Shape type="roundrectangle" />
-              <ns2:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
-              <ns2:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0" />
-              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
-            </ns2:GroupNode>
-            <ns2:GroupNode>
-              <ns2:Geometry height="50.0" width="50.0" x="0.0" y="60.0" />
-              <ns2:Fill color="#F5F5F5" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="dashed" width="1.0" />
-              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 3</ns2:NodeLabel>
-              <ns2:Shape type="roundrectangle" />
-              <ns2:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
-              <ns2:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0" />
-              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
-            </ns2:GroupNode>
-          </ns2:Realizers>
-        </ns2:ProxyAutoBoundsNode>
-      </ns0:data>
-      <ns0:graph edgedefault="directed" id="n1:">
-        <ns0:node id="n1::n0">
-          <ns0:data key="d8" />
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:UMLClassNode>
-              <ns2:Geometry height="99.0" width="118.0" x="361.75" y="104.9609375" />
-              <ns2:Fill color="#FFCC00" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="custom" textColor="#000000" visible="true" width="63.47119140625" x="27.264404296875" y="3.0">BasicRN<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
-                <ns2:AttributeLabel />
-                <ns2:MethodLabel>add
-sub
-neg
-....</ns2:MethodLabel>
-              </ns2:UML>
-            </ns2:UMLClassNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n1::n1">
-          <ns0:data key="d8" />
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:UMLClassNode>
-              <ns2:Geometry height="99.0" width="118.0" x="361.75" y="222.73046875" />
-              <ns2:Fill color="#FFCC00" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="custom" textColor="#000000" visible="true" width="88.40478515625" x="14.797607421875" y="3.0">AutoSimple<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
-                <ns2:AttributeLabel />
-                <ns2:MethodLabel>add
-sub
-neg
-....</ns2:MethodLabel>
-              </ns2:UML>
-            </ns2:UMLClassNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n1::n2">
-          <ns0:data key="d8" />
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:UMLClassNode>
-              <ns2:Geometry height="99.0" width="118.0" x="361.75" y="347.73046875" />
-              <ns2:Fill color="#FFCC00" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="custom" textColor="#000000" visible="true" width="107.29541015625" x="5.352294921875" y="3.0">SomeOtherRN<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
-                <ns2:AttributeLabel />
-                <ns2:MethodLabel>add
-sub
-neg
-....</ns2:MethodLabel>
-              </ns2:UML>
-            </ns2:UMLClassNode>
-          </ns0:data>
-        </ns0:node>
-      </ns0:graph>
-    </ns0:node>
-    <ns0:node id="n2" yfiles.foldertype="group">
-      <ns0:data key="d8" />
-      <ns0:data key="d9" />
-      <ns0:data key="d10">
-        <ns2:ProxyAutoBoundsNode>
-          <ns2:Realizers active="0">
-            <ns2:GroupNode>
-              <ns2:Geometry height="383.69140625" width="178.0" x="537.5" y="51.0390625" />
-              <ns2:Fill color="#CAECFF84" transparent="false" />
-              <ns2:BorderStyle color="#666699" type="dotted" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="38.921875" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="178.0" x="0.0" y="0.0">Функции
-(Методы)</ns2:NodeLabel>
-              <ns2:Shape type="roundrectangle" />
-              <ns2:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
-              <ns2:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0" />
-              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
-            </ns2:GroupNode>
-            <ns2:GroupNode>
-              <ns2:Geometry height="50.0" width="50.0" x="0.0" y="60.0" />
-              <ns2:Fill color="#F5F5F5" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="dashed" width="1.0" />
-              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 2</ns2:NodeLabel>
-              <ns2:Shape type="roundrectangle" />
-              <ns2:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
-              <ns2:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0" />
-              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
-            </ns2:GroupNode>
-          </ns2:Realizers>
-        </ns2:ProxyAutoBoundsNode>
-      </ns0:data>
-      <ns0:graph edgedefault="directed" id="n2:">
-        <ns0:node id="n2::n0">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="148.0" x="552.5" y="104.9609375" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="122.01953125" x="12.990234375" y="6.53125">def add_basic(x, y):
-        ....<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n2::n1">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="148.0" x="552.5" y="247.345703125" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="130.474609375" x="8.7626953125" y="6.53125">def add_simple(x, y):
-        ....<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n2::n2">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="148.0" x="552.5" y="167.23046875" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="120.90625" x="13.546875" y="6.53125">def sub_basic(x, y):
-        ....<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n2::n3">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="148.0" x="552.5" y="314.73046875" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="121.978515625" x="13.0107421875" y="6.53125">def sub_simpl(x, y):
-        ....<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n2::n4">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="148.0" x="552.5" y="374.73046875" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="19.2578125" x="64.37109375" y="13.515625">....<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-      </ns0:graph>
-    </ns0:node>
-    <ns0:node id="n3" yfiles.foldertype="group">
-      <ns0:data key="d8" />
-      <ns0:data key="d9" />
-      <ns0:data key="d10">
-        <ns2:ProxyAutoBoundsNode>
-          <ns2:Realizers active="0">
-            <ns2:GroupNode>
-              <ns2:Geometry height="314.3828125" width="138.0" x="166.0" y="-0.19140625" />
-              <ns2:Fill color="#CAECFF84" transparent="false" />
-              <ns2:BorderStyle color="#666699" type="dotted" width="1.0" />
-              <ns2:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="56.3828125" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="138.0" x="0.0" y="0.0">Данные
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yFiles for Java 2.9-->
+  <key for="graphml" id="d0" yfiles.type="resources"/>
+  <key for="port" id="d1" yfiles.type="portgraphics"/>
+  <key for="port" id="d2" yfiles.type="portgeometry"/>
+  <key for="port" id="d3" yfiles.type="portuserdata"/>
+  <key attr.name="url" attr.type="string" for="node" id="d4"/>
+  <key attr.name="description" attr.type="string" for="node" id="d5"/>
+  <key for="node" id="d6" yfiles.type="nodegraphics"/>
+  <key attr.name="url" attr.type="string" for="edge" id="d7"/>
+  <key attr.name="description" attr.type="string" for="edge" id="d8"/>
+  <key for="edge" id="d9" yfiles.type="edgegraphics"/>
+  <key attr.name="Description" attr.type="string" for="graph" id="d10"/>
+  <graph edgedefault="directed" id="G">
+    <data key="d10"/>
+    <node id="n0" yfiles.foldertype="group">
+      <data key="d4"/>
+      <data key="d6">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:GroupNode>
+              <y:Geometry height="404.69140625" width="138.0" x="130.75" y="-2.806640625"/>
+              <y:Fill color="#CAECFF84" transparent="false"/>
+              <y:BorderStyle color="#666699" type="dotted" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="56.3828125" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="138.0" x="0.0" y="0.0">Данные
 (экземпляры,
- объекты)</ns2:NodeLabel>
-              <ns2:Shape type="roundrectangle" />
-              <ns2:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
-              <ns2:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0" />
-              <ns2:BorderInsets bottom="4" bottomF="4.4609375" left="0" leftF="0.0" right="7" rightF="7.0" top="1" topF="0.73046875" />
-            </ns2:GroupNode>
-            <ns2:GroupNode>
-              <ns2:Geometry height="50.0" width="50.0" x="0.0" y="60.0" />
-              <ns2:Fill color="#F5F5F5" transparent="false" />
-              <ns2:BorderStyle color="#000000" type="dashed" width="1.0" />
-              <ns2:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 1</ns2:NodeLabel>
-              <ns2:Shape type="roundrectangle" />
-              <ns2:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false" />
-              <ns2:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0" />
-              <ns2:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0" />
-            </ns2:GroupNode>
-          </ns2:Realizers>
-        </ns2:ProxyAutoBoundsNode>
-      </ns0:data>
-      <ns0:graph edgedefault="directed" id="n3:">
-        <ns0:node id="n3::n0">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="101.0" x="181.0" y="71.921875" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="70.955078125" x="15.0224609375" y="6.53125">num = 1
-denom = 3<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n3::n1">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="101.0" x="181.0" y="131.19140625" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="70.955078125" x="15.0224609375" y="6.53125">num = 1
-denom = 2<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n3::n2">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="101.0" x="181.0" y="249.73046875" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="78.58984375" x="11.205078125" y="6.53125">num = 13
-denom = 35<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-        <ns0:node id="n3::n3">
-          <ns0:data key="d9" />
-          <ns0:data key="d10">
-            <ns2:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
-              <ns2:Geometry height="45.0" width="101.0" x="181.0" y="190.4609375" />
-              <ns2:Fill color1="#FFFFFFE6" color2="#D4D4D4CC" transparent="false" />
-              <ns2:BorderStyle color="#123EA2" type="line" width="1.0" />
-              <ns2:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="70.955078125" x="15.0224609375" y="6.53125">num = 1
-denom = 7<ns2:LabelModel>
-                  <ns2:SmartNodeLabelModel distance="4.0" />
-                </ns2:LabelModel>
-                <ns2:ModelParameter>
-                  <ns2:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0" />
-                </ns2:ModelParameter>
-              </ns2:NodeLabel>
-              <ns2:StyleProperties>
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff" />
-		    <ns2:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE" />
-		    <ns2:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000" />
-		</ns2:StyleProperties>
-	</ns2:GenericNode>
-          </ns0:data>
-        </ns0:node>
-      </ns0:graph>
-    </ns0:node>
-    <ns0:edge id="e0" source="n1::n2" target="n0::n0">
-      <ns0:data key="d0" />
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="dashed" width="1.0" />
-          <ns2:Arrows source="none" target="white_delta" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e1" source="n1::n1" target="n0::n0">
-      <ns0:data key="d0" />
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="dashed" width="1.0" />
-          <ns2:Arrows source="none" target="white_delta" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e2" source="n1::n0" target="n0::n0">
-      <ns0:data key="d0" />
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="dashed" width="1.0" />
-          <ns2:Arrows source="none" target="white_delta" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e3" source="n3::n0" target="n1::n0">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e4" source="n3::n1" target="n1::n1">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e5" source="n3::n3" target="n1::n1">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e6" source="n3::n2" target="n1::n2">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e7" source="n1::n2" target="n2::n4">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e8" source="n1::n1" target="n2::n3">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e9" source="n1::n1" target="n2::n1">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e10" source="n1::n0" target="n2::n0">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-    <ns0:edge id="e11" source="n1::n0" target="n2::n2">
-      <ns0:data key="d1" />
-      <ns0:data key="d2">
-        <ns2:PolyLineEdge>
-          <ns2:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0" />
-          <ns2:LineStyle color="#000000" type="line" width="1.0" />
-          <ns2:Arrows source="none" target="standard" />
-          <ns2:BendStyle smoothed="false" />
-        </ns2:PolyLineEdge>
-      </ns0:data>
-    </ns0:edge>
-  </ns0:graph>
-  <ns0:data key="d7">
-    <ns2:Resources />
-  </ns0:data>
-</ns0:graphml>
+ объекты)</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+              <y:BorderInsets bottom="27" bottomF="27.0" left="0" leftF="0.0" right="7" rightF="7.0" top="4" topF="3.5390625"/>
+            </y:GroupNode>
+            <y:GroupNode>
+              <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+              <y:Fill color="#F5F5F5" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 1</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="n0:">
+        <node id="n0::n0">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="101.0" x="145.75" y="72.115234375"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="70.955078125" x="15.0224609375" y="6.53125">num = 1
+denom = 3<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+        <node id="n0::n1">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="101.0" x="145.75" y="169.345703125"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="70.955078125" x="15.0224609375" y="6.53125">num = 1
+denom = 2<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+        <node id="n0::n2">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="101.0" x="145.75" y="314.884765625"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="78.58984375" x="11.205078125" y="6.53125">num = 13
+denom = 35<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+        <node id="n0::n3">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="101.0" x="145.75" y="228.615234375"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="70.955078125" x="15.0224609375" y="6.53125">num = 1
+denom = 7<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <node id="n1" yfiles.foldertype="group">
+      <data key="d4"/>
+      <data key="d6">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:GroupNode>
+              <y:Geometry height="404.69140625" width="178.0" x="481.0" y="-2.806640625"/>
+              <y:Fill color="#CAECFF84" transparent="false"/>
+              <y:BorderStyle color="#666699" type="dotted" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="38.921875" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="178.0" x="0.0" y="0.0">Функции
+(Методы)</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+              <y:BorderInsets bottom="27" bottomF="27.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+            <y:GroupNode>
+              <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+              <y:Fill color="#F5F5F5" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 2</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="n1:">
+        <node id="n1::n0">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="148.0" x="496.0" y="51.115234375"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="122.01953125" x="12.990234375" y="6.53125">def add_basic(x, y):
+        ....<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+        <node id="n1::n1">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="148.0" x="496.0" y="187.5"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="130.474609375" x="8.7626953125" y="6.53125">def add_simple(x, y):
+        ....<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+        <node id="n1::n2">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="148.0" x="496.0" y="107.384765625"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="120.90625" x="13.546875" y="6.53125">def sub_basic(x, y):
+        ....<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+        <node id="n1::n3">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="148.0" x="496.0" y="239.884765625"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="121.978515625" x="13.0107421875" y="6.53125">def sub_simpl(x, y):
+        ....<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+        <node id="n1::n4">
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.bpmn.Activity.withShadow">
+              <y:Geometry height="45.0" width="148.0" x="496.0" y="314.884765625"/>
+              <y:Fill color="#CCCCFF" color2="#D4D4D4CC" transparent="false"/>
+              <y:BorderStyle color="#123EA2" type="line" width="1.0"/>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="19.2578125" x="64.37109375" y="13.515625">....<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:StyleProperties>
+                <y:Property class="com.yworks.yfiles.bpmn.view.TaskTypeEnum" name="com.yworks.bpmn.taskType" value="TASK_TYPE_ABSTRACT"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffff"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="ACTIVITY_TYPE"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.ActivityTypeEnum" name="com.yworks.bpmn.activityType" value="ACTIVITY_TYPE_TASK"/>
+              </y:StyleProperties>
+            </y:GenericNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <node id="n2" yfiles.foldertype="group">
+      <data key="d4"/>
+      <data key="d6">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:GroupNode>
+              <y:Geometry height="404.69140625" width="148.0" x="303.0" y="-2.806640625"/>
+              <y:Fill color="#CAECFF84" transparent="false"/>
+              <y:BorderStyle color="#666699" type="dotted" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#99CCFF" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="148.0" x="0.0" y="0.0">Классы</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="11" topF="11.4609375"/>
+            </y:GroupNode>
+            <y:GroupNode>
+              <y:Geometry height="50.0" width="50.0" x="0.0" y="60.0"/>
+              <y:Fill color="#F5F5F5" transparent="false"/>
+              <y:BorderStyle color="#000000" type="dashed" width="1.0"/>
+              <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#EBEBEB" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="21.4609375" modelName="internal" modelPosition="t" textColor="#000000" visible="true" width="65.201171875" x="-7.6005859375" y="0.0">Folder 3</y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+              <y:State closed="true" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
+              <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
+              <y:BorderInsets bottom="0" bottomF="0.0" left="0" leftF="0.0" right="0" rightF="0.0" top="0" topF="0.0"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="n2:">
+        <node id="n2::n0">
+          <data key="d4"/>
+          <data key="d6">
+            <y:UMLClassNode>
+              <y:Geometry height="99.0" width="118.0" x="318.0" y="45.115234375"/>
+              <y:Fill color="#FFCC00" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="custom" textColor="#000000" visible="true" width="63.47119140625" x="27.264404296875" y="3.0">BasicRN<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
+                <y:AttributeLabel/>
+                <y:MethodLabel>add
+sub
+neg
+....</y:MethodLabel>
+              </y:UML>
+            </y:UMLClassNode>
+          </data>
+        </node>
+        <node id="n2::n1">
+          <data key="d4"/>
+          <data key="d6">
+            <y:UMLClassNode>
+              <y:Geometry height="116.0" width="118.0" x="318.0" y="162.884765625"/>
+              <y:Fill color="#FFCC00" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="custom" textColor="#000000" visible="true" width="88.40478515625" x="14.797607421875" y="3.0">AutoSimple<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
+                <y:AttributeLabel/>
+                <y:MethodLabel>add
+sub
+neg
+....</y:MethodLabel>
+              </y:UML>
+            </y:UMLClassNode>
+          </data>
+        </node>
+        <node id="n2::n2">
+          <data key="d4"/>
+          <data key="d6">
+            <y:UMLClassNode>
+              <y:Geometry height="99.0" width="118.0" x="318.0" y="287.884765625"/>
+              <y:Fill color="#FFCC00" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="custom" textColor="#000000" visible="true" width="107.29541015625" x="5.352294921875" y="3.0">SomeOtherRN<y:LabelModel>
+                  <y:SmartNodeLabelModel distance="4.0"/>
+                </y:LabelModel>
+                <y:ModelParameter>
+                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                </y:ModelParameter>
+              </y:NodeLabel>
+              <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
+                <y:AttributeLabel/>
+                <y:MethodLabel>add
+sub
+neg
+....</y:MethodLabel>
+              </y:UML>
+            </y:UMLClassNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <edge id="e0" source="n0::n0" target="n2::n0">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e1" source="n0::n1" target="n2::n1">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="1.25" ty="-29.0390625"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e2" source="n0::n3" target="n2::n1">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="2.25" ty="30.23046875"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e3" source="n0::n2" target="n2::n2">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e4" source="n2::n2" target="n1::n4">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e5" source="n2::n1" target="n1::n3">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-7.75" sy="45.76953125" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e6" source="n2::n1" target="n1::n1">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="7.25" sy="-10.884765625" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e7" source="n2::n0" target="n1::n0">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="3.25" sy="-21.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e8" source="n2::n0" target="n1::n2">
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-4.75" sy="35.26953125" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+  </graph>
+  <data key="d0">
+    <y:Resources/>
+  </data>
+</graphml>

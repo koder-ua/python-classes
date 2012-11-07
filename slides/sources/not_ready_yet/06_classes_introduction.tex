@@ -1,0 +1,756 @@
+% python classes slides - classes_introduction
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+%\documentclass[xetex]{beamer} 
+\input{files/lectures_env}
+\input{files/python_cmds}
+
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Пример №1 \end{center}
+\begin{itemize}
+    \item Написать функцию для вычисления среднего
+    \item Дробь хранится в виде тройки r\_type, numer, denom
+    \item r\_type - тип дроби: "basic" или "auto\_simpl"
+    \item При операциях с "auto\_simpl" в отличии от "basic" нужно
+          сокращать числитель и знаменатель на НОД (наибольший общий делитель)
+    \item Сделать поддержку функций add, sub, mul, tostr
+\end{itemize}
+$$
+\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}\,\,;
+\quad
+\frac{a}{b} * \frac{c}{d} = \frac{ab}{cd}
+$$
+ $$\mbox{Алгоритм евклида :} \,
+    a \geq b, \mbox{\textit{НОД}}(a, b) = \left\{ 
+    \begin{array}{r}
+        b,  a \div b = 0 \\
+        \mbox{\textit{НОД}}(b, a \div b)
+    \end{array} \right.
+$$
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пример №1 - Рациональные числа \end{center}
+\begin{itemize}
+    \item Сделать набор функций для работы с простыми дробями.
+    \item Дробь хранится в виде тройки r\_type, numer, denom
+    \item r\_type - тип дроби: "basic" или "auto\_simpl"
+    \item При операциях с "auto\_simpl" в отличии от "basic" нужно
+          сокращать числитель и знаменатель на НОД (наибольший общий делитель)
+    \item Сделать поддержку функций add, sub, mul, tostr
+\end{itemize}
+$$
+\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}\,\,;
+\quad
+\frac{a}{b} * \frac{c}{d} = \frac{ab}{cd}
+$$
+ $$\mbox{Алгоритм евклида :} \,
+    a \geq b, \mbox{\textit{НОД}}(a, b) = \left\{ 
+    \begin{array}{r}
+        b,  a \div b = 0 \\
+        \mbox{\textit{НОД}}(b, a \div b)
+    \end{array} \right.
+$$
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - API \end{center}
+\begin{lstlisting}
+    r1 = ('basic', 1, 3)
+    r2 = ('basic', 1, 2)
+
+    print tostr(r1) # 1/3
+
+    r3 = sub(r2, r1)
+    print tostr(r3) # 1/6
+
+    r4 = add(r1, r1)
+    print tostr(r4) # 2/6
+
+    r5 = ('auto_simpl', r1[1], r1[2])
+    r6 = add(r5, r5)
+    print tostr(r6) # 1/3
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}НОД\end{center}
+\begin{lstlisting}
+    def gcd(x, y):
+        x = abs(x)
+        y = abs(y)
+        return _gcd(max(x, y), min(x, y))
+
+    def _gcd(x, y):
+        if y == 0:
+            return x
+        return gcd(y, x % y)
+\end{lstlisting}
+\newpage
+
+%------------------------------------------------------------------------
+\begin{center}Рациональные числа - процедурный стиль\end{center}
+\begin{lstlisting}
+    def add(x, y):
+        xtp, xnum, xdenom = x
+        ytp, ynum, ydenom = y
+        ndenom = xdenom * ydenom
+        nnum = xnum * ydenom + xdenom * ynum
+        if xtp == 'basic':
+            return ('basic', nnum, ndenom)
+        elif xtp == 'auto_simpl':
+            cur_gcd = gcd(nnum, ndenom)
+            return ('auto_simpl', 
+                     nnum / cur_gcd, 
+                     ndenom / cur_gcd)
+        assert False, "Unsupported  rational type" + \
+                      " for add" + xtp
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{lstlisting}
+    def tostr(x): 
+        return "{0[1]}/{0[2]}".format(x)
+
+    def sub(x, y):
+        ytp, ynum, ydenom = y
+        return add(x, (ytp, -ynum, ydenom))
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \includegraphics{images/procedural_style.jpg} \end{center} 
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Процедурный стиль - анализ \end{center}
+\begin{itemize}
+    \item \lstinline!if xtp == 'basic':! - ужасно
+    \item Декомпозиция логики затруднена
+    \item Добавление новых типов требует изменения функции add
+    \item Перегрузка функций решает часть проблем, но только часть
+\end{itemize}
+\newpage
+%-------------------------------------------------------------------------------
+\begin{center} Перегрузка функции \end{center}
+\lstset{language=C++}
+\begin{lstlisting}
+    BasicRN add(BasicRN v1, BasicRN v2)
+    {
+        ....
+    }
+
+    SimplifiedRN add(SimplifiedRN v1, SimplifiedRN v2)
+    {
+        ....
+    }
+\end{lstlisting}
+\lstset{language=python}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{itemize}
+    \item (+) Одно имя для всех функций
+    \item (+) Перегрузка по двум и более параметрам параметрам и хитрым правилам
+    \item (+) Статическая перегрузка - никаких накладных расходов
+    \item (-) Нужна перекомпиляция
+    \item (-) Нужно явно знать типы во время компиляции
+    \item (-) Все прототипы должны быть видны в точке компиляции
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Еще решение \end{center} 
+\begin{lstlisting}
+    def add_2(x, y):
+        xtp, xnum, xdenom = x
+        if xtp == 'polynom':
+            # add polynoms
+        else:
+            return add(x, y)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблема \end{center} 
+Весь код должен вызывать add\_2.
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - не совсем процедурный стиль \end{center}
+Один из вариантов решения - привязать функции к данным. \\
+\begin{lstlisting}
+    x = {'num':1, 
+         'denom':3, 
+         'add':add_simplified, 
+         'sub':sub}
+
+    def add(x, y): 
+        return x['add'](x,y)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - не совсем процедурный стиль \end{center}
+\begin{lstlisting}
+    def mk_basic(num, denom):
+        return {'num':num, 'denom':denom, 'add':add_basic, 'sub':sub}
+
+    def mk_simpl(num, denom):
+        return {'num':num, 'denom':denom, 'add':add_simplified, 'sub':sub}
+
+    r1 = mk_basic(1, 3)
+    r2 = mk_basic(1, 2)
+    r3 = sub(r2, r1)
+
+    r5 = mk_simpl(1, 3)
+    r6 = add(r5, r5)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \includegraphics{images/semi_OOP_style.jpg} \end{center} 
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Не совсем процедурный стиль - анализ \end{center}
+\begin{itemize}
+    \item Кода стало больше
+    \item Его расширение упростилось - не нужно модифицировать функцию add,
+          при добавлении нового типа
+    \item Типовые теги стали менее нужны - тип это операции, которые есть у него
+    \item Вместо \lstinline!func(x)! теперь \lstinline!x['func'](x)!. 
+          Для упрощения вызова старая процедурная семантика оставлена,
+          но внутри нее перенаправление на новый вызов
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - не совсем процедурный стиль 2 \end{center}
+    Функция mk\_simpl частично дублирует код mk\_basic.
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - не совсем процедурный стиль 2 \end{center}
+\begin{lstlisting}
+    def mk_basic(num, denom):
+        return {'num':num, 'denom':denom, 'add':add_basic, 'sub':sub}
+
+    def mk_simpl(num, denom):
+        res = mk_basic(num, denom)
+        res['add'] = add_simplified
+        return res
+
+    #.....
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Не совсем процедурный стиль - анализ \end{center}
+\begin{itemize}
+    \item Типовые теги иногда нужны.
+    \item Каждый экземпляр содержит большое количество ссылок на одни и те же
+          функции.
+    \item Решение - вынесение всех методов в отдельный словарь, который все 
+          переменные данного типа используют совместно. Одновременно этот
+          словарь становится типовым тегом.
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - совсем не процедурный стиль \end{center}
+\begin{lstlisting}
+    BasicRN = {'add': add_basic, 
+               'sub': sub_basic,
+               '__init__': mk_basic}
+
+    ASRN = {'add': add_simplified, 
+            'sub': sub_simplified,
+            '__init__': mk_simple}
+
+    def new(tp):
+        def closure(*args, **kwargs):
+            return tp['__init__'](*args, **kwargs)
+        return closure
+
+    x1 = new(BasicRN)(1, 2)
+    x2 = new(ASRN)(1, 2)
+
+    def add(x, y):
+        return x['__class__']['add'](x, y)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - совсем не процедурный стиль \end{center}
+\begin{itemize}
+    \item Шаблон, использованный в функции add часто используется в 
+          python и позволяет имитировать перегрузку функций
+    \item Почти так устроено ООП в питоне внутри
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \includegraphics[scale=0.8]{images/oop_style.jpg} \end{center} 
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \includegraphics[scale=0.8]{images/python_instance.eps} \end{center} 
+\lstinline!obj.__class__ == type(obj)! - класс объекта \\
+\lstinline!obj.__dict__! - словарь, содержащий атрибуты объекта
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - классы \end{center}
+\begin{lstlisting}
+    class BasicRational(object):
+        "basic rational number"
+
+        def __init__(self, num, denom):
+            self.num = num
+            self.denom = denom
+
+        def add(self, y):
+            nd = self.denom * y.denom
+            nn = self.num * y.denom + y.num * self.denom
+            return BasicRational(nn, nd)
+
+        def neg(self):
+            return BasicRational(-self.num, self.denom)
+
+        def sub(self, y):
+            return self.add(y.neg())
+
+        def tostr(self):
+            return "{0.num}/{0.denom}".format(self)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - классы \end{center}
+\begin{lstlisting}
+    x['add'](x, y) == x.add(y)
+    x['num'] == x.num
+    x['add'](x, ...) == x.add
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - классы \end{center}
+\begin{lstlisting}
+    class AutoSimpl(BasicRational):
+        "Auto simplified rational number"
+
+        def add(self, y):
+            res = BasicRational.add(self, y)
+            cur_gcd = gcd(res.num, res.denom)
+            res.num /= cur_gcd
+            res.denom /= cur_gcd
+            return res
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - классы \end{center}
+\begin{lstlisting}
+    class AutoSimpl(BasicRational):
+        "Auto simplified rational number"
+    
+        def __init__(self, num, denom):
+            cur_gcd = gcd(num, denom)
+            self.num = num / cur_gcd
+            self.denom = denom / cur_gcd
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} ООП \end{center}
+\begin{itemize}
+    \item Шаблон проектирования, в котором данные имеют 
+            ссылки на функции их обработки
+    \item Позволяет писать код, который сохраняет работоспособность 
+            при изменении данных в некоторых границах
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} ООП - в чем причина? \end{center}
+\begin{itemize}
+    \item Везде есть закон сохранения
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} ООП - в чем причина? \end{center}
+\begin{itemize}
+    \item Дополнительный уровень косвенности
+    \item Написав add таким образом мы получили возможность 
+            менять ее работу не трогая код
+    \item Код, который создает новую дробь знает подробности того, как с ней работать.
+    \item Код, который ее использует - не всегда.
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблема \end{center}
+    \lstinline!x.add(y) != y.add(x)!, а может и вообще не сработать \\
+    В чем проблема? Как решать?
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблема \end{center}
+    \lstinline|x.add(y) != y.add(x)|. При других типах может быть совсем не верно. \\
+    В чем проблема? Как решать? \\
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблема \end{center}
+    \lstinline|x.add(y) != y.add(x)|. При других типах может быть совсем не верно. \\
+    В чем проблема? Как решать? \\
+    Нужна перегрузка add по обеим параметрам, что-то типа
+    \lstinline!(x,y).add(x,y)!.  Классическое ООП не предлагает решения.
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Вариант 1 \end{center}
+\begin{lstlisting}
+    class X(Y):
+        def add(self, y):
+            if isinstance(y, Y):
+                self.do_add_Y(y)
+            elif isinstance(y, X):
+                self.do_add_X(y)
+            else:
+                return y.add(self)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Вариант 2 \end{center}
+\begin{lstlisting}
+    class X(Y):
+        def add(self, y, final=False):
+            if isinstance(y, Y):
+                self.do_add_Y(y)
+            elif isinstance(y, X):
+                self.do_add_X(y)
+            else:
+                return y.add(self, True)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Опять проблема \end{center}
+    \begin{center} \includegraphics[scale=0.9]{images/virtual_problem.jpg} \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пример №2 \end{center}
+    Написать обработчик выражения, состоящего из -, +, скобок и чисел.
+    В первую очередь нас интересует вычислитель.
+    (Пусть у нас уже есть синтаксический анализатор выражения - функция parse).
+\begin{lstlisting}
+    expression = "1 + 2 + ( 4 - 3 )"
+    pexpr = parse(expression)
+    print pexpr # ('+', ('+', 1, 2), ('-', 3 , 4))
+\end{lstlisting}
+    \begin{center} \includegraphics{images/parse_tree.eps} \end{center}     
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Решение 1 \end{center}
+\begin{lstlisting}
+    def evaluate(val):
+        if isinstance(val, int):
+            res = val
+        else:
+            operator, oper1, oper2 = val
+            assert operator in "+-", \
+                "Unknown operator " + operator
+
+            v1 = evaluate(oper1)
+            v2 = evaluate(oper2)
+
+            if operator == '+':
+                res = v1 + v2
+            elif operator == '-':
+                res = v1 - v2
+
+        return res
+\end{lstlisting}
+\newpage
+
+
+%-------------------------------------------------------------------------------
+\begin{center} Задача 2 \end{center}
+    Добавить в выражение поддержку * и /
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Решение 2 \end{center}
+\begin{lstlisting}
+    class Operator(object):
+        def evaluate(self, op1, op2):
+            pass
+
+    class Add(object):
+        def evaluate(self, op1, op2):
+            return op1 + op2
+
+    class Mul(object):
+        def evaluate(self, op1, op2):
+            return op1 * op2
+
+    expr = (Add(), (Add(), 1, 2), (Sub(), 3 , 4))
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Решение 2 \end{center}
+\begin{lstlisting}
+    def evaluate_add(op1, op2):
+        return op1 + op2
+
+    def evaluate_mul(op1, op2):
+        return op1 * op2
+
+    expr = (evaluate_add,
+                (evaluate_add, 1, 2), 
+                (evaluate_mul, 3 , 4))
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Решение 2 \end{center}
+\begin{lstlisting}
+    def evaluate(val):
+        if isinstance(val, int):
+            res = val
+        else:
+            operator, oper1, oper2 = val
+
+            v1 = evaluate(oper1)
+            v2 = evaluate(oper2)
+            
+            res = operator(v1, v2)
+            #res = operator.evaluate(v1, v2)
+
+        return res
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Задача 3 \end{center}
+    Добавить в выражение поддержку строк
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Решение 2 \end{center}
+\begin{lstlisting}
+    class Value(object):
+        def add(self, v2):
+            pass
+
+    class Int(Value):
+        def __init__(self, val):
+            self.val = val
+
+        def add(self, v2):
+            if isinstance(v2, int):
+                return v2 + self.val
+            else:
+                return v2.add(self.val)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Решение 2 \end{center}
+\begin{lstlisting}
+    def evaluate_add(op1, op2):
+        return op1.add(op2)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблемы? \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблемы? \end{center}
+Фукция parse. Почему?
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} parse \end{center}
+\begin{itemize}
+    \item Ооп решает проблему передавая функции в код снаружи, привязанными к данным.
+    \item Это не может решить проблему конструктора
+    \item Нужно передвать parse снаружи
+    \item Не нужно без существенных причин делать из parse класс, можно просто передать функцию
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Когда ООП \end{center}
+\begin{itemize}
+    \item Если если участок кода, требующий определенного ограниченного 
+          набора операций над входными данными
+    \item Одновременно в программе могут быть несколько видов подходящих данных, 
+          с различной функциональностью для реализации этого интерфейса
+    \item Или группировки функций с общим глобальным состоянием
+    \item Причем участок кода в свою очередь может быть одним из методов класса.
+          +1 к наследованию.
+\end{itemize}
+\newpage
+%-------------------------------------------------------------------------------
+\begin{center} \includegraphics{images/virt_hierarchi.eps} \end{center} 
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Классы не предназначен для \end{center}
+\begin{itemize}
+    \item Группировки функций
+    \item Группировки одной функции
+    \item Если вы, ессно, используете нормальный ЯП
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} ООП vs Процедурный стиль \end{center}
+\begin{itemize}
+    \item (-) Часто больше кода
+    \item (-) Добавление нового метода требует нелокальных изменений
+    \item (-) Работает только если функция выбирается по типу одного параметра
+    \item (-) Замедляет работу
+    \item (-) Усложняет язык
+    \item (-) Логика размазывается
+    \item (-) Разработка ООП дизайна требует больших навыков и времени, чем процедурного
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} ООП vs Процедурный стиль \end{center}
+\begin{itemize}
+    \item (+) Уменьшает пересечение имен
+    \item (+) Код лучше структурирован
+    \item (+) Избавляет от ручной проверки типов
+    \item (+) Избавляет от знания конкретного типа данных
+    \item (+) Во многих случаях значительно упрощает расширение
+              Позволяя корректно написанному коду работать с новыми типами данных
+    \item (+) Более высокий уровень абстракции упрощает построение программы
+              путем выделения стандартных шаблонов проектирования
+    \item (+) Многие из идей ООП имеют прямую поддержку в языке
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Добавление нового метода требует нелокальных изменений \end{center}
+\begin{lstlisting}
+    def to_xml(obj):
+        if isinstance(obj, int):
+            ...
+        elif isinstance(obj, str):
+            ...
+        else:
+            res = obj.to_xml()
+        return res
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Альтернативы \end{center}
+\begin{itemize}
+    \item ?
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Альтернативы \end{center}
+\begin{itemize}
+    \item CLOS - возможность расширять работу функции после ее создания,
+          динамически подключая новые реализации
+    \item Функция превращается в объект-хранилище шаблонов со ссылками на реализации
+    \item Позволяет перегружать поведение не только по одному параметру
+    \item Замедляет работу
+\end{itemize}
+\begin{center} \includegraphics[scale=0.8]{images/CLOS.eps} \end{center} 
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Альтернативы \end{center}
+\begin{itemize}
+    \item Аспектное программирование
+    \item PEAK-Rules
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Python ООП vs Процедурный стиль \end{center}
+\begin{itemize}
+    \item Возможность перегрузки функций
+    \item Возможность перегрузки операторов
+    \item x.y => x.\_\_dict\_\_['y']
+    \item x.func(...) => x.\_\_class\_\_.func(x, ...)
+    \item x + y => x.\_\_add\_\_(y)
+    \item -x => x.\_\_neg\_\_()
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Добавление метода ко всем классам сразу требует нелокальных изменений \end{center}
+Один из вариантов решения - совместить стили.
+\begin{lstlisting}
+    def some_new_method(obj):
+        if isinstance(obj, ClS1):
+            # code for CLS1
+        elif isinstance(obj, ClS2):
+            # code for CLS2
+        else:
+            return obj.some_new_method()
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Рациональные числа - python way \end{center}
+\begin{lstlisting}
+    class BasicRational(object):
+        "basic rational number"
+
+        def __init__(self, num, denom):
+            self.num = num
+            self.denom = denom
+
+        def __add__(self, y):
+            nd = x.denom * y.denom
+            nn = x.num * y.denom + x.denom * y.num
+            return self.__class__(nn, nd)
+
+        def __neg__(self):
+            return self.__class__(-nn, nd)
+
+        def __sub__(self, y):
+            return self.add(y.neg())
+
+        def __str__(self):
+            return "{0.num}/{0.denom}".format(self)
+
+        def __repr__(self):
+            return str(self)
+
+    b1 = AutoSimpl(1, 2)
+    b2 = AutoSimpl(1, 3)
+    b3 = b2 - b1 - b1
+    print b1, b2, b3
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}
