@@ -13,12 +13,22 @@
 %-------------------------------------------------------------------------------
 \begin{center} Контейнеры \end{center}
 \begin{itemize}
-	\item Массив(список) list == [...]
-	\item Константный массив(кортеж) tuple == (...)
-	\item Словарь dict == \{a:b, ...\}
-	\item Множество set == \{a, b, ....\}
+	\item Массив(список) list
+	\item Константный массив(кортеж) tuple
+	\item Словарь dict
+	\item Множество set
 	\item frozenset, buffer, ....
 \end{itemize}
+\begin{lstlisting}
+	[1, 2, 3] == list([1, 2, 3])
+	(1, 2, 3) == tuple([1, 2, 3])
+	{1:"1", 2:"2", 3:"3"} == dict([(1,"1"), (2, "2"), (3, "3")])
+	{"a":1, "b":2, "c":3} == dict(a=1, b=2, c=3)
+	{1, 2, 3} == set([1, 2, 3])
+
+	list(1, 2, 3) # error
+	set(1, 2, 3) # error
+\end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -31,9 +41,7 @@
 			\lstinline!arr[frm:to:step]! \\
 			\lstinline![arr[frm], arr[frm + step], ....., ]!
 	\item Отрицательный индекс - отсчет от конца. x[-1]
-	\item Отсутвие индекса - frm -> 0, to -> -1, step -> 1
-	\item arr[::-1] - инверсия элементов
-	\item arr[:] - копия
+	\item Отсутвие индекса - frm $\rightarrow$ 0, to $\rightarrow$ -1, step $\rightarrow$ 1
 \end{itemize}
 \newpage
 
@@ -67,11 +75,14 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 \begin{lstlisting}
 	x = [3, 4, 5, 6]
 	range(x) == [0, ..., x – 1]
-	range(x, y, z) == range(x)[:y:z]
+	range(x, y, z) ~= range(INF)[x:y:z]
 
-	x[::2] = [2, 2]  # x == [2, 4, 2, 6]
+	x[::2] = [2, 2]  
+	x == [2, 4, 2, 6]
 	x[::2] = 2 # error
-	del x[1] # x == [3, 5, 6]
+	del x[1] 
+	x == [3, 5, 6]
+	
 	x = [1, None, True, ["123", 2.4]]
 	[1, 2, 3] + ["a", "b"] # [1, 2, 3, "a", "b"]
 \end{lstlisting}
@@ -79,31 +90,31 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 
 %-------------------------------------------------------------------------------
 \begin{center} Методы списка \end{center}
-\Large{
+\begin{Large}
 \vspace{15pt}
 \begin{lstlisting}
 	# arr.append(val)
-	[1, 2].append(3) == [1, 2, 3]
+	[1, 2].append(3) => [1, 2, 3]
 
 	# arr.extend(arr2)
-	[1, 2].extend([2, 3]) == [1, 2, 2, 3]
+	[1, 2].extend([2, 3]) => [1, 2, 2, 3]
 
 	# arr.pop()
 	x = [1, 2]
 	x.pop() == 2
-	print x # [1]
+	x == [1]
 
 	# arr.insert(pos, val)
-	[1, 2].insert(0, "abc") == ["abc", 1, 2]
+	[1, 2].insert(0, "abc") => ["abc", 1, 2]
 
-	[1, 2].index(2) == 1
-	[1, 2].reverse() == [2, 1]
+	[1, 2].index(2) => 1
+	[1, 2].reverse() => [2, 1]
 	[1, 2, 4, 1, 2, 4, 1, 1].count(1) == 4
 	x = [1, 3, 2]
 	x.remove(1) # x == [3, 2]
 	x.sort() # x == [2, 3]
 \end{lstlisting}
-}
+\end{Large}
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -119,29 +130,25 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 
 %-------------------------------------------------------------------------------
 \begin{center} Изменяемые типы (ссылочные) \end{center}
-\vspace{15pt}
 \begin{lstlisting}
 	x = [["1"], "2"]
 	y = x
 \end{lstlisting}
-\includegraphics[scale=0.6]{images/refs_1.pdf}
+\includegraphics[scale=0.8]{images/refs1.eps}
 
-\vspace{15pt}
 \begin{lstlisting}
 	x = [["1"], "2"]
 	y = x[:]
 \end{lstlisting}
-\includegraphics[scale=0.6]{images/refs_2.pdf}
-
+\includegraphics[scale=0.8]{images/refs2.eps}
 \newpage
 
-\vspace{15pt}
 \begin{lstlisting}
 	import copy
 	x = [["1"], "2"]
 	y = copy.deepcopy(x)
 \end{lstlisting}
-\includegraphics[scale=0.6]{images/refs_3.pdf}
+\includegraphics[scale=0.8]{images/refs3.eps}
 
 \newpage
 
@@ -154,6 +161,13 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 		По больше части - получится что-то, но иногда -
 		\lstinline!['x', '\xf0', u'x'].sort()! - UnicodeDecodeError
 \end{itemize}
+\begin{lstlisting}
+	x = [2, 3, 4, 1 , 6, -2]
+	sorted(x) == [-2, 1, 2, 3, 4, 6]
+	x == [2, 3, 4, 1 , 6, -2]
+	x.sort()
+	x == [-2, 1, 2, 3, 4, 6]
+\end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -165,7 +179,7 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 \vspace{15pt}
 \begin{lstlisting}
 	tpl = (1, 2)
-	tpl = 1,2
+	tpl = 1, 2
 	tpl[1] = 3 # error
 	tpl = (1, [2, 3, 4])
 	tpl[1].append(1) => (1, [2, 3, 4, 1])
@@ -205,8 +219,9 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 	x.values() == [2, "4"]
 	x.keys() == [1, "3"]
 	x.copy() == {1:2, "3":"4"}
-	x.setdefault(key, val) == val # if key not in x else x[key]
-	x.get(5, None) == None # if 5 not in x else x[5]
+	x.setdefault(key, val) == val
+	x.get(5) == None
+	x.get(5, 12) == 12
 	x.clear() # {}
 	x.update(y)
 	dict.fromkeys(keys, val) # {key[0]:val, key[1]:val, ..} default val is None
@@ -251,12 +266,16 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 %-------------------------------------------------------------------------------
 \begin{center} Общие операции над контейнерами \end{center}
 \begin{itemize}
-	\item list, tuple, set
-	\item len длинна 
+	\item Пребразование к list, tuple, set
+	\item len - количество элементнов
 	\item str.join \lstinline!", ".join(["1", "2", "3"]) == "1, 2, 3"! 
 	\item in проверка включения элемента
-	\item dict из [(key1, val1), (key2, val2), …]
+	\item Проеобразование контейнера пар к словарю 
 \end{itemize}
+\begin{lstlisting}
+	x = [(1, "1"), (2, "2")]
+	dict(x) == {1:"1", 2:"2"}!
+\end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -285,10 +304,10 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 \begin{center} Сборка мусора \end{center}
 \begin{itemize}
 	\item С каждым объектом связан счетчик ссылок
-	\item Счетчик инкрементируется при повлении каждой новой ссылки на объект -
-	       переменная, помещение в контейнер, etc
+	\item Счетчик инкрементируется при появлении каждой новой ссылки на объект:
+	       переменной, помещения в контейнер, etc
 	\item И декрементируется при каждом исчезновении ссылки
-	\item Как только СС оказывается равен нулю - объект удаляется
+	\item Как только счетчик оказывается равен нулю - объект удаляется
 \end{itemize}
 \newpage
 

@@ -28,10 +28,12 @@
 
 %-------------------------------------------------------------------------------
 \begin{center} Переменные \end{center}
-\begin{center} \includegraphics[scale=0.4]{images/vars.pdf} \end{center}
+\begin{center} \includegraphics{images/variables.eps} \end{center}
 \newpage
 
-\begin{center} Переменные от \href{http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html}{David Goodger}
+%-------------------------------------------------------------------------------
+\begin{center} Переменные от 
+\href{http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html}{David Goodger}
 \end{center}
 \includegraphics{images/a2box.png} \hspace{3cm}
 \includegraphics{images/a2tag.png} \hspace{3cm}
@@ -39,11 +41,21 @@
 \newpage
 
 %-------------------------------------------------------------------------------
+\begin{center} Переменные \end{center}
+Одно и то-же имя(переменная) может в разные моменты указывать на данные разных типов
+\vspace{15pt}
+\begin{lstlisting}
+	x = 12
+	x = "12"
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
 \begin{center} Базовые типы данных \end{center}
 \begin{itemize}
 	\item None
-	\item int (C long int), long
-	\item float (c double)
+	\item int (long int), long
+	\item float (double)
 	\item str, unicode
 	\item bool – True, False
 	\item complex
@@ -53,16 +65,7 @@
 
 %-------------------------------------------------------------------------------
 \begin{center} Базовые типы данных \end{center}
-\Large
-{
 \begin{itemize}
-	\item Одно и то-же имя(переменная) может в разные моменты указывать на разные типы данных
-	\vspace{15pt}
-	\begin{lstlisting}
-		x = 12
-		x = "12"
-	\end{lstlisting}
-
 	\item Строгая типизация - не производится автоматических приведений типов, кроме очевидных (int -> float)
 	\vspace{15pt}
 	\begin{lstlisting}
@@ -88,25 +91,28 @@
 		1 + int("2") == 3
 	\end{lstlisting}
 \end{itemize}
-}
 \newpage
+
 %-------------------------------------------------------------------------------
-\begin{center} Операции с целыми \end{center}
+\begin{center} Базовые типы данных \end{center}
+Все базовые типы данных - константны. Любая операция создает новый объект
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Операции с int,  float, complex \end{center}
 \begin{itemize}
-	\item Все базовые типы данных - константны. Любая операция создает новый объект
-	\item + - / * \% // **
+	\item + - / * \% // **(возведение в степень)
 	\item Нет --, ++ (Вместо этого -= 1, += 1 )
 	\item +=, -=, *=, ....
-	\item >, <, != (<> - устарел), >=, <=, == Не сравнивайте разные типы данных
+	\item >, <, != (<> - устарел), >=, <=, == 
+	\item Не сравнивайте разные типы данных
 	\item is vs ==, is not
 	\item or and not
 	\item \& \hspace{10pt} \textbar \hspace{10pt} \textasciicircum
 	\item \lstinline!0 < x == y < 10!
 	\item math, cmath
-
 \end{itemize}
 \newpage
-
 
 %-------------------------------------------------------------------------------
 \begin{center} Строки \end{center}
@@ -131,10 +137,6 @@
 
 %-------------------------------------------------------------------------------
 \begin{center} Строковые операции \end{center}
-
-В python функции/методы возвращающие значение - делают копию, 
-	возвращающие None - модифицируют объект на месте.
-
 \vspace{15pt}
 \begin{lstlisting}
 	"abc" > "def" == False
@@ -148,7 +150,7 @@
 	# a[x:y] – substring [x, y)
 	"0123456789"[2:4] == "23"
 
-	a.replace(from, to)
+	a.replace(src, dst)
 	"x + y".replace("+", "//") == "x // y"
 
 	a.find(string, pos) 
@@ -163,7 +165,7 @@
 	"abc".index("fd") # error
 
 	a.split(string) 
-	"a,b,c,d".split(",") == ("a", "b", "c", "d")
+	"a,b,c,d".split(",") == ["a", "b", "c", "d"]
 
 	"abc".startswith("ab") == True
 	"abc".endswith("dabc") == False
@@ -207,19 +209,19 @@
 	\item unicode.encode(encoding[, errors]) => string
 	\item Иногда python пытается автоматически перекодировать 
 			данные, используя текущую кодировку - sys.getdefaultencoding()
+	\item \href{http://www.youtube.com/watch?feature=player_embedded&v=sgHbC6udIqc}
+				{Pragmatic Unicode, or, How do I stop the pain?}
 \end{itemize}
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center} type \& id \& hash \& isinstance \end{center}
 \begin{itemize}
-	\item type(x) => тип x
-	\item id(x) – int идентификатор значения (адрес в памяти)
-	\item hash(x) - int - хэш значения, широко используется внутри питона
-	\item isinstance(x, X) - проверяет, что x имеет тип X isinstance(1, int)
-		X может быть списком в скобках
+	\item \lstinline!type(x)! => тип x
+	\item \lstinline!id(x)! – int идентификатор значения (адрес в памяти)
+	\item \lstinline!hash(x)! - int - хэш значения, широко используется внутри питона
+	\item \lstinline!isinstance(x, X)! - проверяет, что x имеет тип X.
 \end{itemize}
-
 \vspace{15pt}
 \begin{lstlisting}
 	type(1) == int
@@ -232,8 +234,9 @@
 
 	hash(1) == 1
 	hash("1") == 1977051568
+	isinstance(1, int) == True
+	isinstance(1, (str, float)) == False
 \end{lstlisting}
-
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -242,7 +245,8 @@
 \begin{itemize}
 	\item Сравнения между разными типами данных работает, но смысла не имеет
 	\item Кроме комплексных чисел
-	\item И юникодных строк с бинарными (иногда, зависит от кодировки - sys.getdefaultencoding())
+	\item И юникодных строк с бинарными 
+			(иногда, зависит от кодировки - sys.getdefaultencoding())
 \end{itemize}
 \begin{lstlisting}
 	1 > "d" # False

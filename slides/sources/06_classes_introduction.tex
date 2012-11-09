@@ -82,6 +82,7 @@ $$
 Хранить данные и функции будем в словаре.
 
 \begin{lstlisting}
+    val = {'num':1, 'denom':2, 'add':add_rational}
     def add_rational(x, y):
         return  (x['num'] * y['denom'] + \
                  x['denom'] * y['num'], 
@@ -95,7 +96,6 @@ $$
                 'denom':denom, 
                 'add':add_rational, 
                 'div':div_rational}
-
 \end{lstlisting}
 \newpage
 
@@ -418,8 +418,8 @@ def print_list(lst):
 \begin{lstlisting}
     def compare(fname1, fname2):
         res = []
-        with open(fname1) as fd1:
-            with open(fname2) as fd2:
+        with open(fname1, "rb") as fd1:
+            with open(fname2, "rb") as fd2:
                 x1 = fd1.read(1)
                 x2 = fd2.read(1)
                 pos = 0
@@ -435,18 +435,23 @@ def print_list(lst):
 
 %-------------------------------------------------------------------------------
 \begin{center} Пример №2 \end{center}
-Необходимо сравненивать файлы посимвольно и возвращать массив отличающихся блоков
 \begin{lstlisting}
+    from itertools import izip
     def compare_streams(iter1, iter2, cmp, on_diff):
         it = enumerate(izip(iter1, iter2))
         for pos, (ch1, ch2) in it:
-            if cmp(x1, x2) != 0 :
+            if cmp(x1, x2) != 0 : 
                 on_diff(pos)
 
+    def fileiter(fd):
+        ch = fd.read(1)
+        while "" != ch:
+            yield ch
+            ch = fd.read(1)
     def compare_files(fname1, fname2):
         res = []
-        with open(fname1) as fd1:
-            with open(fname2) as fd2:
+        with open(fname1, "rb") as fd1:
+            with open(fname2, "rb") as fd2:
                 compare_streams(fd1, fd2, cmp, res.append)
         return res
 \end{lstlisting}
@@ -473,11 +478,11 @@ def print_list(lst):
     В первую очередь нас интересует вычислитель.
     (Пусть у нас уже есть синтаксический анализатор выражения - функция parse).
 \begin{lstlisting}
-    expression = "1 + 2 + ( 4 - 3 )"
+    expression = "1 + 2 + (4 - 3)"
     #pexpr = parse(expression)
     pexpr  = ('+', 
                  ('+', 1, 2), 
-                 ('-', 3 , 4))
+                 ('-', 4, 3))
 \end{lstlisting}
     \begin{center} \includegraphics{images/parse_tree.eps} \end{center}     
 \newpage
