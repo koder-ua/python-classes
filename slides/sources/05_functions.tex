@@ -26,12 +26,6 @@
 
 %-------------------------------------------------------------------------------
 \begin{center} Функции: области видимости \end{center}
-\begin{itemize}
-    \item Все имена в функции при компиляции делатся на глобальные и локальные.
-    \item Параметры и имена, которым где-либо производится присваивание, - локальные.
-          Остальные - глобальные. На основании этого производится поиск во время исполнения.
-\end{itemize}
-\vspace{15pt}
 \begin{lstlisting}
     def add(param1, param2):
         "returns sum of two objects"
@@ -42,11 +36,7 @@
     print result # error
     print add(2, "3") # error
     print add("2", "3") #"23"
-\end{lstlisting}
-\newpage
 
-\vspace{15pt}
-\begin{lstlisting}
     help(add)
     
     # Help on function add in module __main__:
@@ -60,7 +50,11 @@
 
 %-------------------------------------------------------------------------------
 \begin{center} Функции: области видимости \end{center}
-\vspace{15pt}
+\begin{itemize}
+    \item Все имена в функции при компиляции делатся на глобальные и локальные.
+    \item Параметры и имена, которым где-либо производится присваивание, - локальные.
+          Остальные - глобальные. На основании этого производится поиск во время исполнения.
+\end{itemize}
 \begin{lstlisting}
     def add_gv(val):
         return val + GLOBAL_VAR
@@ -118,7 +112,7 @@
 \vspace{15pt}
 \begin{lstlisting}
     def f3(a, *args):
-        print a, b
+        print a, args
 
     print f3(1) # 1 ()
     print f3(1, 2) # 1 (2,)
@@ -139,7 +133,7 @@
 \vspace{15pt}
 \begin{lstlisting}
     def x(a, **kwargs):
-        print a, b
+        print a, kwargs
 
     x(2) => 2, {}
     x(2, 1) => error
@@ -187,7 +181,6 @@
 
 %-------------------------------------------------------------------------------
 \begin{center} lambda \end{center}
-
 \begin{itemize}
     \item Способ сделать функцию из выражения
     \item \lstinline!func = lambda x : x + 2!

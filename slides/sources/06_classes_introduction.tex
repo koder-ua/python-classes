@@ -77,10 +77,49 @@ $$
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Вариант №3 \end{center}
-Передавать в mean вместе с данными функции для сложения и деления.
-Хранить данные и функции будем в словаре.
+\begin{center} Среднее. Вариант №3 \end{center}
+Передавать соответствующие функции снаружи.
+\begin{lstlisting}
+    val = (1, 2)
+    div_int = lambda val, div: val / div
+    div_r   = lambda val, div: (val[0], val[1] * div)
+    add_int = lambda val1, val2: val1 + val2
+    def add_r(val1, val2):
+        n1, d1 = val1
+        n2, d2 = val2
+        return (n1 * d2 + d1 * n2, d1 * d2)
 
+    add_ir = lambda val1, val2: add_r((val1, 1), val2)
+    add_ri = lambda val1, val2: add_ir(val2, val1)
+    div = {int: div_int, list: div_rational}
+
+    add = {(int, int): add_int, 
+           (list, list): add_rational,
+           (list, int): add_rational_int,
+           (int, list): add_int_rational}
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Среднее. Вариант №3 \end{center}
+\begin{lstlisting}
+    def mean(numbers, add_funcs, div_funcs):
+        res = numbers[0]
+        for num in numbers[1:]:
+            res = add_funcs[(type(res), type(num))](res, num)
+        return div_funcs[type(res)](res, len(numbers))
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Вариант №3 анализ \end{center}
+Приходится передавать дополнительно много параметров. Проблема будет только 
+усиливаться для сложных функций. Решение - привязять обработчики к данным.
+Хранить данные и функции будем в словаре.
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Вариант №4 \end{center}
 \begin{lstlisting}
     val = {'num':1, 'denom':2, 'add':add_rational}
     def add_rational(x, y):
@@ -100,7 +139,7 @@ $$
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Вариант №3 \end{center}
+\begin{center} Вариант №4 \end{center}
 \begin{lstlisting}
     def mean(numbers):
         if isinstance(numbers[0], int):
@@ -174,7 +213,7 @@ $$
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Среднее. Вариант №4 \end{center}
+\begin{center} Среднее. Вариант №5 \end{center}
 \begin{lstlisting}
     RN = {'add': add_rational, 
           'sub': sub_rational,
@@ -193,7 +232,7 @@ $$
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center}  Среднее. Вариант №4  \end{center}
+\begin{center}  Среднее. Вариант №5 \end{center}
 \begin{lstlisting}
     def mean(numbers):
         if isinstance(numbers[0], int):
@@ -480,9 +519,7 @@ def print_list(lst):
 \begin{lstlisting}
     expression = "1 + 2 + (4 - 3)"
     #pexpr = parse(expression)
-    pexpr  = ('+', 
-                 ('+', 1, 2), 
-                 ('-', 4, 3))
+    pexpr  = ((1, '+', 2), '+', (4, '-', 3))
 \end{lstlisting}
     \begin{center} \includegraphics{images/parse_tree.eps} \end{center}     
 \newpage

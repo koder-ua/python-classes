@@ -1,11 +1,18 @@
+% python classes slides - modules and packages
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
 \documentclass{article}
 \input{files/lectures_env}
+\input{files/python_cmds}
 
 \begin{document}
 \LARGE
 
 %-------------------------------------------------------------------------------
-\center{Модули}
+\begin{center} Модули \end{center}
 \begin{itemize}
 	\item python файлы в папке с текущим модулем или в sys.path
 	\item .py => \{.pyc, .pyo\}
@@ -20,9 +27,7 @@
 \newpage
 
 %-------------------------------------------------------------------------------
-\center{Пример модуля - mod.py}
-{
-\LARGE \vspace{15pt}
+\begin{center} Пример модуля - mod.py \end{center}
 \begin{lstlisting}
 	__all__ = ["some_val", "func"]
 	
@@ -31,33 +36,27 @@
 	def func(x):
 		return x + some_val
 \end{lstlisting}
-}
 
-\center{Использование}
-{
-\LARGE \vspace{15pt}
+\begin{center} Использование \end{center}
 \begin{lstlisting}
 	from mod import some_val, func
 
 	print func(1)
 \end{lstlisting}
-}
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{itemize}
-\item sys.path
-\item sys.modules
-\item \_\_import\_\_
-\item importlib.import\_module
-\item imp
+	\item sys.path
+	\item sys.modules
+	\item \_\_import\_\_
+	\item importlib.import\_module
+	\item imp
 \end{itemize}
 \newpage
-%-------------------------------------------------------------------------------
 
-\center{\_\_import\_\_}
-{
-\LARGE \vspace{15pt}
+%-------------------------------------------------------------------------------
+\begin{center} \_\_import\_\_ \end{center}
 \begin{lstlisting}
 	fc = open(module_file_path).read()
 	module_code = compile(fc, module_file, "exec")
@@ -66,28 +65,24 @@
 	sys.modules[module_name] = ModuleObject(loc)
 	func = loc['func']
 \end{lstlisting}
-}
 \newpage
 
 %-------------------------------------------------------------------------------
-\center{Подмена модуля}
-{
-\LARGE \vspace{15pt}
+\begin{center} Подмена модуля \end{center}
 \begin{lstlisting}
-class SomeClass(object):
-	def m(self):
-		return 1
+	class SomeClass(object):
+		def m(self):
+			return 1
 
-sys.modules['mod'] = SomeClass()
-from mod import m
+	sys.modules['mod'] = SomeClass()
+	from mod import m
 
-print m() # 1
+	print m() # 1
 \end{lstlisting}
-}
-
 \newpage
+
 %-------------------------------------------------------------------------------
-% \center{Пакеты}
+% \begin{center} Пакеты \end{center}
 % \begin{verbatim}
 % xml\
 % 	__init__.py
@@ -108,7 +103,7 @@ print m() # 1
 % \newpage
 
 %-------------------------------------------------------------------------------
-\center{Пакеты}
+\begin{center} Пакеты \end{center}
 \begin{itemize}
 	\item \lstinline!import xml! => xml/\_\_init\_\_.py
 	\item \lstinline!import xml.expat! => xml/expat/\_\_init\_\_.py
@@ -118,33 +113,28 @@ print m() # 1
 \newpage
 
 %-------------------------------------------------------------------------------
-\center{}
+\begin{center} Специальные атрибуты \end{center}
 \begin{itemize}
 	\item \_\_autor\_\_
 	\item \_\_name\_\_
 	\item \_\_doc\_\_
 \end{itemize}
 
-{
-\LARGE \vspace{15pt}
 \begin{lstlisting}
-import sys
+	import sys
 
-def main(argv=None):
-	argv = argv if args is not None else sys.argv
-	...
-	return code
+	def main(argv=None):
+		argv = argv if args is not None else sys.argv
+		...
+		return code
 
-if __name__ == "__main__":
-	sys.exit(main())
-
+	if __name__ == "__main__":
+		sys.exit(main())
 \end{lstlisting}
-}
-
 \newpage
 
 %-------------------------------------------------------------------------------
-\center{}
+\begin{center} Исполнение модуля \end{center}
 \begin{itemize}
 	\item python -m ....
 \end{itemize}

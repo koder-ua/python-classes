@@ -469,7 +469,24 @@
 
 %-------------------------------------------------------------------------------
 \begin{center}Классы/объекты внутри\end{center}
-\_\_dict\_\_, \_\_class\_\_, \_\_mro\_\_
+\begin{itemize}
+    \item \_\_dict\_\_
+    \item \_\_class\_\_
+    \item \_\_mro\_\_
+\end{itemize}
+\begin{lstlisting}
+    class A(object):
+        pass
+
+    class B(A):
+        pass
+
+    a = A()
+    a.x = 12
+    a.__class__ is A
+    a.__dict__ == {'x': 12}
+    B.__mro__ == (B, A, object)
+\end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -495,6 +512,11 @@ property. ДЗ \_\_get\_\_, \_\_set\_\_, \_\_del\_\_
     \item \lstinline!__iadd__(self, obj) #  self += obj!
     \item \lstinline!__int__(self) # int(self)!
 \end{itemize}
+\begin{lstlisting}
+    a + b == a.__add__(b)
+    a + b == b.__radd__(a)
+    -a == a.__neg__()
+\end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
