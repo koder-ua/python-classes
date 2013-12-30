@@ -34,6 +34,12 @@
 	\item Блоки это не области видимости переменных. Переменные видны и после выхода из блока
 	\item \lstinline$pass$ – пустой блок
 \end{itemize}
+\vspace{15pt}
+\begin{lstlisting}
+	Some_contruction:
+		y = 2
+	print y # ok		
+\end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -84,12 +90,19 @@
 	while condition:
 		pass # executed while condition is true
 	else:
-		pass # if no error or break in body
+		pass # if no exception or break in body
 
 	x = 1
 	while x < 100:
 		print x, "less than 100"
 		x *= 2
+
+	while x < 100:
+		if x ** 2 == 13:
+			break  # found square root of 13
+	else:
+		x = None
+		print "13 have no integer square root"
 \end{lstlisting}
 \newpage
 
@@ -100,7 +113,7 @@
 	for x in iterable:
 		func(x) # for each element in iterable
 	else:
-		pass # if no error or break in body
+		pass # if no exception or break in body
 
 	sum = 0
 	for x in range(100):
@@ -110,37 +123,6 @@
 	for i in range(n): # xrange(n)
 	    pass
 
-	n = 121213
-
-    dividers = []
-    while n > 3:
-        for divider in range(2, int(n ** 0.5) + 1):
-            if n % divider == 0:
-                break
-        else:
-            break
-        n //= divider
-        dividers.append(divider)
-
-    if n != 1:
-    	dividers.append(n)
-\end{lstlisting}
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center} for undercover \end{center}
-\vspace{15pt}
-\begin{lstlisting}
-	for x in container:
-	    f(x)
-
-	# some times equal to
-
-	_tmp = 0
-	while _tmp < len(container):
-	    x = container[_tmp]
-	    f(x)
-	    _tmp += 1
 \end{lstlisting}
 \newpage
 
@@ -156,9 +138,9 @@
 \begin{center} Нет \end{center}
 \begin{itemize}
 	\item goto 
-	\item switch + case 
+	\item switch + case PEP-3103
 	\item until 
-	\item do{}while, do{}until
+	\item do + while, do + until
 \end{itemize}
 \newpage
 
@@ -166,23 +148,28 @@
 \begin{center} with \end{center}
 \vspace{15pt}
 \begin{lstlisting}
+	with expr1 as var1, expr2 as var2, ...:
+		block
+
 	with expression as var:
 		block
 
-	# mostly the same as
-	
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} with undercover \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+	with expression as var:
+		block
+
 	var = expression
 	var.__enter__()
-	
-	block
-	
-	if error_happened:
-		if var.__exit__(error_data):
-			# pass_error_further
-		else:
-			# supress_error
-	else:
-		var.__exit__()
+	try:
+		block
+	finally:
+		var.__exit__(exception_info)
 \end{lstlisting}
 \newpage
 
@@ -208,17 +195,33 @@
 %-------------------------------------------------------------------------------
 \begin{center} List comprehension \end{center}
 \vspace{15pt}
+\begin{itemize}
+	\item Фильтрация и преобразование элементов контейнера
+\end{itemize}
 \begin{lstlisting}
 	res = [func(i) for i in some_iter if func2(i)]
 
-	res = ["{:.2f}".format(i ** 0.5) 
-				for i in [-1, 0, 1, 2, 3] 
-					if i >= 0]
-	
-	res == ['0.00', '1.00', '1.41', '1.73']
+	data = [-1, -2, -3, 1 , 2, 3, 4]
 
-	res = [(i + 0j) ** 0.5 for i in [-1, 0 ,1, 2, 3]]
+	print [x ** 0.5 for x in data if x >= 0]
+
+	# [1.0, 1.41.., 1.73.., 2.0]
+
 	res = {func(i) for i in some_iter if func2(i)}
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} List comprehension \end{center}
+\begin{lstlisting}
+	# set 
+	res = {x ** 0.5 for x in data if x >= 0}
+
+	# dict
+	res = {x:x ** 0.5 for x in data if x >= 0}
+
+	# generator
+	res = {x ** 0.5 for x in xrange(1000000) if x >= 0}
 \end{lstlisting}
 \newpage
 

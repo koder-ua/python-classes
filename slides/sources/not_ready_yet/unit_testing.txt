@@ -1,0 +1,135 @@
+%-------------------------------------------------------------------------------
+
+Юнит-тестирование. unittest
+
+* http://pycheesecake.org/wiki/PythonTestingToolsTaxonomy
+* assert condition
+* unittest
+* Фильтрация тестов, автопоиск, etc
+* assertEqual, assertIn, assertRaises, assertAlmostEqual, 
+	assertDictContainsSubset, ..
+
+* python -m unittest test_module1 test_module2
+* python -m unittest test_module.TestClass
+* python -m unittest test_module.TestClass.test_method
+* python -m unittest discover project_directory '*_test.py'
+
+%-------------------------------------------------------------------------------
+import unittest
+
+class DefaultWidgetSizeTestCase(unittest.TestCase):
+    def setUp(self):
+        self.widget = Widget('The widget')
+
+    def runTest(self):
+    	assert self.widget.size() == (50, 50), "incorrect default size"
+        self.assertEqual(self.widget.size(), \
+        	(50, 50), "incorrect default size")
+
+    def tearDown(self):
+        self.widget.dispose()
+        self.widget = None
+
+if __name__ == '__main__':
+	unittest.main()
+
+%-------------------------------------------------------------------------------
+nose
+
+Автопоиск и исполнение тестов, плагины 
+		(coverage, исполнение тестов в отдельных процессах)
+Юнит тесты в функциях
+
+from nose.tools import eq_
+
+# test_some.py
+def test1():
+	"test, that 1 == 2"
+	assert 1 == 2
+	eq_(1, 2)
+
+%-------------------------------------------------------------------------------
+Юнит-тестирование. oktest
+
+* py.test (pytest)
+* oktest 
+
+from oktest import ok
+
+def test_func():
+	ok (s) == 'foo'
+	ok (s) != 'foo'
+	ok (n) > 0     
+	ok (fn).raises(Error)
+	ok ([]).is_a(list)
+
+%-------------------------------------------------------------------------------
+mock
+
+import mock
+
+mock = mock.Mock()
+mock.method(1, 2, 3, test='wow')
+mock.called == True
+mock.method.assert_called_with(1, 2, 3, test='wow')
+
+attrs = {'method.return_value': 3, \
+		 'other.side_effect': KeyError}
+mock.configure_mock(**attrs)
+mock.method() == 3
+mock.other() # KeyError raised
+
+%-------------------------------------------------------------------------------
+mock
+
+from mock import patch
+
+class Class(object):
+	def method(self):
+		pass
+
+with patch('__main__.Class') as MockClass:
+	instance = MockClass.return_value
+	instance.method.return_value = 'foo'
+	assert Class() is instance
+	assert Class().method() == 'foo'
+
+@patch.object(SomeClass, 'class_method')
+def test(mock_method):
+	SomeClass.class_method(3)
+	mock_method.assert_called_with(3)
+	test()
+
+@patch('__main__.SomeClass')
+def function(mock_class):
+    print mock_class is SomeClass # >> True
+
+%-------------------------------------------------------------------------------
+ludibrio
+
+from ludibrio import Mock
+
+with Mock() as MySQLdb:
+	con = MySQLdb.connect('server', 'user', 'XXXX')
+	con.select_db('DB') >> None
+	cursor = con.cursor()
+	cursor.execute('select * from numbers') >> None
+	cursor.fetchall() >> [1,2,3,4,5]
+
+con = MySQLdb.connect('server', 'user', 'XXXX')
+con.select_db('DB')
+cursor = con.cursor()
+cursor.execute('select * from numbers')
+cursor.fetchall() == [1, 2, 3, 4, 5]
+
+MySQLdb.validate()
+
+%-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+

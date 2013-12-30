@@ -1,0 +1,8 @@
+1) Concurrency vs parallelism
+2) Python has no parallelism
+3) GIL
+4) demo. scala demo
+5) Python threads aren't for speed up CPU bounded tasks
+6) Python threads are for IO bounded tasks and for time slicing
+7) 
+

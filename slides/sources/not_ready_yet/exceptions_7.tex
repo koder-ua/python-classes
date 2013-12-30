@@ -48,9 +48,9 @@
 %-------------------------------------------------------------------------------
 \begin{center} Решение \end{center}
 \begin{itemize}
-	\item Возвращать из каждой функции пару (is_ok, result)
-	\item Превратить return res в return (True, res)
-	\item Превратить return err в return (False, res)
+	\item Возвращать из каждой функции тройку (is_ok, tb, result)
+	\item Превратить return res в return (True, [], res)
+	\item Превратить return err в return (False, [fname], err_info)
 	\item Проверять на выходе из каждой функции результат
 	\item Что-бы информация имела смысл - дописывать текущую точку
 \end{itemize}
@@ -60,14 +60,14 @@
 \begin{lstlisting}
 	def do_some_work(name, vals):
 		if not isinstance(name, basestring):
-			return (False, "name should be a string", ["do_some_work"])
+			return (False, ["do_some_work"], "name should be a string")
 		#......
-		return (True, res, None)
+		return (True, None, res)
 
 	def f2():
 		is_ok, res, stack = do_some_work("1231", [1, 2])
 		if not is_ok:
-			return (False, res, stack + ["f2"])
+			return (False, stack + ["f2"], res)
 		.....
 \end{lstlisting}
 \newpage

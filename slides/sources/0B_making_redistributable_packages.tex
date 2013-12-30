@@ -1,0 +1,114 @@
+% python classes slides - redistributable packages
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Chronology Of Packaging \end{center}
+    slides from \href{http://ziade.org/2012/11/17/chronology-of-packaging/}
+                        {Tarek Ziade - Chronology Of Packaging}
+    \includegraphics[scale=1.0]{images/packaging-history-part1.png}\\
+    \includegraphics[scale=1.0]{images/packaging-history-part2.png}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} pypi \end{center}
+crate.io
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \href{http://pypi.python.org/pypi/modern-package-template/1.0}
+                    {modern-package-template} \end{center}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} distutils \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} distribute \end{center}
+\newpage 
+
+%-------------------------------------------------------------------------------
+\begin{center} easy_install/pip \end{center}
+\newpage 
+
+%-------------------------------------------------------------------------------
+\begin{center} C Python Extension \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} PyCXX \end{center}
+\begin{lstlisting}
+    d = {}
+    d["a"] = 1
+    d["b"] = 2
+    alist = d.keys()
+    print alist
+\end{lstlisting}
+\lstset{language=C++}
+\begin{lstlisting}
+    Py::Dict d;
+    Py::List alist;
+    d["a"] = Py::Long(1);
+    d["b"] = Py::Long(2);
+    alist = d.keys();
+    std::cout << alist << std::endl;
+\end{lstlisting}
+\lstset{language=python}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} boost.python \end{center}
+\lstset{language=C++}
+\begin{lstlisting}
+    #include <boost/python.hpp>
+
+    char const* greet()
+    {
+       return "hello, world";
+    }
+
+    BOOST_PYTHON_MODULE(hello_ext)
+    {
+        using namespace boost::python;
+        def("greet", greet);
+    }
+\end{lstlisting}
+\lstset{language=python}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} SWIG/SIP/...... \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} ctypes \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} cffi \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \href{http://www.cython.org/}{Cython} \end{center}
+\begin{itemize}
+    \item Форк \href{http://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/}{Pyrex}
+    \item Позволяет смешивать python и C код в одном файле/функции/классе
+    \item Компилирует полученный модуль в расширение для python
+    \item Чем больше информации о типах - тем выше скорость исполнения
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+\end{document}

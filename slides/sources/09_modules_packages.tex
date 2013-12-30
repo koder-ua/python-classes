@@ -1,0 +1,237 @@
+% python classes slides - modules and packages
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Модули \end{center}
+\begin{itemize}
+    \item python файлы в папке с текущим модулем или в sys.path
+    \item .py => \{.pyc, .pyo\}
+    \item .pyo = .pyc - asserts
+    \item .pyd / .so
+    \item \lstinline!import mod_name!
+    \item \lstinline!import mod_name as new_name!
+    \item \lstinline!from mod_name import obj_name, obj_name2!
+    \item \lstinline!from mod_name import obj_name as obj_name2!
+    \item \lstinline!from mod_name import *! все кроме \_.* или все из \lstinline!__all__!
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Модули \end{center}
+\begin{lstlisting}
+    import mod_name 
+    # ===
+    mod_name = __import__('mod_name')
+
+    import mod_name as new_name 
+    # ===  
+    new_name = __import__('mod_name')
+
+    from mod_name import some_name 
+    # ===  
+    __mod_name = __import__('mod_name')
+    some_name = getattr(__mod_name, 'some_name')
+    del __mod_name
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пример модуля - mod.py \end{center}
+\begin{lstlisting}
+    __all__ = ["some_val", "func"]
+    
+    some_val = 16
+    internal_data = 1
+
+    def func(x):
+        return x + some_val
+\end{lstlisting}
+
+\begin{center} Использование \end{center}
+\begin{lstlisting}
+    from mod import some_val, func
+    print func(1)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пакеты \end{center}
+\Large
+\begin{verbatim}
+    xml/
+        __init__.py
+        parsers/
+            __init__.py
+            expat/
+                __init__.py
+                bindings.py
+            ...
+        dom/
+            __init__.py
+            minidom.py
+            ...
+        sax/
+            __init__.py
+            saxutils.py
+            ...
+        etree/
+            __init__.py
+            ElementTree.py
+            ....
+\end{verbatim}
+\newpage
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Пакеты \end{center}
+\begin{itemize}
+    \item \lstinline!import xml! => xml/\_\_init\_\_.py
+    \item \lstinline!import xml.expat! => xml/expat/\_\_init\_\_.py
+    \item \lstinline!import xml.expat! приводит к появлению имени 'xml' c атрибутом 'expat'
+    \item \lstinline!import xml.etree.ElementTree! => xml/expat/ElementTree.py
+    \item Пакет имеет приоритет над модулем при импорте
+    \item \_\_init\_\_.py часто служит для внешнего API пакета
+    %\item Циклические импорты
+    %\item Новые пакеты в 3.3
+    %\item package.\_\_path\_\_
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пакеты - \_\_init\_\_.py \end{center}
+\begin{lstlisting}
+    # __init__.py
+    from some_module1 import api_func_1
+    from some_module2 import api_func_2
+    from some_module3 import ApiClass
+    # ...
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Циклические импорты \end{center}
+
+%-------------------------------------------------------------------------------
+\begin{center} sys.path \end{center}
+\begin{itemize}
+    \item Модифицируемый список всех папок, в которых происходит поиск модулей и пакетов
+    \item Со старта наполняется из :
+    \begin{itemize}
+    	\item встроенных в питон при компиляции настроек
+    	\item PYTHONPATH
+        \item реестра
+        \item xxx.pth
+    \end{itemize}
+    \item Может содержать не только директории, при этом python использует
+          пользовательские загрузчики для модулей
+    \item По умолчанию поддерживается импорт из zip архивов
+\end{itemize}
+
+\begin{lstlisting}
+    import sys
+    sys.path.append(SOME_DIR)
+    import module_in_SOME_DIR
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} sys.modules \end{center}
+\begin{itemize}
+    \item Словарь, содержащий отображения имени модуля на объект-модуль.
+    \item import сначала ищет объект по имени в этом словаре, потом вызывает импорт
+    \item \lstinline!mod = reload(mod)! перегружает модуль
+    \item при этом все создается новый объект-модуль, но старый не удаляется
+    \item уже созданные объекты остаются связанными со старым модулем
+\end{itemize}
+\begin{lstlisting}
+    sys.modules = {
+        # ...
+        'ast': <module 'ast' from '/usr/lib/python2.7/ast.pyc'>,
+         'atexit': <module 'atexit' from '/usr/lib/python2.7/atexit.pyc'>,
+         'base64': <module 'base64' from '/usr/lib/python2.7/base64.pyc'>,
+         'bdb': <module 'bdb' from '/usr/lib/python2.7/bdb.pyc'>,
+         'binascii': <module 'binascii' (built-in)>,
+         # ...
+    }
+\end{lstlisting}
+\newpage  
+    
+%-------------------------------------------------------------------------------
+\begin{center} \_\_import\_\_ \end{center}
+\begin{lstlisting}
+    fc = open(module_file_path).read()
+    module_code = compile(fc, module_file, "exec")
+    loc = {}
+    eval(module_code, loc)
+    sys.modules[module_name] = ModuleObject(loc)
+    func = loc['func']
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Подмена модуля \end{center}
+\begin{lstlisting}
+    class SomeClass(object):
+        def m(self):
+            return 1
+
+    sys.modules['mod'] = SomeClass()
+    from mod import m
+
+    print m() # 1
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Специальные атрибуты \end{center}
+\begin{itemize}
+    \item \_\_autor\_\_
+    \item \_\_name\_\_
+    \item \_\_doc\_\_
+    \item \_\_file\_\_
+    \item \_\_name\_\_
+\end{itemize}
+
+\begin{lstlisting}
+    import sys
+
+    def main(argv=None):
+        argv = argv if args is not None else sys.argv
+        ...
+        return code
+
+    if __name__ == "__main__":
+        sys.exit(main())
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Исполнение модуля \end{center}
+\begin{itemize}
+    \item python -m ....
+    \item python -m timeit -h
+    \item python -m timeit -s "a=b=1" "a+b"
+    \item исполн
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}
+
+
+
+
+
+
+
+

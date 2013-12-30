@@ -1,0 +1,180 @@
+python файлы в папке с текущим модулем или в sys.path
+.py => {.pyc, .pyo}
+.pyo = .pyc - asserts
+.pyd / .so
+
+import mod_name
+import mod_name as new_name
+
+from mod_name import obj_name, obj_name2
+from mod_name import obj_name as obj_name2
+from mod_name import * # все кроме _.* или все из __all__
+
+
+%-------------------------------------------------------------------------------
+import mod_name 
+==
+mod_name = __import__('mod_name')
+
+import mod_name as new_name 
+==  
+new_name = __import__('mod_name')
+
+from mod_name import some_name 
+==  
+
+__mod_name = __import__('mod_name')
+some_name = getattr(__mod_name, 'some_name')
+del __mod_name
+
+%-------------------------------------------------------------------------------
+# mod.py
+__all__ = ["some_val", "func"]
+
+some_val = 16
+internal_data = 1
+
+def func(x):
+    return x + some_val
+
+
+from mod import some_val, func
+print func(1)
+
+%-------------------------------------------------------------------------------
+Пакеты
+xml/
+    __init__.py
+    parsers/
+        __init__.py
+        expat/
+            __init__.py
+            bindings.py
+        ...
+    dom/
+        __init__.py
+        minidom.py
+        ...
+    sax/
+        __init__.py
+        saxutils.py
+        ...
+    etree/
+        __init__.py
+        ElementTree.py
+        ....
+
+%-------------------------------------------------------------------------------
+import xml => xml/__init__.py
+import xml.expat => xml/expat/__init__.py
+import xml.expat приводит к появлению имени 'xml' c атрибутом 'expat'
+import xml.etree.ElementTree => xml/expat/ElementTree.py
+Пакет имеет приоритет над модулем при импорте
+__init__.py часто служит для внешнего API пакета
+Циклические импорты
+
+%-------------------------------------------------------------------------------
+__init__.py
+from some_module1 import api_func_1
+from some_module2 import api_func_2
+from some_module3 import ApiClass
+
+%-------------------------------------------------------------------------------
+Циклические импорты
+
+%-------------------------------------------------------------------------------
+sys.path
+
+Модифицируемый список всех папок, в которых происходит поиск модулей и пакетов
+Со старта наполняется из :
+	встроенных в питон при компиляции настроек
+    PYTHONPATH
+    реестра
+    xxx.pth
+
+Может содержать не только директории, при этом python использует
+      пользовательские загрузчики для модулей
+По умолчанию поддерживается импорт из zip архивов
+
+
+import sys
+sys.path.append(SOME_DIR)
+import module_in_SOME_DIR
+
+%-------------------------------------------------------------------------------
+sys.modules
+
+Словарь, содержащий отображения имени модуля на объект-модуль.
+import сначала ищет объект по имени в этом словаре, потом вызывает импорт
+mod = reload(mod) - перегружает модуль
+При этом все создается новый объект-модуль, но старый не удаляется
+   уже созданные объекты остаются связанными со старым модулем
+
+
+sys.modules = {
+    # ...
+    'ast': <module 'ast' from '/usr/lib/python2.7/ast.pyc'>,
+     'atexit': <module 'atexit' from '/usr/lib/python2.7/atexit.pyc'>,
+     'base64': <module 'base64' from '/usr/lib/python2.7/base64.pyc'>,
+     'bdb': <module 'bdb' from '/usr/lib/python2.7/bdb.pyc'>,
+     'binascii': <module 'binascii' (built-in)>,
+     # ...
+}
+    
+%-------------------------------------------------------------------------------
+__import__
+
+from module import func
+
+fc = open(module_file_path).read()
+module_code = compile(fc, module_file, "exec")
+loc = {}
+eval(module_code, loc)
+sys.modules[module_name] = ModuleObject(loc)
+func = loc['func']
+
+%-------------------------------------------------------------------------------
+Подмена модуля
+
+class SomeClass(object):
+    def m(self):
+        return 1
+
+sys.modules['mod'] = SomeClass()
+from mod import m
+
+print m() # 1
+
+%-------------------------------------------------------------------------------
+Специальные атрибуты
+__autor__
+__name__
+__doc__
+__file__
+__name__
+
+import sys
+
+def main(argv=None):
+    argv = argv if args is not None else sys.argv
+    ...
+    return code
+
+if __name__ == "__main__":
+    sys.exit(main())
+
+%-------------------------------------------------------------------------------
+Исполнение модуля
+
+
+python -m ....
+python -m timeit -h
+python -m timeit -s "a=b=1" "a+b"
+
+
+
+
+
+
+
+

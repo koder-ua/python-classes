@@ -48,7 +48,7 @@
 \begin{itemize}
 	\item Возвращать из каждой функции тройку (is\_ok, stack, result)
 	\item Превратить return res в return (True, None, res)
-	\item Превратить return err в return (False, [curr\_func\_name], res)
+	\item Превратить return err в return (False, [curr\_func\_name], err_description)
 	\item В обработчиках ошибок нужно фильтровать ошибки по типу
 	\item Проверять на выходе из каждой функции результат
 	\item Если не проверить ошибку, то проблема 
@@ -62,10 +62,10 @@
 		if not isinstance(name, basestring):
 			return (False, ["do_some_work"], "name should be a string")
 		#......
-		return (True, res, None)
+		return (True, None, res)
 
 	def f2():
-		is_ok, res, stack = do_some_work("1231", [1, 2])
+		is_ok, stack, res = do_some_work("1231", [1, 2])
 		if not is_ok:
 			return (False, stack + ["f2"], res)
 		.....
@@ -76,8 +76,8 @@
 \begin{center} Еще проблемы \end{center}
 \begin{itemize}
 	\item Загрязняет код
-	\item Для каждого вызова отдельная строка и свои if
-	\item Такие ошибки часто не проверяют (printf)
+	\item Для каждого вызова отдельная строка и свой if
+	\item Такие ошибки часто не проверяются (printf)
 	\item
 	\item Вспомагательный код очень простой - его 
 		  генерацию можно переложить на компилятор
@@ -94,18 +94,19 @@
 	def x1(a, b):
 		if 0 == b:
 			return (False, 
-					ZeroDiv, 
-				    ["x1"])
+				    ["x1"],
+				    ZeroDiv)
 
 	def x2(a, b):
 		print a,b
 		ok, res, stack = x1(a, b)
 		if not ok:
-			return (False, res, 
+			return (False, 
 					stack + \
-					  ['x2'])
+					["x2"],
+					res)
 
-	ok, res, stack = x1(a, b)
+	ok, stack, res = x1(a, b)
 	if not ok and res is ZeroDiv:
 		#process
 \end{lstlisting}
@@ -167,7 +168,6 @@
 		block5
 	finally:
 		block4
-
 \end{lstlisting}
 \newpage
 
@@ -230,7 +230,7 @@
 	\item \lstinline!raise ExceptionType(....)! порождает исключение
 	\item \lstinline!ExceptionType! должно наследовать \lstinline!Exception!
 	\item \lstinline!raise! без параметров разрешено только в блоке except. 
-		Оно повторно выбрасывает исключение, которое сейчас обрабатывается
+		При этом повторно выбрасывается текущее исключение
 \end{itemize}
 \begin{lstlisting}
 	try:
@@ -266,10 +266,27 @@
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Проблемы исключений \end{center}
+\begin{center} Гарантии безопасности исключений \end{center}
+\begin{lstlisting}
+	class TimedCallbackStack(object):
+		def __init__(self, tf):
+			self.cb_list = []
+			self.tf = tf
+			self.sum_time = 0.0
+
+		def pop_and_exec(self):
+			func = self.cb_list.pop()
+			t = self.tf()
+			res = func()
+			self.sum_time += self.tf() - t
+			return res
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------
+\begin{center} Другие проблемы исключений \end{center}
 \begin{itemize}
 	\item Выполнение функции может прерваться в любой точке - нужно работать со всеми ресурсами
-	      через try/finally или, лучше через with
+	      через try/finally или, лучше через with.
 	\item try/finally/with делают из линейного кода вложенный
 	\item Для не локальных объектов все печально
 	\item Все равно нужно помнить какие исключения порождает конкретная функция
