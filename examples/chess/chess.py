@@ -392,7 +392,7 @@ if __name__ == "__main__":
     board = Board(knorre_vs_neumann())
 
     t = time.time()
-    for frm, to in get_next_step(board, "W", 2)[0]:
+    for frm, to in get_next_step(board, "W", 4)[0]:
         print to_str_pos(frm), to_str_pos(to)
     print time.time() - t
 
