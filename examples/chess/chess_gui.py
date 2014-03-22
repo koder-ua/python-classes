@@ -172,6 +172,13 @@ class Example(QtGui.QWidget):
             tp, move, hit = piece.full_name(), self.board.get_all_moves(piece), self.board.get_all_hits(piece)
 
             if piece.pos == self.active_cell:
+                hit = list(hit)
+                move = list(move)
+                #print "hit =", hit
+
+                move = map(to_tuple_pos, move)
+                hit = map(to_tuple_pos, hit)
+
                 self.draw_piece(painter, piece.pos, tp, list(move), list(hit), True)                
             else:
                 self.draw_piece(painter, piece.pos, tp, "", "", False)

@@ -2,8 +2,8 @@ import time
 from abc import abstractmethod
 
 
-from chess_base import board_letters, to_str_pos, to_tuple_pos, get_all_scales
-from chess_base import is_valid_cell, rev_color, color_index, color_sig
+from chess_base import board_letters, to_str_pos, to_tuple_pos, get_all_iscales
+from chess_base import is_valid_icell, rev_color, color_index, color_sig, to_int_pos
 
 
 try:
@@ -21,12 +21,23 @@ class ChessPiece(object):
     precached_hits = {}
 
     def __init__(self, pos, color):
-        self.pos = to_tuple_pos(pos)
+        self.ipos = to_int_pos(pos)
         self.color = color
         self.cost = color_sig[self.color] * self.def_cost
+        self.eq_id = self.get_eq_id()
 
+    @property
+    def pos(self):
+        return to_tuple_pos(self.ipos)
+
+    @pos.setter
+    def pos(self, value):
+        self.ipos = to_int_pos(value)
+    
     def move(self, pos):
-        self.pos = to_tuple_pos(pos)
+        assert isinstance(pos, int)
+        self.ipos = pos
+        self.eq_id = self.get_eq_id()
 
     @abstractmethod
     def get_move_cells(self):
@@ -39,60 +50,75 @@ class ChessPiece(object):
         return self.move_cells()
 
     def move_cells(self):
-        eid = self.eq_id()
+        eid = self.eq_id
         res = self.precached_moves.get(eid)
         if res is None:
             res = self.get_move_cells()
             self.precached_moves[eid] = res
         return res
 
-    def eq_id(self):
-        return (self.name, self.pos)
+    def get_eq_id(self):
+        return (self.name, self.ipos)
 
     def full_name(self):
         return self.color + self.name
 
     def __str__(self):
-        return "{}({!r}, {!r})".format(self.__class__.__name__, self.pos, self.color)
+        return "{}({!r}, {!r})".format(
+                self.__class__.__name__, to_str_pos(self.pos), self.color)
 
     def __repr__(self):
         return str(self)
+
+get_x = lambda ip: ip // 16
+get_y = lambda ip: ip & 0x0F
 
 
 class Pawn(ChessPiece):
     name = "P"
     def_cost = 1
 
-    def eq_id(self):
-        return (self.name, self.pos, self.color)
+    move_vecs = {"W":(0x01, 1), "B":(-0x01, 6)}
+    hit_vecs = {"W":(0x11, 0x1 - 0x10), "B":(-0x10 - 0x01, 0x10 - 0x01)}
+
+    def __init__(self, pos, color):
+        super(Pawn, self).__init__(pos, color)
+        self.move_vec, self.double_move_cell = self.move_vecs[self.color]
+        self.hv1, self.hv2 = self.hit_vecs[self.color]
+
+    def get_eq_id(self):
+        return (self.name, self.ipos, self.color)
 
     def get_move_cells(self):
-        x, y = self.pos
-        if self.color == "W":
-            new_positions = [(x, y + 1)]
-            if y == 1:
-                new_positions.append((x, y + 2))
-        else:
-            new_positions = [(x, y - 1)]
-            if y == 6:
-                new_positions.append((x, y - 2))
-            
-        return [filter(is_valid_cell, new_positions)]
+        p1 = self.ipos + self.move_vec
+        res = []
+        if is_valid_icell(p1):
+            res.append(p1)
+
+        if get_y(self.ipos) == self.double_move_cell:
+            p1 += self.move_vec 
+            if is_valid_icell(p1):
+                res.append(p1)
+        return [res]
 
     def get_hit_cells(self):
-        x, y = self.pos
-        if self.color == "W":
-            new_positions = [(x + 1, y + 1), (x - 1, y + 1)]
-        else:
-            new_positions = [(x + 1, y - 1), (x - 1, y - 1)]
-        return [[i] for i in new_positions if is_valid_cell(i)]
+        p1 = self.ipos + self.hv1
+        res = []
+        if is_valid_icell(p1):
+            res.append([p1])
+
+        p2 = self.ipos + self.hv2
+        if is_valid_icell(p2):
+            res.append([p2])
+
+        #print self, to_str_pos(self.ipos), "=>", [to_str_pos(i[0]) for i in res]
+        return res
 
     def hit_cells(self):
-        eid = self.eq_id()
-        res = self.precached_hits.get(eid)
+        res = self.precached_hits.get(self.eq_id)
         if res is None:
             res = self.get_hit_cells()
-            self.precached_hits[eid] = res
+            self.precached_hits[self.eq_id] = res
         return res
 
 
@@ -100,31 +126,33 @@ class Knight(ChessPiece):
     name = "N"
     def_cost = 3
 
+    move_diffs = [to_int_pos((dx, dy)) 
+                    for dx in (-2, -1, 1, 2) 
+                        for dy in (3 - abs(dx), -3 + abs(dx))]
+
     def get_move_cells(self):
-        x, y = self.pos
-        for dx in (-2, -1, 1, 2):
-            for dy in (3 - abs(dx), -3 + abs(dx)):
-                np = (x + dx, y + dy)
-                if is_valid_cell(np):
-                    yield [np]
+        ip = self.ipos
+        ivp = is_valid_icell
+        return [[ip + diff] for diff in self.move_diffs if ivp(ip + diff)]
 
 
 class Bishop(ChessPiece):
     name = "B"
     def_cost = 3
-    vects = ((1, 1), (1, -1), (-1, 1), (-1, -1))
+
+    vects = [0x11, 0x0F, -0x0F, -0x11]
     
     def get_move_cells(self):
-        return get_all_scales(self.pos, self.vects)
+        return get_all_iscales(self.ipos, self.vects)
 
 
 class Rook(ChessPiece):
     name = "R"
     def_cost = 4
-    vects = ((1, 0), (-1, 0), (0, 1), (0, -1))
+    vects = [0x10, -0x10, 0x01, -0x01]
 
     def get_move_cells(self):
-        return get_all_scales(self.pos, self.vects)
+        return get_all_iscales(self.ipos, self.vects)
 
 
 class Queen(ChessPiece):
@@ -133,67 +161,39 @@ class Queen(ChessPiece):
     vects = Bishop.vects + Rook.vects
 
     def get_move_cells(self):
-        return get_all_scales(self.pos, self.vects)
+        return get_all_iscales(self.ipos, self.vects)
 
 
 class King(ChessPiece):
     name = "K"    
     def_cost = 1000000
 
-    def get_move_cells(self):
-        x, y = self.pos
-        new_positions = []
-        
-        for dx in (-1, 0, 1):
-            for dy in (-1, 0, 1):
-                if dx == 0 and dy == 0:
-                    continue
-                new_positions.append((x + dx, y + dy))
+    move_diffs = [to_int_pos((dx, dy)) 
+                    for dx in (-1, 0, 1) 
+                        for dy in (-1, 0, 1) 
+                            if dx * dy != 0]
 
-        return [[i] for i in new_positions if is_valid_cell(i)]
+    def get_move_cells(self):
+        return [[self.ipos + diff] 
+                    for diff in self.move_diffs 
+                        if is_valid_icell(self.ipos + diff)]
 
 
 def position_evaluate(board):
     return board.sum_cost
 
 
-@profile
-def filter_pieces(board, pos, piece_class, color, allowed_classes):
+def filter_pieces(board, pos, vec, allowed_classes):
+    get = board.const_get_func()
     
-    assert piece_class in allowed_classes
-
-    get = board.const_get_func()
-
-    for moves_list in piece_class(pos, color).move_cells():
-        pieces = []
-        for move in moves_list:
-            if get(move) is not None:
-                cp = get(move)
-
-                # Pawn hack
-                if piece_class is Bishop and isinstance(cp, Pawn) and cp.color == color:
-                    dx = -1 if cp.color == "W" else 1
-                    if move[0] - pos[0] == dx:
-                        pieces.append(cp)
-
-                if isinstance(cp, allowed_classes):
-                    pieces.append(cp)
-                else:
-                    break
-        yield pieces
-
-
-def filter_pieces2(board, pos, vec, allowed_classes):
-    dx, dy = vec
-    x, y = pos
-    get = board.const_get_func()
+    dy = get_y(vec)
+    dx = get_x(vec)
 
     for scale in range(1, 8):
-        nx = x + dx * scale
-        ny = y + dy * scale
+        npos = pos + vec * scale
 
-        if get((nx, ny)) is not None:
-            p = get((nx, ny))
+        if get(npos) is not None:
+            p = get(npos)
             if scale == 1:
                 if isinstance(p, Pawn) and dy != 0:
                     if p.color == "W" and dx == 1:
@@ -211,25 +211,27 @@ def filter_pieces2(board, pos, vec, allowed_classes):
                 return
 
 
-
 def all_pieces_can_hit(board, cell):
-    for pieces_list in filter_pieces(board, cell, Knight, "W", (Knight,)):
-        for p in pieces_list:
+    get = board.const_get_func()
+    for pos in Knight(cell, "W").hit_cells():
+        p = get(pos[0])
+        if isinstance(p, Knight):
             yield [p]
 
     for vec in Bishop.vects:
-        l = list(filter_pieces2(board, cell, vec, (Queen, Bishop)))
+        l = list(filter_pieces(board, cell, vec, (Queen, Bishop)))
         if l != []:
             yield l
 
     for vec in Rook.vects:
-        l = list(filter_pieces2(board, cell, vec, (Queen, Rook)))
+        l = list(filter_pieces(board, cell, vec, (Queen, Rook)))
         if l != []:
             yield l
 
 
 def hit_order(board, cell, start_color):
     lists = list(all_pieces_can_hit(board, cell))
+
     cost = 0
     ccolor = start_color
     cfigure = board.get(cell)
@@ -251,58 +253,6 @@ def hit_order(board, cell, start_color):
         cost_coef = -cost_coef
 
 
-@profile
-def hit_chain(board, pos):
-    w_chain = []
-    b_chain = []
-
-    def add_to_chain(p, to_new):
-        c = w_chain if p.color == "W" else b_chain
-        if to_new:
-            c.append([p])
-        else:
-            c[-1].append(p)
-
-    x, y = pos
-
-    for pieces_list in filter_pieces(board, pos, Knight, "W", (Knight,)):
-        for p in pieces_list:
-            add_to_chain(p, True)
-
-    # contains hask for Pawn
-    for pieces_list in filter_pieces(board, pos, Bishop, "W", (Bishop, Queen)):
-        w_chain.append([])
-        b_chain.append([])
-        for p in pieces_list:
-            add_to_chain(p, False)
-
-    for pieces_list in filter_pieces(board, pos, Rook, "W", (Rook, Queen)):
-        w_chain.append([])
-        b_chain.append([])
-        for p in pieces_list:
-            add_to_chain(p, False)
-
-    for dy in (-1, 0, 1):
-        for dx in (-1, 0, 1):
-            if dx == 0 and dy == 0:
-                continue
-            p = board.get((x + dx, y + dy))
-            if isinstance(p, King):
-                add_to_chain(p, True)
-
-    res_w = []
-    res_b = []
-    for hc, res_c in ((b_chain, res_b), (w_chain, res_w)):
-        hc = [i for i in hc if i != []]
-        while hc != []:
-            hc.sort(key = lambda x: x[0].def_cost)
-            res_c.append(hc[0][0])
-            del hc[0][0]
-            hc = [i for i in hc if i != []]
-
-    return res_w, res_b
-
-
 def get_next_step(board, for_color, level=2):
     moves = None
     best_evaluate = None
@@ -312,7 +262,7 @@ def get_next_step(board, for_color, level=2):
     for piece in board:
         if piece.color == for_color:
             for mv in board.get_all_moves(piece):
-                ppos = piece.pos
+                ppos = piece.ipos
                 board.move(piece, mv)
 
                 if level != 1:
@@ -326,11 +276,11 @@ def get_next_step(board, for_color, level=2):
 
                 if new_val > best_evaluate or best_evaluate is None :
                     best_evaluate = new_val
-                    moves = [(piece.pos, mv)] + next_moves
+                    moves = [(piece.ipos, mv)] + next_moves
 
             for hit in board.get_all_hits(piece):
                 
-                ppos = piece.pos
+                ppos = piece.ipos
                 removed_piece = board.get(hit)
 
                 board.remove(hit)
@@ -348,7 +298,7 @@ def get_next_step(board, for_color, level=2):
 
                 if best_evaluate is None or new_val > best_evaluate:
                     best_evaluate = new_val
-                    moves = [(piece.pos, hit)] + next_moves
+                    moves = [(piece.ipos, hit)] + next_moves
 
     return moves, best_evaluate
 
@@ -379,7 +329,7 @@ class Board(object):
     # board is list of pieces
     def __init__(self, pieces):
         self.pieces = pieces
-        self.pieces_map = {piece.pos:piece for piece in self}
+        self.pieces_map = {piece.ipos:piece for piece in self}
         self.sum_cost = sum(piece.cost for piece in pieces)
 
     def __iter__(self):
@@ -393,12 +343,18 @@ class Board(object):
                 yield pos
 
     def get_all_hits(self, piece):
+        get = self.const_get_func()
         for linked_hits in piece.hit_cells():
+            
+            #print "linked_hits =", map(to_str_pos, linked_hits)
+
             for pos in linked_hits:
-                hited_piece = self.pieces_map.get(pos)
+                hited_piece = get(pos)
+                #print "get({}) = {!r}".format(to_str_pos(pos), hited_piece)
                 if hited_piece is None:
                     continue
                 elif hited_piece.color != piece.color:
+                    #print "yielding", to_str_pos(pos)
                     yield pos
                 break
 
@@ -417,10 +373,10 @@ class Board(object):
     def add(self, piece):
         self.sum_cost += piece.cost
         self.pieces.append(piece)
-        self.pieces_map[piece.pos] = piece
+        self.pieces_map[piece.ipos] = piece
 
     def move(self, piece, pos):
-        del self.pieces_map[piece.pos]
+        del self.pieces_map[piece.ipos]
         piece.move(pos)
         self.pieces_map[pos] = piece
 
@@ -435,19 +391,14 @@ def time_it():
 if __name__ == "__main__":
     board = Board(knorre_vs_neumann())
 
-    # t = time.time()
-    # moves, val = get_next_step(board, "W", 3)
-    # print time.time() - t
+    t = time.time()
+    for frm, to in get_next_step(board, "W", 2)[0]:
+        print to_str_pos(frm), to_str_pos(to)
+    print time.time() - t
 
     # print "best val =", val
     # for frm, to in moves:
     #     print to_str_pos(frm), to_str_pos(to)
 
-    with time_it():
-        for i in range(2000):
-            hit_chain(board, to_tuple_pos("E5"))
-
-    #with time_it():
-    #    for i in range(2000):
-    #        for f,c in hit_order(board, to_tuple_pos("E5"), "W"):
-    #            pass
+    #for f,c in hit_order(board, to_int_pos("E5"), "W"):
+    #    print f, c
