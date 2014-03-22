@@ -254,27 +254,42 @@ def hit_order(board, cell, start_color):
 
 
 def get_next_step(board, for_color, level=2):
-    moves = None
-    best_evaluate = None
-    
-    cfunc = lambda val: val if for_color == "W" else -val
+    moves, new_value = _get_next_step(board, for_color, level, "")
+    return moves, new_value - position_evaluate(board)
 
-    for piece in board:
+
+def is_better_move(curr, new, color):
+    if new is None:
+        return False
+    return  curr is None or \
+            (new > curr and color == "W") or \
+            (new < curr and color == "B")
+
+def _get_next_step(board, for_color, level=2, pstep=""):
+    debug = False
+    moves = []
+    best_evaluate = None
+
+    if 0 == level:
+        return [], position_evaluate(board)
+
+    for piece in list(board):
+
         if piece.color == for_color:
             for mv in board.get_all_moves(piece):
+
+                if debug:
+                    print pstep, "mv", piece, to_str_pos(mv)
+
                 ppos = piece.ipos
                 board.move(piece, mv)
-
-                if level != 1:
-                    next_moves, new_val = get_next_step(board, rev_color[for_color], level - 1)
-                    new_val = -new_val
-                else:
-                    new_val = cfunc(position_evaluate(board))
-                    next_moves = []
-
+                next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "   ")
                 board.move(piece, ppos)
 
-                if new_val > best_evaluate or best_evaluate is None :
+                if debug:
+                    print pstep, "eval to =", new_val
+                
+                if is_better_move(best_evaluate, new_val, for_color):
                     best_evaluate = new_val
                     moves = [(piece.ipos, mv)] + next_moves
 
@@ -283,24 +298,23 @@ def get_next_step(board, for_color, level=2):
                 ppos = piece.ipos
                 removed_piece = board.get(hit)
 
+                if debug:
+                    print pstep, "hit", piece, to_str_pos(hit)
+
                 board.remove(hit)
                 board.move(piece, hit)
-
-                if level != 1:
-                    next_moves, new_val = get_next_step(board, rev_color[for_color], level - 1)
-                    new_val = -new_val
-                else:
-                    new_val = cfunc(position_evaluate(board))
-                    next_moves = []
-                
+                next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "   ")
                 board.move(piece, ppos)
                 board.add(removed_piece)
 
-                if best_evaluate is None or new_val > best_evaluate:
+                if debug:
+                    print pstep, "eval to =", new_val
+
+                if is_better_move(best_evaluate, new_val, for_color):
                     best_evaluate = new_val
                     moves = [(piece.ipos, hit)] + next_moves
 
-    return moves, best_evaluate
+    return moves, best_evaluate if best_evaluate is not None else position_evaluate(board)
 
 
 def knorre_vs_neumann():
@@ -323,6 +337,12 @@ def get_start_board():
     pieces += [Queen("E8", "B"), Queen("E1", "W")]
     pieces += [King("D8", "B"), King("D1", "W")]
     return pieces
+
+
+text_to_piece = {}
+for pc in (King, Queen, Rook, Bishop, Knight, Pawn):
+    text_to_piece[pc.name] = pc
+
 
 class Board(object):
 
@@ -379,6 +399,15 @@ class Board(object):
         del self.pieces_map[piece.ipos]
         piece.move(pos)
         self.pieces_map[pos] = piece
+
+    @classmethod
+    def parse(cls, *text_pieces):
+        pieces = []
+        for text_piece in text_pieces:
+            tp, pos = text_piece.split(" ")
+            color, ttp = tp
+            pieces.append(text_to_piece[ttp](pos, color))
+        return cls(pieces)
 
 
 import contextlib
