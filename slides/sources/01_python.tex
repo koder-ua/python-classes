@@ -15,7 +15,7 @@
 \begin{center} \includegraphics[]{images/python-logo-master-v3-TM-flattened.png} \end{center}
 \begin{itemize}
     \item Данилов Константин
-    \item kdanilov@mirantis.com - тему начинайте с "XXX"
+    \item koder.mail@gmail.com - тему начинайте с "PythonClasses:XXX"
     \item Слайды и доп материалы - \\
             \href{https://github.com/koder-ua/python-classes/tree/master/slides/pdf}{github/koder-ua}
 \end{itemize}
@@ -75,7 +75,12 @@
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Monty Python's flying circus \end{center}
+\begin{center} Кто это \end{center}
+\begin{center} \includegraphics{images/mp_crazy.jpg} \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \Large{Monty Python's flying circus} \end{center}
 \begin{center} \includegraphics{images/montypython.jpg} \end{center}
 \newpage
 
@@ -92,21 +97,21 @@
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} \includegraphics[scale=0.6]{images/python_ecosystem.eps} \end{center}
+\begin{center} \includegraphics[scale=0.4]{images/python_ecosystem.eps} \end{center}
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center} Версии и реализации \end{center}
 \begin{itemize}
-    \item Две ветви 2.X(2.7.3) и 3.X(3.3.0rc1) 3.3.0 запланирована на 22 сентября
-    \item 2.8 не будет
+    \item Две ветви 2.X(2.7.6) и 3.X(3.3.3) 3.4.0 запланирована на 23 февраля
+    \item 2.8 (наверное) не будет
     \item Внутри каждой ветви поддерживается полная обратная совместимость (для py файлов)
     \item 3.X (Python 3k) достаточно близка к 2.Х, содержит несовместимые исправления 
     		архитектурных ошибок, внесенных в язык на ранних стадиях
     \item print стал функцией, переработка юникод подсистемы, ввода-вывода и др
     \item Тем не менее любая нетривиальная программа на 2.X должна быть изменена для запуска на 3.X
-    \item Все реализации в значительноы мере - интерпретаторы
-    \item jython, PyPy, IronPython, Stackless Python, ....
+    \item Все реализации в значительной мере - интерпретаторы
+    \item Jython, PyPy, IronPython, Stackless Python, Py4A, QPython  ....
     \item Работает на всех распространенных платфрмах - Intel win/lin/mac/bsd/.., Sun, Power, 
     		ARM(Android), Symbian, .....
 \end{itemize}
@@ -138,12 +143,12 @@
 %-------------------------------------------------------------------------------
 \begin{center} Установка windows \end{center}
 \begin{itemize}
-    \item Windows: 2.7.3 с http://www.python.org/download/ 
+    \item Windows: 2.7.6 с http://www.python.org/download/ 
     или ActivePython c http://www.activestate.com/activepython/downloads
     \item Почти все библиотеки - http://pypi.python.org/pypi
     \item Ручная установка библиотеки - exe или распаковать zip, и python setup.py install
     \item Пакетные менеджеры - pip, setuptools \\
-    	pip или easy\_install install имя\_пакета==версия
+    	pip install имя\_пакета==версия или easy\_install имя\_пакета==версия
     \item virtualenv - создание изолированных окружений
     \item C:{\textbackslash}Python2.7{\textbackslash}lib{\textbackslash}site-packages
 \end{itemize}
@@ -155,10 +160,12 @@
     \item Linux: apt-get install python python-setuptools python-pip python-virtualenv
     \item Почти все библиотеки - http://pypi.python.org/pypi
     \item Ручная установка библиотеки - exe или распаковать zip, и python setup.py install
-    \item Пакетные мененджеры - pip, setuptools \\
-        pip или easy\_install install имя\_пакета==версия
-    \item virtualenv - создание изолированных окружений
+    \item Пакетные менеджеры - pip, setuptools \\
+    	    pip install имя\_пакета==версия или easy\_install имя\_пакета==версия
+    \item virtualenv - создание изолированных окружений (с 3.3 включен в stdlib)
+    \item \href{https://github.com/yyuu/pyenv}{pyev} менеджер версий
     \item /usr/lib/python2.7/dist-packages
+    \item vagrant/docker
 \end{itemize}
 \newpage
 
@@ -166,7 +173,7 @@
 \begin{center} IDE \& Co \end{center}
 \begin{itemize}
     \item Eclipse + pydev, PyCharm, PyScripter, Python for VS, ...
-    \item Sublime Text 2, Notepad++, Texmate, Vim, Emacs,....
+    \item Sublime Text, Notepad++, Texmate, Vim, Emacs,....
     \item PEP8, pylint >= pychecker >= pyflakes
     \item \href{http://wiki.python.org/moin/IntegratedDevelopmentEnvironments}{python IDE list}
 \end{itemize}
@@ -203,7 +210,7 @@
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Программа на Python \end{center}
+\begin{center} Обзор. Программа на Python \end{center}
 \begin{itemize}
     \item Набор файлов на Python
     \item Каждый файл рассматривается как набор строк
@@ -243,7 +250,7 @@
     	виртуального стекового процессора, встроенного в CPython
     \item .py -> .pyc (python compiled)
     \item python -o  .py -> .pyo. Удаление assert, etc
-    \item .pyd, .so - бинарные модули
+    \item .pyd(dll), .so - бинарные модули
 \end{itemize}
 \newpage
 
@@ -334,7 +341,7 @@
 
     In [2]: antigravity??
     Type:       module
-    String Form:<module 'antigravity' from 'C:\Dev\Python\Python27_x86\lib\antigravity.py'>
+    String Form:<module 'antigravity' from '...\lib\antigravity.py'>
     File:       c:\dev\python\python27_x86\lib\antigravity.py
     Source:
 

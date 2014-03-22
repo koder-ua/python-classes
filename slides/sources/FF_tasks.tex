@@ -61,7 +61,8 @@
 \newpage
 
 %------------------------------------------------------------------------------
-\begin{center} Функтор \end{center}
+\begin{center} Преобразование в польскую нотацию \end{center}
+\newpage
 
 %------------------------------------------------------------------------------
 \begin{center} Функтор \end{center}
@@ -506,6 +507,57 @@ str/repr.
 \begin{itemize}
     \item 
 \end{itemize}
+\newpage
+
+%-----------------------------------------------------------------------------
+\begin{center} Разбор HTTP запроса \end{center}
+Сделать функцию, которая получает на вход строку HTTP запроса
+и возвращает удобный для обработки объект
+\begin{lstlisting}
+
+request = """
+POST /x/y/z HTTP/1.0
+Host: some.host.org
+content-type:application/x-www-form-urlencoded;charset=utf-8
+content-length:207
+
+Action=GetStatus
+&JobId=JOBID
+&AWSAccessKeyId=AKIAIOSFODNN7EXAMPLE
+&SignatureMethod=HmacSHA256
+&SignatureVersion=2
+&Version=2010-06-03
+&Signature=lBP67vCvGlDMBQ1dofZxg8E8SUEXAMPLE
+&Timestamp=2011-06-20T22%3A30%3A59.556Z
+"""
+
+\end{lstlisting}
+\newpage
+
+%-----------------------------------------------------------------------------
+\begin{center} ИИ для шахмат \end{center}
+\begin{itemize}
+    \item Без взятия на проходе и рокировки
+    \item Классы для фигур и доски
+    \item функция оценки позиции
+    \item перебор
+    \item генетический алгоритм для подгона перебора
+\end{itemize}
+\newpage
+
+%-----------------------------------------------------------------------------
+\begin{center} Морской бой \end{center}
+
+\newpage
+
+%-----------------------------------------------------------------------------
+\begin{center} ORM \end{center}
+
+\newpage
+
+%-----------------------------------------------------------------------------
+\begin{center} Выход из лабиринта \end{center}
+
 \newpage
 
 %-----------------------------------------------------------------------------

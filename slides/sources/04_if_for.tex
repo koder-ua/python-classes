@@ -100,6 +100,7 @@
 	while x < 100:
 		if x ** 2 == 13:
 			break  # found square root of 13
+		x += 1
 	else:
 		x = None
 		print "13 have no integer square root"
@@ -177,11 +178,11 @@
 \begin{center} использование with \end{center}
 \vspace{15pt}
 \begin{lstlisting}
-	with open(r“C:\xxx.bin”, "w") as fd:
-	    fd.write(“-” * 100 + "\n")
-	    fd.write(“+” * 100 + "\n")
+	with open(r"C:\xxx.bin", "w") as fd:
+	    fd.write("-" * 100 + "\n")
+	    fd.write("+" * 100 + "\n")
 
-	with open(r“C:\xxx.bin”, "r") as fd:
+	with open(r"C:\xxx.bin", "r") as fd:
 	    for line in fd:
 	    	print line
 
@@ -221,7 +222,7 @@
 	res = {x:x ** 0.5 for x in data if x >= 0}
 
 	# generator
-	res = {x ** 0.5 for x in xrange(1000000) if x >= 0}
+	res = (x ** 0.5 for x in xrange(1000000) if x >= 0)
 \end{lstlisting}
 \newpage
 

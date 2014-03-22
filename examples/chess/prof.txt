@@ -1,0 +1,91 @@
+Timer unit: 1e-06 s
+
+File: chess.py
+Function: filter_pieces at line 153
+Total time: 0.104636 s
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   153                                           @profile
+   154                                           def filter_pieces(board, pos, piece_class, color, allowed_classes):
+   155                                               
+   156      3000         2228      0.7      2.1      assert piece_class in allowed_classes
+   157                                           
+   158      3000         2298      0.8      2.2      get = board.pieces_map.get
+   159                                           
+   160     11008        23053      2.1     22.0      for moves_list in piece_class(pos, color).move_cells():
+   161      8008         5082      0.6      4.9          pieces = []
+   162     25014        16280      0.7     15.6          for move in moves_list:
+   163                                           
+   164                                                       
+   165     21008        16779      0.8     16.0              if get(move) is not None:
+   166     10002         7604      0.8      7.3                  cp = get(move)
+   167                                           
+   168                                                           # Pawn hack
+   169     10002         8255      0.8      7.9                  if piece_class is Bishop and isinstance(cp, Pawn) and cp.color == color:
+   170      1000          812      0.8      0.8                      dx = -1 if cp.color == "W" else 1
+   171      1000          811      0.8      0.8                      if move[0] - pos[0] == dx:
+   172                                                                   pieces.append(cp)
+   173                                           
+   174     10002         8996      0.9      8.6                  if isinstance(cp, allowed_classes):
+   175      6000         5074      0.8      4.8                      pieces.append(cp)
+   176                                                           else:
+   177      4002         2561      0.6      2.4                      break
+   178      8008         4803      0.6      4.6          yield pieces
+
+File: chess.py
+Function: hit_chain at line 181
+Total time: 0.438962 s
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   181                                           @profile
+   182                                           def hit_chain(board, pos):
+   183      1000         1186      1.2      0.3      w_chain = []
+   184      1000         1100      1.1      0.3      b_chain = []
+   185                                           
+   186      1000         1272      1.3      0.3      def add_to_chain(p, to_new):
+   187                                                   c = w_chain if p.color == "W" else b_chain
+   188                                                   if to_new:
+   189                                                       c.append([p])
+   190                                                   else:
+   191                                                       c[-1].append(p)
+   192                                           
+   193      1000         1142      1.1      0.3      x, y = pos
+   194                                           
+   195      1008        15858     15.7      3.6      for pieces_list in filter_pieces(board, pos, Knight, "W", (Knight,)):
+   196         8           11      1.4      0.0          for p in pieces_list:
+   197                                                       add_to_chain(p, True)
+   198                                           
+   199      5000       114411     22.9     26.1      for pieces_list in filter_pieces(board, pos, Bishop, "W", (Bishop, Queen)):
+   200      4000         5228      1.3      1.2          w_chain.append([])
+   201      4000         4974      1.2      1.1          b_chain.append([])
+   202      7000         8386      1.2      1.9          for p in pieces_list:
+   203      3000         7492      2.5      1.7              add_to_chain(p, False)
+   204                                           
+   205      5000       106873     21.4     24.3      for pieces_list in filter_pieces(board, pos, Rook, "W", (Rook, Queen)):
+   206      4000         5067      1.3      1.2          w_chain.append([])
+   207      4000         4980      1.2      1.1          b_chain.append([])
+   208      7000         8516      1.2      1.9          for p in pieces_list:
+   209      3000         7175      2.4      1.6              add_to_chain(p, False)
+   210                                           
+   211      4000         4662      1.2      1.1      for dy in (-1, 0, 1):
+   212     12000        13821      1.2      3.1          for dx in (-1, 0, 1):
+   213      9000        10488      1.2      2.4              if dx == 0 and dy == 0:
+   214      1000         1088      1.1      0.2                  continue
+   215      8000        15267      1.9      3.5              p = board.get((x + dx, y + dy))
+   216      8000        11046      1.4      2.5              if isinstance(p, King):
+   217                                                           add_to_chain(p, True)
+   218                                           
+   219      1000         1151      1.2      0.3      res_w = []
+   220      1000         1137      1.1      0.3      res_b = []
+   221      3000         3982      1.3      0.9      for hc, res_c in ((b_chain, res_b), (w_chain, res_w)):
+   222     18000        20837      1.2      4.7          hc = [i for i in hc if i != []]
+   223      8000         9771      1.2      2.2          while hc != []:
+   224      6000        15635      2.6      3.6              hc.sort(key = lambda x: x[0].def_cost)
+   225      6000         8009      1.3      1.8              res_c.append(hc[0][0])
+   226      6000         7673      1.3      1.7              del hc[0][0]
+   227     16000        19609      1.2      4.5              hc = [i for i in hc if i != []]
+   228                                           
+   229      1000         1115      1.1      0.3      return res_w, res_b
+

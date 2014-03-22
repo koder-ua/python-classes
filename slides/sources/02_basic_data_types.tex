@@ -22,7 +22,9 @@
 	\item Типизация динамическая - тип связывается с объектом.
 		  Можно считать что все переменные имеют тип (PyObject *)
 	\item В компилируемых языков другой подход. Переменная как ящик, 
-		  в который кладутся данные и переменная определяет их поведение (тип)
+		  в который кладутся байты и переменная определяет их поведение (тип)
+    \item \lstinline!id(obj)! -> int - уникальный идентификатор объекта. Для двух одновременно 
+    существующих объектов всегда разный, но может переиспользоваться после уничтожения объекта
 \end{itemize}
 \newpage
 
@@ -58,8 +60,8 @@
 	\item float (double)
 	\item str, unicode
 	\item bool – True, False
-	\item complex
-	\item ...
+	\item complex - 1 + 2.2j
+	\item Elipsis, NotImplemented
 \end{itemize}
 \newpage
 
@@ -69,12 +71,14 @@
 	\item Строгая типизация - не производится автоматических приведений типов, кроме очевидных (int -> float)
 	\vspace{15pt}
 	\begin{lstlisting}
-		1 + "2" # error
+		1 + "2" # TypeError
 		1 + 1.0 == 2.0
-		(-1) ** 0.5 # error - no float -> complex conversion
+		(-1) ** 0.5 # ValueError - no float -> complex conversion
+		-1 ** 0.5 == -1 # ??? 
 	\end{lstlisting}
 
-	\item Однако все приводится к bool при использовании операций and/or/not
+	\item Однако все приводится к bool при использовании операций \lstinline|and/or/not| или в 
+	        \lstinline|if|
 	\begin{lstlisting}
 		Empty objects, 0, 0.0, 0 + 0j, None => False
 		All else => True
@@ -87,7 +91,7 @@
 	\begin{lstlisting}
 		int("12") == 12
 		str(12) == "12"
-		repr("12") == "12"
+		repr("12") == "'12'"
 		1 + int("2") == 3
 	\end{lstlisting}
 \end{itemize}
@@ -95,22 +99,28 @@
 
 %-------------------------------------------------------------------------------
 \begin{center} Базовые типы данных \end{center}
-Все базовые типы данных - константны. Любая операция создает новый объект
+Все базовые типы данных - константны. Любая операция создает новый объект.
+\begin{lstlisting}
+    x = 1
+    print id(x) #32230504
+    x += 1
+    print id(x) #32230480
+\end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
 \begin{center} Операции с int,  float, complex \end{center}
 \begin{itemize}
 	\item + - / * \% // **(возведение в степень)
-	\item Нет --, ++ (Вместо этого -= 1, += 1 )
 	\item +=, -=, *=, ....
 	\item >, <, != (<> - устарел), >=, <=, == 
 	\item Не сравнивайте разные типы данных
-	\item is vs ==, is not
+	\item is vs ==, is not, \lstinline!(a is b) == (id(a) == id(b))!
 	\item or and not
 	\item \& \hspace{10pt} \textbar \hspace{10pt} \textasciicircum
 	\item \lstinline!0 < x == y < 10!
 	\item math, cmath
+	\item Нет --, ++ (Вместо этого -= 1, += 1 )
 \end{itemize}
 \newpage
 
@@ -162,7 +172,7 @@
 	"cdabcd".find("cd", 1) => 4
 
 	a.index(string)
-	"abc".index("fd") # error
+	"abc".index("fd") # ValueError
 
 	a.split(string) 
 	"a,b,c,d".split(",") == ["a", "b", "c", "d"]
@@ -207,6 +217,7 @@
 	\item encode/decode/encoding module
 	\item string.decode(encoding[, errors]) => unicode
 	\item unicode.encode(encoding[, errors]) => string
+	\lstinline!print "\xd1\x85\xd0\xb0\xd0\xb9".decode("utf8")!
 	\item Иногда python пытается автоматически перекодировать 
 			данные, используя текущую кодировку - sys.getdefaultencoding()
 	\item \href{http://www.youtube.com/watch?feature=player_embedded&v=sgHbC6udIqc}
@@ -250,8 +261,25 @@
 \end{itemize}
 \begin{lstlisting}
 	1 > "d" # False
-	1 > 1 + 1j # error
+	1 > 1 + 1j # TypeError
 	"d" > 2 + 1j # True
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} del \end{center}
+\begin{itemize}
+	\item Уничтожает переменную(имя), но не объект на который она указывает
+	\item Объект будет уничтожен, когда на него никто не будет указывать
+\end{itemize}
+\begin{lstlisting}
+	x = "1"
+	y = x
+	print id(x), id(y) # 139796728292736 139796728292736
+	del x
+	print x # NameError
+	print y, id(y) # 1 139796728292736
 \end{lstlisting}
 \newpage
 

@@ -1,0 +1,169 @@
+% python classes slides - basic data types
+% (c) 2012 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Как питон исполняет программу \end{center}
+\begin{itemize}
+	\item Компиляция в байтокод
+	\item Исполнение байтокода
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пример программы \end{center}
+\begin{lstlisting}
+    import time
+    from pprint import pprint
+    
+    class C(object):
+        pass
+        
+    def test_func(x):
+        return x + C()
+    
+    pprint(test_func(1))
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Ее эквивалент \end{center}
+\begin{lstlisting}
+    time = __import__("time")
+    pprint = __import__("pprint").pprint    
+    
+    _body = __func__("", compile("return locals()"))
+    C = type("C", _body())    
+    del _body         
+    
+    test_func = __func__("test_func", "return x + C()")    
+    pprint(test_func(1))
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Байтокод \end{center}
+\begin{lstlisting}
+    import time
+    
+    # LOAD_CONST 0 (-1)
+    # LOAD_CONST 1 (None)
+    # IMPORT_NAME 0 (time)
+    # STORE_NAME 0 (time)
+    
+
+    def test_func(x):
+        return x + C()
+        
+    # func body
+    # LOAD_FAST     0 (x)
+    # LOAD_GLOBAL   0 (C)
+    # CALL_FUNCTION 0
+    # BINARY_ADD          
+    # RETURN_VALUE        
+
+    # def statement
+    # LOAD_CONST    5 (<code object .....>)
+    # MAKE_FUNCTION 0
+    # STORE_NAME    4 (test_func)    
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Исполнение \end{center}
+\begin{itemize}
+	\item Байтокод
+	\item Виртуальная машина (стековая для CPython)
+	\item Heap в котором живут все объекты (строки, целые, классы, функции, модули)
+	\item Имена, сгруппированные во множества пространств имен
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Объекты \end{center}
+\begin{itemize}
+	\item С позиции виртуальной машины все объекты эквивалентны
+	\item Все они экземпляры типов, наследущих PyTypeObject
+	\item Внутри есть \_\_class\_\_ - ссылка на объект класса и данные (чаще всего в \_\_dict\_\_)
+	\item PyTypeObject большая свалка указателей на (виртуальные) функции
+	\item Каждая операция над питон объектом оображается на слот (функция вида \_\_xxx\_\_)
+	\item Каждый слот отображается на определенную функцию в PyTypeObject
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} PyTypeObject \end{center}
+\begin{lstlisting}[language=C]
+typedef struct _typeobject {
+    PyObject_VAR_HEAD
+    const char *tp_name; /* For printing ...*/
+    /* For allocation */
+    Py_ssize_t tp_basicsize, tp_itemsize; 
+    
+    destructor tp_dealloc;
+    printfunc tp_print;
+    getattrfunc tp_getattr;
+    // ...
+
+    /* Method suites for standard classes */
+    PyNumberMethods *tp_as_number;
+    PySequenceMethods *tp_as_sequence;
+
+    /* More standard operations ... */
+    // ...
+} PyTypeObject;
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Пространства имен \end{center}
+\begin{itemize}
+	\item Постоянно доступны два пространства имен - локальное и глобальное
+	\item Для них есть ссылки - locals() \& globals()
+	\item Принадлежность к пространству имен определятся на этапе компиляции. Все переменные, 
+          которым производится присваивание попадают в locals()
+	\item Диррективы globals \& unlocal
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Исполнение кода \end{center}
+
+Код на питоне
+
+\begin{lstlisting}
+    a.d + C()
+\end{lstlisting}
+\vspace{1cm}
+
+Что происходит на самом деле
+
+\begin{lstlisting}
+    a.__getattr__("d").__add__(C.__call__())
+\end{lstlisting}
+
+\vspace{1cm}
+Эквивалентный код на С (ceval.c)
+
+\begin{lstlisting}[language=C]
+    PyObject * c_a = PyTuple_GET_ITEM(co->co_cellvars, 0);
+    PyObject * c_C = PyDict_GetItem(f->f_globals, "C");
+    
+    PyObject * c_1 = c_a->ob_type->tp_getattr(a, "d");
+    PyObject * c_2 = c_C->ob_type->tp_call(c_C, 
+                                           empty_tuple, 
+                                           empty_dict);
+    c_1->ob_type->as_number->nb_add(c_1, c_2);
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}

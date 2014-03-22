@@ -20,14 +20,10 @@
 	\item frozenset, buffer, ....
 \end{itemize}
 \begin{lstlisting}
-	[1, 2, 3] == list([1, 2, 3])
-	(1, 2, 3) == tuple([1, 2, 3])
-	{1:"1", 2:"2", 3:"3"} == dict([(1,"1"), (2, "2"), (3, "3")])
-	{"a":1, "b":2, "c":3} == dict(a=1, b=2, c=3)
-	{1, 2, 3} == set([1, 2, 3])
-
-	list(1, 2, 3) # error
-	set(1, 2, 3) # error
+	[1, 2, 3]
+	(1, 2, 3)
+	{1:"1", 2:"2", 3:"3"}
+	{1, 2, 3}
 \end{lstlisting}
 \newpage
 
@@ -40,8 +36,9 @@
 	\item Срезы 
 			\lstinline!arr[frm:to:step]! \\
 			\lstinline![arr[frm], arr[frm + step], ....., ]!
-	\item Отрицательный индекс - отсчет от конца. x[-1]
-	\item Отсутвие индекса - frm $\rightarrow$ 0, to $\rightarrow$ -1, step $\rightarrow$ 1
+	\item Отрицательный индекс - отсчет от конца к началу. x[-1]
+	\item Отсутвие индекса - frm $\rightarrow$ 0, to $\rightarrow$ \lstinline!len(x)!, 
+	        step $\rightarrow$ 1
 \end{itemize}
 \newpage
 
@@ -49,23 +46,18 @@
 \begin{center} list – Список (Массив) \end{center}
 {
 \Huge
-\begin{flushleft}
 $x = [0_{-6}^{0}, 1_{-5}^{1}, 2_{-4}^{2}, 3_{-3}^{3}, 4_{-2}^{4}, 5_{-1}^{5}]$ \\
-\vspace{0.5cm}
-x[2] == 2 \hspace{2cm}[\textcolor{red}{0, 1,} 2, \textcolor{red}{3, 4, 5}] \\
-\vspace{0.5cm}
-x[-2] == 4 \hspace{2cm}[\textcolor{red}{0, 1, 2, 3,} 4, \textcolor{red}{5}] \\
-\vspace{0.5cm}
-x[2:] == [2, 3, 4, 5] \hspace{2cm}[\textcolor{red}{0, 1, }2, 3, 4, 5] \\
-\vspace{0.5cm}
-x[-2:] == [4, 5] \hspace{2cm}[\textcolor{red}{0, 1, 2, 3,} 4, 5] \\
-\vspace{0.5cm}
-x[1:-1] == [1, 2, 3, 4] \hspace{2cm}[\textcolor{red}{0,} 1, 2, 3, 4, \textcolor{red}{5}] \\
-\vspace{0.5cm}
-x[1:-1:2] == [1, 3] \hspace{2cm}[\textcolor{red}{0,} 1, \textcolor{orange}{2,} 3, \textcolor{orange}{4,} \textcolor{red}{5}] \\
-\vspace{0.5cm}
-x[::-1] == [5, 4, 3, 2, 1, 0] \\
-\end{flushleft}
+\vspace{1cm}
+\begin{tabular}{ l l l }
+x[2] & == 2 & \hspace{2cm}[\textcolor{red}{0, 1,} 2, \textcolor{red}{3, 4, 5}] \\
+x[-2] & == 4 & \hspace{2cm}[\textcolor{red}{0, 1, 2, 3,} 4, \textcolor{red}{5}] \\
+x[2:] & == [2, 3, 4, 5] & \hspace{2cm}[\textcolor{red}{0, 1, }2, 3, 4, 5] \\
+x[-2:] & == [4, 5] & \hspace{2cm}[\textcolor{red}{0, 1, 2, 3,} 4, 5] \\
+x[1:-1] & == [1, 2, 3, 4] & \hspace{2cm}[\textcolor{red}{0,} 1, 2, 3, 4, \textcolor{red}{5}] \\
+x[1:-1:2] & == [1, 3] & \hspace{2cm}[\textcolor{red}{0,} 1, \textcolor{orange}{2,} 3, \textcolor{orange}{4,} \textcolor{red}{5}] \\
+x[1:-1:-2] & == [4, 2] & \hspace{2cm}[\textcolor{red}{0,} \textcolor{orange}{1}, 2, \textcolor{orange}{3}, 4, \textcolor{red}{5}] \\
+x[::-1] & == [5, 4, 3, 2, 1, 0] & \\
+\end{tabular}
 }
 \newpage
 
@@ -79,9 +71,10 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 
 	x[::2] = [2, 2]  
 	x == [2, 4, 2, 6]
-	x[::2] = 2 # error
-	del x[1] 
-	x == [3, 5, 6]
+	x[::2] = 2 # TypeError
+	x[:2] = [7] # x == [7, 2, 6]
+	
+	del x[1] # x == [7, 6]
 	
 	x = [1, None, True, ["123", 2.4]]
 	[1, 2, 3] + ["a", "b"] # [1, 2, 3, "a", "b"]
@@ -156,7 +149,6 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 \begin{center} Сортировка \end{center}
 \begin{itemize}
 	\item sort() сортировка на месте, sorted - возвращает копию
-	\item sort
 	\item Не надо сортировать неоднородные контейнеры типы - результат не определен
 		По больше части - получится что-то, но иногда -
 		\lstinline!['x', '\xf0', u'x'].sort()! - UnicodeDecodeError
@@ -180,7 +172,7 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 \begin{lstlisting}
 	tpl = (1, 2)
 	tpl = 1, 2
-	tpl[1] = 3 # error
+	tpl[1] = 3 # TypeError
 	tpl = (1, [2, 3, 4])
 	tpl[1].append(1) => (1, [2, 3, 4, 1])
 	x, y, z  = (1, 2, 3)
@@ -194,18 +186,18 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 \begin{center} dict - словарь \end{center}
 \begin{itemize}
 	\item Набор пар (ключ, значение), с быстрым поиском по ключу
-	\lstinline$x = {1:2, "3":4}$
 	\item Только константные ключи (tuple - ok)
 	\item Элементы неупорядоченны
 	\item Нет срезов
 \end{itemize}
 \vspace{15pt}
 \begin{lstlisting}
+    x = {1:2, "3":4}
 	x[1] == 2
-	x[2] #error
+	x[2] # KeyError
 	1 in x == True
 	x[17] = True
-	# x = {1:2, "3":4, 17:True}
+	x == {1:2, "3":4, 17:True}
 \end{lstlisting}
 \newpage
 
@@ -224,7 +216,8 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 	x.get(5, 12) == 12
 	x.clear() # {}
 	x.update(y)
-	dict.fromkeys(keys, val) # {key[0]:val, key[1]:val, ..} default val is None
+	dict.fromkeys(keys, val) 
+	# {key[0]:val, key[1]:val, ..} default val is None
 \end{lstlisting}
 \newpage
 
@@ -273,8 +266,26 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 	\item Проеобразование контейнера пар к словарю 
 \end{itemize}
 \begin{lstlisting}
+    y = [1, 2, 3]
+    set(y) == {1, 2, 3}
+    tuple(y) == (1, 2, 3)
+    set(1, 2, 3) # TypeError
 	x = [(1, "1"), (2, "2")]
-	dict(x) == {1:"1", 2:"2"}!
+	dict(x) == {1:"1", 2:"2"}
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} heapq \end{center}
+Массив, где $x_n >= x_{2n}, x_n >= x_{2n + 1}$
+\begin{lstlisting}
+    x = [2, 4, 5, 3, 8, 1, 7, 9, 0, 6]
+    heapq.heapify(x)
+    x == [0, 2, 1, 3, 6, 5, 7, 9, 4, 8]
+    tuple(y) == (1, 2, 3)
+    set(1, 2, 3) # TypeError
+	x = [(1, "1"), (2, "2")]
+	dict(x) == {1:"1", 2:"2"}
 \end{lstlisting}
 \newpage
 
@@ -287,13 +298,13 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
   	\hline
   insert/remove begin     & \cellcolor{pink} $O(n)$ & \cellcolor{green} $O(1)^*$ & \cellcolor{pink} $O(n)$ & \cellcolor{Aquamarine} $O(log(n))$ \\
   	\hline
-  insert/remove end       & \cellcolor{green} $O(1)$ & \cellcolor{green} $O(1)^*$ & \cellcolor{pink} $O(n)$ & \cellcolor{Aquamarine} $O(log(n))$  \\
+  insert/remove end       & \cellcolor{green} $O(1)$ & \cellcolor{green} $O(1)^*$ & \cellcolor{green} $O(1)$ & ---  \\
   	\hline
   find by key      &  --- & \cellcolor{green} $O(1)^*$ & --- & --- \\
   	\hline
   find by value     &  \cellcolor{pink} $O(n)$ & \cellcolor{pink} $O(n)$ & \cellcolor{Aquamarine} $O(log(n))$ & \cellcolor{pink} $O(n)$ \\
   	\hline
-  find min/max     &  \cellcolor{pink} $O(n)$ & \cellcolor{pink} $O(n)$ & \cellcolor{green} $O(1)^*$ & \cellcolor{green} $O(1)^*$ \\
+  find min/max     &  \cellcolor{pink} $O(n)$ & \cellcolor{pink} $O(n)$ & \cellcolor{green} $O(1)$ & \cellcolor{green} $O(1)$/\cellcolor{pink} $O(n)$ \\
   	\hline
 
 \end{tabular}
@@ -373,8 +384,20 @@ x[::-1] == [5, 4, 3, 2, 1, 0] \\
 
     fd = open(path)
     for line in fd:
-    	# do something with next line
+        	# do something with line
 \end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Файлы 3.X \end{center}
+\begin{lstlisting}
+    fd = open(path, "r", encoding='utf-8')
+	fd.read(size) # unicode str
+
+    fd = open(path, "rb")
+	fd.read(size) # bytes
+\end{lstlisting}
+Модуль io содержит дополнительные классы для работы с воодом-выводом
 \newpage
 
 %-------------------------------------------------------------------------------
