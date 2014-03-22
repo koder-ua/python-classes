@@ -435,17 +435,18 @@ def time_it():
 if __name__ == "__main__":
     board = Board(knorre_vs_neumann())
 
-    # t = time.time()
-    # moves, val = get_next_step(board, "W", 3)
-    # print time.time() - t
+    t = time.time()
+    for frm, to in get_next_step(board, "W", 4)[0]:
+        print to_str_pos(frm), to_str_pos(to)
+    print time.time() - t
 
     # print "best val =", val
     # for frm, to in moves:
     #     print to_str_pos(frm), to_str_pos(to)
 
-    with time_it():
-        for i in range(2000):
-            hit_chain(board, to_tuple_pos("E5"))
+    #with time_it():
+    #    for i in range(2000):
+    #        hit_chain(board, to_tuple_pos("E5"))
 
     #with time_it():
     #    for i in range(2000):
