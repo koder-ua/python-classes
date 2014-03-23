@@ -270,15 +270,16 @@ def is_better_move(curr, new, color):
             (new < curr and color == "B")
 
 def _get_next_step(board, for_color, level=2, pstep=""):
-    debug = False
+    debug = True
     moves = []
     best_evaluate = None
 
     if 0 == level:
+        if debug:
+            print pstep, "empty"
         return [], position_evaluate(board)
 
     for piece in list(board):
-
         if piece.color == for_color:
             for mv in board.get_all_moves(piece):
 
@@ -290,9 +291,6 @@ def _get_next_step(board, for_color, level=2, pstep=""):
                 next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "   ")
                 board.move(piece, ppos)
 
-                if debug:
-                    print pstep, "eval to =", new_val
-                
                 if is_better_move(best_evaluate, new_val, for_color):
                     best_evaluate = new_val
                     moves = [(piece.ipos, mv)] + next_moves
@@ -310,9 +308,6 @@ def _get_next_step(board, for_color, level=2, pstep=""):
                 next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "   ")
                 board.move(piece, ppos)
                 board.add(removed_piece)
-
-                if debug:
-                    print pstep, "eval to =", new_val
 
                 if is_better_move(best_evaluate, new_val, for_color):
                     best_evaluate = new_val
