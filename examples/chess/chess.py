@@ -303,28 +303,38 @@ def hit_chain(board, pos):
     return res_w, res_b
 
 
-def get_next_step(board, for_color, level=2):
-    moves = None
-    best_evaluate = None
-    
-    cfunc = lambda val: val if for_color == "W" else -val
+def better_move(cval, new_val, color):
+    if new_val is None:
+        return False
+    if cval is None:
+       return True
+    return (new_val > cval and color == 'W') or (cval > new_val and color == 'B') 
 
-    for piece in board:
+
+def get_next_step(board, for_color, level=2):
+    sval = position_evaluate(board)
+    moves, val = _get_next_step(board, for_color, level)
+    return moves, val - sval
+
+
+def _get_next_step(board, for_color, level=2):
+    if 0 == level:
+        return [], position_evaluate(board)
+
+    moves = []
+    best_evaluate = None
+
+    for piece in list(board):
         if piece.color == for_color:
             for mv in board.get_all_moves(piece):
                 ppos = piece.pos
                 board.move(piece, mv)
 
-                if level != 1:
-                    next_moves, new_val = get_next_step(board, rev_color[for_color], level - 1)
-                    new_val = -new_val
-                else:
-                    new_val = cfunc(position_evaluate(board))
-                    next_moves = []
+                next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1)
 
                 board.move(piece, ppos)
 
-                if new_val > best_evaluate or best_evaluate is None :
+                if better_move(best_evaluate, new_val, for_color):
                     best_evaluate = new_val
                     moves = [(piece.pos, mv)] + next_moves
 
@@ -336,21 +346,16 @@ def get_next_step(board, for_color, level=2):
                 board.remove(hit)
                 board.move(piece, hit)
 
-                if level != 1:
-                    next_moves, new_val = get_next_step(board, rev_color[for_color], level - 1)
-                    new_val = -new_val
-                else:
-                    new_val = cfunc(position_evaluate(board))
-                    next_moves = []
+                next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1)
                 
                 board.move(piece, ppos)
                 board.add(removed_piece)
 
-                if best_evaluate is None or new_val > best_evaluate:
+                if better_move(best_evaluate, new_val, for_color):
                     best_evaluate = new_val
                     moves = [(piece.pos, hit)] + next_moves
 
-    return moves, best_evaluate
+    return moves, best_evaluate if best_evaluate is not None else position_evaluate(board)
 
 
 def knorre_vs_neumann():
