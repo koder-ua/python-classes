@@ -379,6 +379,12 @@ def get_start_board():
     pieces += [King("D8", "B"), King("D1", "W")]
     return pieces
 
+
+text_to_piece = {}
+for pc in (King, Queen, Rook, Bishop, Knight, Pawn):
+    text_to_piece[pc.name] = pc
+
+
 class Board(object):
 
     # board is list of pieces
@@ -428,6 +434,15 @@ class Board(object):
         del self.pieces_map[piece.pos]
         piece.move(pos)
         self.pieces_map[pos] = piece
+
+    @classmethod
+    def parse(cls, *text_pieces):
+        pieces = []
+        for text_piece in text_pieces:
+            tp, pos = text_piece.split(" ")
+            color, ttp = tp
+            pieces.append(text_to_piece[ttp](pos, color))
+        return cls(pieces)
 
 
 import contextlib
