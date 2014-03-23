@@ -24,6 +24,7 @@ class ChessPiece(object):
         self.ipos = to_int_pos(pos)
         self.color = color
         self.cost = color_sig[self.color] * self.def_cost
+        self.const_eq_id = (self.name,)
         self.eq_id = self.get_eq_id()
 
     @property
@@ -33,11 +34,6 @@ class ChessPiece(object):
     @pos.setter
     def pos(self, value):
         self.ipos = to_int_pos(value)
-    
-    def move(self, pos):
-        assert isinstance(pos, int)
-        self.ipos = pos
-        self.eq_id = self.get_eq_id()
 
     @abstractmethod
     def get_move_cells(self):
@@ -58,7 +54,8 @@ class ChessPiece(object):
         return res
 
     def get_eq_id(self):
-        return (self.name, self.ipos)
+        # this code is duplicated in move method of board class due to optimization
+        return self.const_eq_id + (self.ipos,)
 
     def full_name(self):
         return self.color + self.name
@@ -85,9 +82,16 @@ class Pawn(ChessPiece):
         super(Pawn, self).__init__(pos, color)
         self.move_vec, self.double_move_cell = self.move_vecs[self.color]
         self.hv1, self.hv2 = self.hit_vecs[self.color]
+        self.const_eq_id = (self.name, self.color)
+        self.eq_id = self.get_eq_id()
+
+    def move(self, pos):
+        self.ipos = pos
+        self.eq_id = (self.name, self.color, self.ipos)
 
     def get_eq_id(self):
-        return (self.name, self.ipos, self.color)
+        # this code is duplicated in move method due to optimization
+        return self.const_eq_id + (self.pos, )
 
     def get_move_cells(self):
         p1 = self.ipos + self.move_vec
@@ -397,7 +401,8 @@ class Board(object):
 
     def move(self, piece, pos):
         del self.pieces_map[piece.ipos]
-        piece.move(pos)
+        piece.ipos = pos
+        piece.eq_id = piece.const_eq_id + (piece.ipos,)
         self.pieces_map[pos] = piece
 
     @classmethod
@@ -422,7 +427,7 @@ if __name__ == "__main__":
 
     t = time.time()
     for frm, to in get_next_step(board, "W", 4)[0]:
-        print to_str_pos(frm), to_str_pos(to)
+        pass
     print time.time() - t
 
     # print "best val =", val
