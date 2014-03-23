@@ -24,8 +24,6 @@ class ChessPiece(object):
         self.ipos = to_int_pos(pos)
         self.color = color
         self.cost = color_sig[self.color] * self.def_cost
-        self.const_eq_id = (self.name,)
-        self.eq_id = self.get_eq_id()
 
     @property
     def pos(self):
@@ -46,16 +44,15 @@ class ChessPiece(object):
         return self.move_cells()
 
     def move_cells(self):
-        eid = self.eq_id
+        eid = self.eq_id()
         res = self.precached_moves.get(eid)
         if res is None:
             res = self.get_move_cells()
             self.precached_moves[eid] = res
         return res
 
-    def get_eq_id(self):
-        # this code is duplicated in move method of board class due to optimization
-        return self.const_eq_id + (self.ipos,)
+    def eq_id(self):
+        return (self.name, self.ipos)
 
     def full_name(self):
         return self.color + self.name
@@ -82,16 +79,12 @@ class Pawn(ChessPiece):
         super(Pawn, self).__init__(pos, color)
         self.move_vec, self.double_move_cell = self.move_vecs[self.color]
         self.hv1, self.hv2 = self.hit_vecs[self.color]
-        self.const_eq_id = (self.name, self.color)
-        self.eq_id = self.get_eq_id()
 
     def move(self, pos):
         self.ipos = pos
-        self.eq_id = (self.name, self.color, self.ipos)
 
-    def get_eq_id(self):
-        # this code is duplicated in move method due to optimization
-        return self.const_eq_id + (self.pos, )
+    def eq_id(self):
+        return (self.name, self.color, self.ipos)
 
     def get_move_cells(self):
         p1 = self.ipos + self.move_vec
@@ -119,10 +112,11 @@ class Pawn(ChessPiece):
         return res
 
     def hit_cells(self):
-        res = self.precached_hits.get(self.eq_id)
+        eid = self.eq_id()
+        res = self.precached_hits.get(eid)
         if res is None:
             res = self.get_hit_cells()
-            self.precached_hits[self.eq_id] = res
+            self.precached_hits[eid] = res
         return res
 
 
@@ -130,9 +124,7 @@ class Knight(ChessPiece):
     name = "N"
     def_cost = 3
 
-    move_diffs = [to_int_pos((dx, dy)) 
-                    for dx in (-2, -1, 1, 2) 
-                        for dy in (3 - abs(dx), -3 + abs(dx))]
+    move_diffs = [-0x21, -0x1F, -0x12, -0x0E, 0x0E, 0x12, 0x1F, 0x21]
 
     def get_move_cells(self):
         ip = self.ipos
@@ -172,10 +164,7 @@ class King(ChessPiece):
     name = "K"    
     def_cost = 1000000
 
-    move_diffs = [to_int_pos((dx, dy)) 
-                    for dx in (-1, 0, 1) 
-                        for dy in (-1, 0, 1) 
-                            if dx * dy != 0]
+    move_diffs = [-0x11, -0x10, -0x0F, -0x01, 0x01, 0x0F, 0x10, 0x11] 
 
     def get_move_cells(self):
         return [[self.ipos + diff] 
@@ -187,14 +176,18 @@ def position_evaluate(board):
     return board.sum_cost
 
 
+
 def filter_pieces(board, pos, vec, allowed_classes):
     get = board.const_get_func()
     
     dy = get_y(vec)
     dx = get_x(vec)
 
+    npos = pos
     for scale in range(1, 8):
-        npos = pos + vec * scale
+        if not is_valid_icell(npos):
+            break
+        npos += vec
 
         if get(npos) is not None:
             p = get(npos)
@@ -270,13 +263,13 @@ def is_better_move(curr, new, color):
             (new < curr and color == "B")
 
 def _get_next_step(board, for_color, level=2, pstep=""):
-    debug = True
+    debug = False
     moves = []
     best_evaluate = None
 
     if 0 == level:
         if debug:
-            print pstep, "empty"
+            print pstep + "empty"
         return [], position_evaluate(board)
 
     for piece in list(board):
@@ -284,11 +277,15 @@ def _get_next_step(board, for_color, level=2, pstep=""):
             for mv in board.get_all_moves(piece):
 
                 if debug:
-                    print pstep, "mv", piece, to_str_pos(mv)
+                    print pstep + "mv ", piece, to_str_pos(mv)
 
                 ppos = piece.ipos
                 board.move(piece, mv)
-                next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "   ")
+                if level == 1:
+                    next_moves = []
+                    new_val = position_evaluate(board)
+                else:
+                    next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "    ")
                 board.move(piece, ppos)
 
                 if is_better_move(best_evaluate, new_val, for_color):
@@ -301,11 +298,15 @@ def _get_next_step(board, for_color, level=2, pstep=""):
                 removed_piece = board.get(hit)
 
                 if debug:
-                    print pstep, "hit", piece, to_str_pos(hit)
+                    print pstep + "hit", piece, to_str_pos(hit)
 
                 board.remove(hit)
                 board.move(piece, hit)
-                next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "   ")
+                if level == 1:
+                    next_moves = []
+                    new_val = position_evaluate(board)
+                else:
+                    next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "    ")
                 board.move(piece, ppos)
                 board.add(removed_piece)
 
@@ -364,16 +365,11 @@ class Board(object):
     def get_all_hits(self, piece):
         get = self.const_get_func()
         for linked_hits in piece.hit_cells():
-            
-            #print "linked_hits =", map(to_str_pos, linked_hits)
-
             for pos in linked_hits:
                 hited_piece = get(pos)
-                #print "get({}) = {!r}".format(to_str_pos(pos), hited_piece)
                 if hited_piece is None:
                     continue
                 elif hited_piece.color != piece.color:
-                    #print "yielding", to_str_pos(pos)
                     yield pos
                 break
 
@@ -397,7 +393,6 @@ class Board(object):
     def move(self, piece, pos):
         del self.pieces_map[piece.ipos]
         piece.ipos = pos
-        piece.eq_id = piece.const_eq_id + (piece.ipos,)
         self.pieces_map[pos] = piece
 
     @classmethod
