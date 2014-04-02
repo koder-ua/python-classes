@@ -1,0 +1,238 @@
+% python classes slides - classes_introduction
+% (c) 2014 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+
+\begin{document}
+\LARGE
+%-------------------------------------------------------------------------------
+\begin{center} ООП \end{center}
+    \begin{itemize}
+         \item Повторное использование кода
+         \item Инкапсуляция
+         \item Наследование
+         \item Полиморфизм
+     \end{itemize} 
+\newpage
+%-------------------------------------------------------------------------------
+\begin{center} \includegraphics[scale=5]{images/Hamatsa_shaman2.jpg} \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Подсчет среднеарифметического \end{center}
+\begin{lstlisting}
+    def mean_int(numbers):
+        res = 0
+        for cnum in numbers:
+            res += cnum
+        return res / len(numbers)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Нужно добавить поддержку рациональных чисел \end{center}
+Рациональное число - пара (числитель, знаменатель). Будем передавать
+рациональные числа в виде кортежа.
+
+$$
+\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}\,\,;
+\quad
+\frac{a}{b} / c = \frac{a}{cd}
+$$
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Среднее рациональные \end{center}
+\begin{lstlisting}
+    # rational = (num, denom)
+    def mean_rational(numbers):
+        num, denom = (0, 1)
+        for cnum, cdenom in numbers:
+            num = num * cdenom + denom * cnum
+            denom *= cdenom            
+        return (num, denom * len(numbers))
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Среднее \end{center}
+\begin{lstlisting}
+    def mean(numbers):
+        assert len(numbers) != 0
+        if isinstance(numbers[0], (int, long, float)):
+            return mean_int(numbers)
+        else:
+            return mean_rational(numbers)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Добавляем матрицы \end{center}
+\begin{lstlisting}
+    def mean(numbers):
+        assert len(numbers) != 0
+        if isinstance(numbers[0], (int, long, float)):
+            return mean_int(numbers)
+        elif ismatrix(numbers[0]):
+            return mean_matrix(numbers)
+        else:
+            return mean_rational(numbers)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} "Идея" СА \end{center}
+\begin{lstlisting}
+    def mean_int(numbers):
+        res = 0
+        for cnum in numbers:
+            res += cnum
+        return res / len(numbers)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}  СА \end{center}
+\begin{lstlisting}
+    add_num = lambda x, y: x + y
+    add_rational = lambda (x1, y1), (x2, y2): \
+                    (x1 * y2 + y1 * x2, y1 * y2)
+    div_num = lambda x, y: x / y
+    div_rational = lambda (x, y), z: (x, y * z)
+
+    def mean(numbers, add_func, div_func):
+        res = numbers[0]
+        for cnum in numbers[1:]:
+            res = add_func(res, cnum)
+        return div_func(res, len(numbers))
+
+    mean([1, 2, 3] , add_num, div_num)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{lstlisting}
+    def mean(numbers, add_func, div_func):
+        it = iter(numbers)
+        res = next(it)
+        for cnum in it:
+            #...
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{lstlisting}
+    val = {'num':1, 
+           'denom':2, 
+           '__add__':add_rational,
+           '__div__':div_rational}
+
+    def add_rational(x, y):
+        return  (x['num'] * y['denom'] + \
+                 x['denom'] * y['num'], 
+                 x['denom'] * y['denom'])
+
+    def div_rational(x, y):
+        return (x['num'], x['denom'] * y)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{lstlisting}
+    def mk_rational(num, denom):
+        return {'num':num, 
+                'denom':denom, 
+                'add':add_rational, 
+                'div':div_rational}
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Нужно автоматически упрощать после операции \end{center}
+\begin{lstlisting}
+    def add_rational_auto_simpl(x, y):
+        res = add_rational(x, y)
+        nod = get_NOD(res['num'], res['denom'])
+        res['num'] /= nod
+        res['denom'] /= nod
+        return res
+
+    def mk_rational_auto_simpl(num, denom):
+        return dict(num=num, 
+                    denom=denom, 
+                    __add__=add_rational_auto_simpl, 
+                    __div__=div_rational_auto_simpl)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} На предыдущем слайде ошибка \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{lstlisting}
+    def mk_rational(num, denom):
+        return {'num':num, 
+                'denom':denom, 
+                '__class__':Rational}
+
+    Rational = dict(__div__=div_rational,
+                    __add__=add_rational,
+                    __init__=mk_rational)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Когда ООП \end{center}
+\begin{itemize}
+    \item Если есть участок кода, требующий определенного ограниченного 
+          набора операций над входными данными
+    \item Одновременно в программе могут быть несколько видов подходящих данных, 
+          с различной функциональностью для реализации этого интерфейса
+    \item Или группировки функций с общим глобальным состоянием
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Классы не предназначен для \end{center}
+\begin{itemize}
+    \item Группировки функций
+    \item Группировки одной функции
+    \item Если вы, ессно, используете нормальный ЯП
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблема \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблема \end{center}
+a + b для разных типов
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Среднее \end{center}
+\begin{lstlisting}
+    add = {(int, int):add_int_int, 
+           (int, tuple):add_int_tuple,
+           (tuple, int):add_tuple_int}
+
+    def register_add(tp1, tp2, func):
+        add[(tp1, tp2)] = func
+
+    def mean(numbers):
+        res = numbers[0]
+        for cnum in numbers[1:]:
+            res = add[(type(res), type(cnum))](res, cnum)
+        return div[(type(res), int)](res, len(numbers)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}
