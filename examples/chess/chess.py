@@ -2,7 +2,7 @@ import time
 from abc import abstractmethod
 
 
-from chess_base import board_letters, to_str_pos, to_tuple_pos, get_all_iscales
+from chess_base import board_letters, to_str_pos, to_tuple_pos, get_all_iscales, all_valid_ipositions
 from chess_base import is_valid_icell, rev_color, color_index, color_sig, to_int_pos
 
 
@@ -24,6 +24,9 @@ class ChessPiece(object):
         self.ipos = to_int_pos(pos)
         self.color = color
         self.cost = color_sig[self.color] * self.def_cost
+
+    def copy(self):
+        return self.__class__(self.ipos, self.color)
 
     @property
     def pos(self):
@@ -63,6 +66,10 @@ class ChessPiece(object):
 
     def __repr__(self):
         return str(self)
+
+    def get_str_id(self):
+        return "{}{}_{}".format(self.color, self.name, self.ipos)
+
 
 get_x = lambda ip: ip // 16
 get_y = lambda ip: ip & 0x0F
@@ -176,17 +183,56 @@ def position_evaluate(board):
     return board.sum_cost
 
 
+all_pieces_classes = (King, Queen, Rook, Bishop, Knight, Pawn)
+
+text_to_piece = {}
+for pc in all_pieces_classes:
+    text_to_piece[pc.name] = pc
+
+
+dxy_map = {
+           -0x11:(-1, -1), 
+           -0x10:(-1, 0),
+           -0x0F:(-1, 1),
+           -0x01:(0, -1),
+           0x11:(1, 1), 
+           0x10:(1, 0),
+           0x0F:(1, -1),
+           0x01:(0, 1),
+           }
+
+
+max_steps = {}
+
+class PrepareMaxStepMap(object):
+    for vec, (dx, dy) in dxy_map.items():
+        for x in range(8):
+            if dx == 1:
+                max_x = 8 - x
+            elif dx == -1:
+                max_x = x + 1
+            else:
+                max_x = 8
+
+            for y in range(8):
+                if dy == 1:
+                    max_y = 8 - y
+                elif dy == -1:
+                    max_y = y + 1
+                else:
+                    max_y = 8
+
+                max_steps[(x * 0x10 + y, vec)] = min(max_x, max_y)
+del PrepareMaxStepMap
+
 
 def filter_pieces(board, pos, vec, allowed_classes):
-    get = board.const_get_func()
-    
-    dy = get_y(vec)
-    dx = get_x(vec)
-
+    get = board.pieces_map.get
+    dx, dy = dxy_map[vec]
     npos = pos
-    for scale in range(1, 8):
-        if not is_valid_icell(npos):
-            break
+
+    for scale in range(1, max_steps[(pos, vec)]):
+
         npos += vec
 
         if get(npos) is not None:
@@ -208,6 +254,49 @@ def filter_pieces(board, pos, vec, allowed_classes):
                 return
 
 
+def build_hit_cache(cache, should_be_free_map):
+    for piece_class in all_pieces_classes:
+        for pos in all_valid_ipositions:
+            for color in "BW":
+                p = piece_class(pos, color)
+                for hit_vec in p.hit_cells():
+                    should_be_free = set()
+                    for hit_pos in hit_vec:
+                        cache.setdefault(hit_pos, set()).add(p.get_str_id())
+                        should_be_free_map[(hit_pos, p.get_str_id())] = should_be_free.copy()
+                        should_be_free.add(hit_pos)
+
+@profile
+def all_pieces_can_hit2(board, cell, cache={}, should_be_free_map={}):
+    if cache == {}:
+        print "build_hit_cache"
+        build_hit_cache(cache, should_be_free_map)
+
+    ps = {p.get_str_id() for p in board}
+    get = board.const_get_func()
+    possible_attackers = ps & cache[cell]
+
+    attackers = []
+    while True:
+        add_at_least_one = False
+        attackers_str = set()
+        
+        for possible_attacker in possible_attackers:
+            if not (ps & should_be_free_map[(cell, possible_attacker)]):
+                attackers.append([get(int(possible_attacker[3:]))])
+                attackers_str.add(possible_attacker)
+                add_at_least_one = True
+
+        if not add_at_least_one:
+            break
+
+        #print list(attackers)
+        ps -= attackers_str
+        possible_attackers -= attackers_str
+
+    return attackers
+
+
 def all_pieces_can_hit(board, cell):
     get = board.const_get_func()
     for pos in Knight(cell, "W").hit_cells():
@@ -217,29 +306,29 @@ def all_pieces_can_hit(board, cell):
 
     for vec in Bishop.vects:
         l = list(filter_pieces(board, cell, vec, (Queen, Bishop)))
-        if l != []:
+        if l:
             yield l
 
     for vec in Rook.vects:
         l = list(filter_pieces(board, cell, vec, (Queen, Rook)))
-        if l != []:
+        if l:
             yield l
 
 
+@profile
 def hit_order(board, cell, start_color):
-    lists = list(all_pieces_can_hit(board, cell))
-
-    cost = 0
+    b = board.copy()
+    lists = list(all_pieces_can_hit2(b, cell))
     ccolor = start_color
-    cfigure = board.get(cell)
-    cost_coef = 1
+
     while True:
         lists.sort(key=lambda x: x[0].def_cost)
         for l in lists:
             if l[0].color == ccolor:
-                cost += cost_coef * getattr(cfigure, "def_cost", 0)
-                cfigure = l[0]
-                yield l[0], cost
+                fg = l[0].copy()
+                b.remove(cell)
+                b.move(l[0], cell)
+                yield fg, position_evaluate(b)
                 del l[0]
                 break
         else:
@@ -247,7 +336,6 @@ def hit_order(board, cell, start_color):
         # remove empty lists
         lists = filter(None, lists)
         ccolor = rev_color[ccolor]
-        cost_coef = -cost_coef
 
 
 def get_next_step(board, for_color, level=2):
@@ -262,10 +350,13 @@ def is_better_move(curr, new, color):
             (new > curr and color == "W") or \
             (new < curr and color == "B")
 
-def _get_next_step(board, for_color, level=2, pstep=""):
+
+def _get_next_step(board, for_color, level=2, pstep="", hits_enabled=True):
     debug = False
     moves = []
     best_evaluate = None
+
+    hit_checked = set()
 
     if 0 == level:
         if debug:
@@ -292,27 +383,35 @@ def _get_next_step(board, for_color, level=2, pstep=""):
                     best_evaluate = new_val
                     moves = [(piece.ipos, mv)] + next_moves
 
-            for hit in board.get_all_hits(piece):
-                
-                ppos = piece.ipos
-                removed_piece = board.get(hit)
+            if hits_enabled:
+                for hit in board.get_all_hits(piece):
+                    if hit in hit_checked:
+                        continue
+                    else:
+                        figures, evals = zip(*hit_order(board, hit, for_color))
+                        best_after_this_color_move = (min if for_color == 'W' else max)(evals[::2])
+                        
+                        # need find best move after this position, disable hits to avoid internal loop
+                        # apply hits
+                        if evals[1::2]:
+                            best_after_other_color_move = (max if for_color == 'W' else min)(evals[1::2])
+                        else:
+                            assert False
 
-                if debug:
-                    print pstep + "hit", piece, to_str_pos(hit)
+                        b = board.copy()
+                        for figure in figures[:evals.index(best_after_other_color_move)]:
+                            b.remove(hit)
+                            print figure, to_str_pos(hit)
+                            b.move(b.get(figure.ipos), hit)
+                        _, new_eval = _get_next_step(b, for_color, 1, pstep + "    ", False)
 
-                board.remove(hit)
-                board.move(piece, hit)
-                if level == 1:
-                    next_moves = []
-                    new_val = position_evaluate(board)
-                else:
-                    next_moves, new_val = _get_next_step(board, rev_color[for_color], level - 1, pstep + "    ")
-                board.move(piece, ppos)
-                board.add(removed_piece)
+                        if is_better_move(best_evaluate, new_eval, for_color):
+                            best_evaluate = new_eval
+                            moves = [(figures[0].ipos, hit)] + next_moves
 
-                if is_better_move(best_evaluate, new_val, for_color):
-                    best_evaluate = new_val
-                    moves = [(piece.ipos, hit)] + next_moves
+                        if is_better_move(best_evaluate, best_after_this_color_move, for_color):
+                            best_evaluate = best_after_this_color_move
+                            moves = [(figures[0].ipos, hit)] + next_moves
 
     return moves, best_evaluate if best_evaluate is not None else position_evaluate(board)
 
@@ -339,11 +438,6 @@ def get_start_board():
     return pieces
 
 
-text_to_piece = {}
-for pc in (King, Queen, Rook, Bishop, Knight, Pawn):
-    text_to_piece[pc.name] = pc
-
-
 class Board(object):
 
     # board is list of pieces
@@ -351,6 +445,9 @@ class Board(object):
         self.pieces = pieces
         self.pieces_map = {piece.ipos:piece for piece in self}
         self.sum_cost = sum(piece.cost for piece in pieces)
+
+    def copy(self):
+        return self.__class__([i.copy() for i in self.pieces])
 
     def __iter__(self):
         return iter(self.pieces)
@@ -416,8 +513,8 @@ if __name__ == "__main__":
     board = Board(knorre_vs_neumann())
 
     t = time.time()
-    for frm, to in get_next_step(board, "W", 4)[0]:
-        pass
+    for frm, to in get_next_step(board, "W", 2)[0]:
+        print to_str_pos(fro), to_str_pos(to)
     print time.time() - t
 
     # print "best val =", val
