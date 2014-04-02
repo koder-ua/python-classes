@@ -180,21 +180,27 @@
 \newpage
 
 %-------------------------------------------------------------------------------
+%level=3
 \begin{center} lambda \end{center}
 \begin{itemize}
-    \item Способ сделать функцию из выражения
-    \item \lstinline!func = lambda x : x + 2!
-    \item lambda params : expression 
+    \item Удобный синтаксис для однострочных функций
+    \item \lstinline!lambda! параметры : выражение
+    \item Запрещенны \lstinline!print!, \lstinline!for!, \lstinline!if!, ....
+    \item но можно \lstinline!x if expr else y!, так как это выражение
 \end{itemize}
+\vspace{15pt}
 \begin{lstlisting}
-def func(params):
-    return expression
+    var = lambda __params__: expr
+    def var(__params__):
+        return expr
+
+    mul2 = lambda x: x * 2
+    def mul2(x):
+        return x * 2
+
+    map((lambda x : x * 2), (1, 2)) == [2, 4]
 \end{lstlisting}
-\begin{itemize}
-    \item в теле lambda нельзя использовать конструкции
-    \item но можно inline if, так как это выражение
-\end{itemize}
-\newpage 
+\newpage
 
 %-------------------------------------------------------------------------------
 \begin{center} ФП - Введение \end{center}
@@ -394,7 +400,7 @@ def func(params):
 \end{itemize}
 \vspace{15pt}
 \begin{lstlisting}
-    def numbers():
+    def numbers(val=0):
         while True:
             yield val
             val += 1
@@ -453,22 +459,12 @@ def func(params):
 
 %-------------------------------------------------------------------------------
 %level=3
-\begin{center} lambda \end{center}
-\begin{itemize}
-    \item Удобный синтаксис для однострочных функций
-    \item \lstinline!lambda! параметры : выражение
-    \item Запрещенны print, for, if, ....
-\end{itemize}
-\vspace{15pt}
-\begin{lstlisting}
-    map((lambda x : x * 2), (1,2 )) == [2, 4]
-    cmp = lambda x, y : x > y
-\end{lstlisting}
-\newpage
-
-%-------------------------------------------------------------------------------
-%level=3
 \begin{center} Перегрузка функций \end{center}
+\begin{itemize}
+    \item 3.4 - singledispatch
+    \item https://github.com/mrocklin/multipledispatch/
+    \item https://pypi.python.org/pypi/PEAK-Rules/0.5a1.dev
+\end{itemize}
 \newpage
 
 %-------------------------------------------------------------------------------

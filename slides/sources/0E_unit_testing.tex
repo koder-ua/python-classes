@@ -1,0 +1,243 @@
+% python classes slides - classes
+% (c) 2014 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center}Юнит-тестирование\end{center}
+\begin{itemize}
+	\item http://pycheesecake.org/wiki/PythonTestingToolsTaxonomy
+	\item Тестирование: юнит, интеграционное, функциональное, нагрузочное, стресс, ...
+	\item smoke tests vs overnight tests
+	\item Проверки
+	\item Поиск и исполнение тестов
+	\item Моки
+	\item Генерация отчетов и интеграция с системами CI
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}\lstinline!assert & AssertionError!\end{center}
+\begin{itemize}
+	\item AssertionError - lingua franca юнит-тестов
+	\item \lstinline!assert expr[, msg] - assert x == 3!
+\end{itemize}
+
+\begin{verbatim}
+	In [3]: x = 1
+	In [4]: y = 2
+	In [5]: assert x == y
+	------------------------
+	AssertionError          Traceback (most recent call last)
+	<ipython-input-5-0578c5880ed0> in <module>()
+	----> 1 assert x == y
+	AssertionError: 
+\end{verbatim}
+
+\begin{lstlisting}
+	def test_some_func():
+		assert some_func(1) == 2
+\end{lstlisting}
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}unittest\end{center}
+\begin{lstlisting}
+	import unittest
+
+	class TestSome(unittest.TestCase):
+	    def test_simple(self):
+	        x = 1
+	        y = 2
+	        self.assertEquals(x, y)
+
+	    def test_simple2(self):
+	        y = x = 1
+	        self.assertEquals(x, y)
+
+	    def test_simple3(self):
+	        x = 1 / 0
+
+	if __name__ == "__main__":
+	    unittest.main()
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}\lstinline!assert & AssertionError!\end{center}
+\Large
+\begin{verbatim}
+	$ python ut_simplest.py
+	F.E
+	==========================================
+	ERROR: test_simple3 (__main__.TestSome)
+	------------------------------------------
+	Traceback (most recent call last):
+	  File "ut_simplest.py", line 16, in test_simple3
+	    y = 1 / 0
+	ZeroDivisionError: integer division or modulo by zero
+
+	==========================================
+	FAIL: test_simple (__main__.TestSome)
+	------------------------------------------
+	Traceback (most recent call last):
+	  File "ut_simplest.py", line 7, in test_simple
+	    self.assertEquals(x, y)
+	AssertionError: 1 != 2
+
+	------------------------------------------
+	Ran 3 tests in 0.001s
+
+	FAILED (failures=1, errors=1)
+\end{verbatim}
+\LARGE
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Тестовые методы\end{center}
+\begin{itemize}
+	\item \lstinline!self.assertEqual(x, y)!
+	\item \lstinline!self.assertIn(x, set)!
+	\item \lstinline!self.assertRaises(ExcClass, func, params)!, 
+	\item \lstinline!self.assertAlmostEqual(x, y)!
+	\item ....
+\end{itemize}
+
+\begin{lstlisting}
+def r(x):
+	return 1 / x
+
+class TC(TestCase):
+	def test_r():
+		self.assertRaises(ZeroDivisionError, r, 0)
+		self.assertEquals(r(1), 1)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}setUp + tearDown\end{center}
+\begin{lstlisting}
+	class TestSome(unittest.TestCase):
+	    def setUp(self):
+	        self.x = 1
+	        self.y = 1
+
+	    def tearDown(self):
+	    	del self.x
+	    	del self.y
+
+	    def test_simple3(self):
+	        self.assertEquals(self.x, self.y)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Поиск тестов\end{center}
+\begin{itemize}
+	\item python -m unittest test\_module1 test\_module2
+	\item python -m unittest test\_module.TestClass
+	\item python -m unittest test\_module.TestClass.test\_method
+	\item python -m unittest discover project\_directory '*\_test.py'
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \href{http://www.kuwata-lab.com/oktest/oktest-py_users-guide.html}{oktest} \end{center}
+\begin{lstlisting}
+	from oktest import ok
+
+	def simple_test():
+		ok(1) == 1
+		ok([]).is_a(list)
+		ok("/tmp/x.txt").is_file()
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}nose\end{center}
+\begin{itemize}
+	\item Замена unittest
+	\item Плагины
+	\item coverage, parallel test, etc
+	\item CI integration
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} mock \end{center}
+\begin{lstlisting}
+	import os
+	import glob
+
+	def remove_tmp_files():
+		for fname in glob.glob("/tmp/*.tmp"):
+			os.unlink(fname)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}\end{center}
+\begin{lstlisting}
+	import mock
+
+	def glob_mock(path):
+		return ["/tmp/x.tmp", "/tmp/y.sh"]
+
+	all_unlinked = []
+	def unlink_mock(path):
+		return all_unlinked.append(path)
+
+	@mock.patch("os.unlink", unlink_mock)
+	@mock.patch("glob.glob", glob_mock)
+	def test_remove_tmp():
+		remove_tmp_files()
+		ok(all_unlinked) == ["/tmp/x.tmp"]
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+% \begin{center}\end{center}
+% \begin{itemize}
+% 	\item
+% \end{itemize}
+% \newpage
+
+% %-------------------------------------------------------------------------------
+% \begin{center}\end{center}
+% \begin{itemize}
+% 	\item
+% \end{itemize}
+% \newpage
+
+% %-------------------------------------------------------------------------------
+% \begin{center}\end{center}
+% \begin{itemize}
+% 	\item
+% \end{itemize}
+% \newpage
+
+% %-------------------------------------------------------------------------------
+% \begin{center}\end{center}
+% \begin{itemize}
+% 	\item
+% \end{itemize}
+% \newpage
+
+%-------------------------------------------------------------------------------
+\end{document}
+
+
+
+
+
+
+
+

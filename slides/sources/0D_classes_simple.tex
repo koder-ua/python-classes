@@ -1,0 +1,185 @@
+% python classes slides - classes
+% (c) 2014 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Термины \end{center}
+\begin{itemize}
+    \item Интерфейс - набор всего, что видно наружу из X. Автомобиль - интерфейс.
+    \item Интерфейсы могут наследовать и расширять друг друга. Ручная коробка передач и автоматическая.
+    \item Классы - конкретные типа объектов, реализующие интерфейс(ы).
+    \item Ауди, БТР, жигули. 
+    \item Классы могут наследовать и расширять друг друга.
+    \item Класс только определяет тип и реализацию методы интерфейса.
+    \item Объекты - экземпляры класса. Объекты содержат конкретные данные.
+    \item Все объекты конкретного класса используют общую реализацию функциональности, 
+           но передают в нее свои конкретные данные (текущая скорость, коефициенты трения, 
+           количество и тип топлива).
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Что куда относится \end{center}
+\begin{itemize}
+    \item Скорость автомобиля
+    \item Управление рулем/рычагами
+    \item Тип коробки-автомата (робот/вариатор/...)
+    \item Пробег двигателя
+    \item Максимальное ускорение
+    \item Тип привода
+    \item Угол поворота рулевого колеса
+    \item Уровень топлива
+\end{itemize}
+\newpage
+
+
+%-------------------------------------------------------------------------------
+\begin{center} Код для автомобиля \end{center}
+\begin{lstlisting}
+    auto = ((x, y), (vec_x, vec_y), acceleration_level)
+
+    def set_accel_level1(auto, al):
+        pass
+
+    def set_deccel_level1(auto, dl):
+        pass
+
+    def set_wheel_pos1(auto, wp):
+        pass
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Код для автомобиля \end{center}
+\begin{equation}
+    x = x + vec_x
+\end{equation}    
+\begin{equation}
+    y = y + vec_y
+\end{equation}    
+\begin{equation}
+    speed = \sqrt{vec_x^2 + vec_y^2}
+\end{equation}    
+\begin{equation}
+    vec_x = vec_x + max\_accel * accel\_lev + air\_res * speed ^{3} / mass
+\end{equation}    
+
+\begin{lstlisting}
+    def tick1(auto):
+        #...
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Функция, обрабатывающая автомобиль \end{center}
+\begin{lstlisting}
+    auto = ((x, y), (vec_x, vec_y), acceleration_level, tp)
+    def make_trip(auto, path):
+        #.....
+        if tp == "audi":
+            auto = set_accel_level1(auto, ..)
+        else tp == "zaz":
+            auto = set_accel_level2(auto, ..)
+            #....
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Функция, обрабатывающая автомобиль \end{center}
+\begin{lstlisting}
+    auto = ((x, y), (vec_x, vec_y), acceleration_level, tp, accel_func, ...)
+    def make_trip(auto, path):
+        #...
+        accel_func = auto[4]
+        #...
+        auto = accel_func(auto, ..)
+
+
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Функция, создающая автомобиль \end{center}
+\begin{lstlisting}
+    def make_zaz(x, y, vec_x=0, vec_y=0, acceleration_level=0):
+        return ((x, y), (vec_x, vec_y), acceleration_level, tp, accel_func, ...)
+
+    auto = make_zaz(1, 2)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Классы \end{center}
+\begin{lstlisting}
+    class Auto(object):
+        def set_accel_level(self, al):
+            pass
+
+        def set_deccel_level(self, dl):
+            pass
+
+        def set_wheel_pos(self, wp):
+            pass
+
+        def speed(self):
+            pass
+
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Классы \end{center}
+\begin{lstlisting}
+    class ZAZ(Auto):
+        def __init__(self, x, y):
+            self.
+
+        def set_accel_level(self, al):
+            pass
+
+        def set_deccel_level(self, dl):
+            pass
+
+        def set_wheel_pos(self, wp):
+            pass
+
+        def tick(self):
+            pass
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Классы \end{center}
+\begin{lstlisting}
+    auto = ZAZ(100, 100)
+    auto.set_accel_level(1)
+    auto.tick()
+    auto.tick()
+    print "Speed after two ticks is", auto.speed()
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Классы \end{center}
+\begin{itemize}
+    \item разогнать автомобиль до 60 км/час
+    \item проехать 6км
+    \item затормозить до 0
+\end{itemize}
+
+\begin{lstlisting}
+def make_trip(auto, path):
+    pass
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}

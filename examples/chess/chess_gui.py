@@ -5,7 +5,11 @@ import os.path
 from PySide import QtGui, QtCore
 
 from chess_base import board_letters, to_str_pos, to_tuple_pos, is_valid_cell
-from chess import Pawn, Rook, Knight, King, Queen, Bishop, Board, knorre_vs_neumann
+
+sys.path.append("/home/koder/Downloads")
+
+from chess_other import Pawn, Rook, Knight, King, Queen, Bishop, Adapter
+from chess import Board
 
 self_dir = os.path.dirname(os.path.join(os.getcwd(), sys.argv[0]))
 
@@ -45,7 +49,7 @@ class Example(QtGui.QWidget):
         self.vertical_lines_x_corrds = []
         self.horizontal_lines_y_coords = []
 
-        self.board = Board(knorre_vs_neumann())
+        self.board = Board([Adapter(Bishop((4,4), "W"))])
 
         self.pieces_images = {}
         self.load_pieces(self.img_path)
@@ -172,6 +176,13 @@ class Example(QtGui.QWidget):
             tp, move, hit = piece.full_name(), self.board.get_all_moves(piece), self.board.get_all_hits(piece)
 
             if piece.pos == self.active_cell:
+                hit = list(hit)
+                move = list(move)
+                #print "hit =", hit
+
+                move = map(to_tuple_pos, move)
+                hit = map(to_tuple_pos, hit)
+
                 self.draw_piece(painter, piece.pos, tp, list(move), list(hit), True)                
             else:
                 self.draw_piece(painter, piece.pos, tp, "", "", False)
@@ -271,7 +282,6 @@ class Example(QtGui.QWidget):
         
 def main():
     app = QtGui.QApplication(sys.argv)
-    ex = Example()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
