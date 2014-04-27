@@ -205,6 +205,19 @@
 %-------------------------------------------------------------------------------
 \begin{center} ФП - Введение \end{center}
 \begin{itemize}
+    \item FP and OOP, FP vs Императивное
+    \item Константные переменные
+    \item Локализация побочных эффектов
+    \item Мощная система типов
+    \item Рекурсия
+    \item ...
+    \item Хороший компилятор
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} ФП - Введение \end{center}
+\begin{itemize}
     \item Имя функции – переменная, указывающая на объект-функцию в памяти
 \end{itemize}
 \vspace{15pt}
@@ -413,6 +426,68 @@
 \newpage
 
 %-------------------------------------------------------------------------------
+\begin{center} Декораторы \end{center}
+\begin{lstlisting}
+    def func(param):
+        return param * 2
+
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} Декораторы \end{center}
+\begin{lstlisting}
+    def func(param):
+        print "param =", param
+        res = param * 2
+        print "result =", res
+        return res
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} Декораторы \end{center}
+\begin{lstlisting}
+    def func(param):
+        log_params(func, param)
+        res = param * 2
+        log_result(func, res)
+        return res
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} Декораторы \end{center}
+\begin{lstlisting}
+    def logged(func):
+        def closure(*dt, **mp):
+            log_params(func, param)
+            res = func(param)
+            log_result(func, res)
+            return res
+        return closure
+
+    def func_(param):
+        return param * 2
+
+    func = logged(func_)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} Декораторы \end{center}
+\begin{lstlisting}
+    @logged
+    def func_(param):
+        return param * 2
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
 %level=3
 \begin{center} Декораторы \end{center}
 \begin{itemize}
@@ -455,6 +530,18 @@
 
     some_func(1, 2) # some_func((1, 2) {}) = 3
 \end{lstlisting}
+\newpage
+%-------------------------------------------------------------------------------
+%level=3
+\begin{center} Применение декораторов \end{center}
+\begin{itemize}
+    \item логирование/трассирование
+    \item проверка типов параметров
+    \item проверка пост и предусловий
+    \item открытие/закрытие транзакций
+    \item освобождение/захват лока, ....
+    \item взаимосвязь с with
+\end{itemize}
 \newpage
 
 %-------------------------------------------------------------------------------

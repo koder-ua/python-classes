@@ -552,7 +552,19 @@ Action=GetStatus
 
 %-----------------------------------------------------------------------------
 \begin{center} ORM \end{center}
+Задача \href{}{ORM} - преобразовывать python выражения в соответствующие 
+запросы sql.
+\begin{lstlisting}
+t1 = orm.Table("users")
+t2 = orm.Table("addresses")
 
+expr = (t1.name == 'foo').and(t2.uid == t1.id)
+
+print str(expr)
+
+print str(orm.select(t2.address).where(expr))
+
+\end{lstlisting}
 \newpage
 
 %-----------------------------------------------------------------------------

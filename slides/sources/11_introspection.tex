@@ -1,0 +1,156 @@
+% python classes slides - profiling and optimization
+% (c) 2014 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Интроспекция \end{center}
+\begin{itemize}
+    \item Добраться можно до всего чего угодно (почти) и бОльшую часть этого можно поменять \"на лету\"
+    \item DRY
+\end{itemize}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center} Внутри объектов \end{center}
+\begin{lstlisting}
+class T(object):
+    val = 1
+    def __init__(self, data):
+        self.data = data
+        self.__x = 1
+
+    def func(self):
+        return self.data
+t = T(2)
+t.__dict__ == {'_T__x': 1, 'data': 1}
+t.__class__ is T
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center} Внутри объектов \end{center}
+\begin{lstlisting}
+x = t.func
+x() == 2
+
+y = T.func
+y(x) == 2
+
+x2 = y.__get__(t)
+x2() == 2
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center} Внутри методов \end{center}
+\begin{lstlisting}
+x = t.func
+x() == 2
+x.im_func, x.im_self, x.im_class
+
+y = T.func
+y(x) == 2
+
+x2 = y.__get__(t)
+x2() == 2
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center} Внутри классов \end{center}
+\begin{lstlisting}
+T.__dict__ == {'__dict__': <attribute '__dict__' of 'T' objects>,
+               '__doc__': None,
+               '__init__': <function __main__.__init__>,
+               '__module__': '__main__',
+               '__weakref__': <attribute '__weakref__' of 'T' objects>,
+               'func': <function __main__.func>,
+               'val': 1}
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center} Внутри функций \end{center}
+\begin{lstlisting}
+def test(v1, v2=12):
+    return v1 + v2
+
+test.func_code # code object
+test.func_defaults == (12, )
+
+test.x = 0
+test.__dict__ == {'x': 0}
+
+#func_closure, func_doc, func_globals, func_name
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center} Внутри функций \end{center}
+\begin{lstlisting}
+import dis
+import inspect
+
+dis.dis(test)
+#  2 0 LOAD_FAST     0 (v1)
+#    3 LOAD_FAST     1 (v2)
+#    6 BINARY_ADD       
+#    7 RETURN_VALUE
+
+inspect.getargspec(test)
+# ArgSpec(args=['v1', 'v2'], varargs=None, keywords=None, defaults=(12,))
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center} Внутри функций \end{center}
+\begin{lstlisting}
+import ast
+print ast.dump(ast.parse("x = 1 + r"))
+
+Module(body=[
+    Assign(
+        targets=[Name(id='x', ctx=Store())], 
+        value=BinOp(
+                left=Num(n=1), 
+                op=Add(), 
+                right=Name(id='r', ctx=Load())
+            )
+        )
+    ])
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center}Пример\end{center}
+Нужно сгенерировать вагончик API к имеющемуся коду.
+СLI, HTTP, RPC, whatever.
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\begin{center}Пример\end{center}
+\begin{lstlisting}
+
+class Command(objects):
+    class Params:
+        pass
+
+def create_cli(cmd):
+    pass
+
+@classmethod
+def validate(self, **params):
+    pass
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------------------------------------------
+\end{document}

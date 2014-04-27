@@ -1,0 +1,101 @@
+% python classes slides - profiling and optimization
+% (c) 2014 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Inplace object/func update (e.g. patch for UT) \end{center}
+\begin{lstlisting}
+obj.__class__ = mock.__class__
+obj.__dict__ = mock.__dict__
+
+
+func1.func_code = func2.func_code
+func1.func_defaults = func2.func_defaults
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} zip-zip \end{center}
+\begin{lstlisting}
+keys = dict.keys()
+values = dict.keys()
+
+items = zip(keys, values)
+keys, values = zip(*items)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Runtime code inspection \end{center}
+\begin{lstlisting}
+import IPython
+IPython.embed()
+#TODO: any way to make this remote?
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Hide data in object\end{center}
+\begin{lstlisting}
+obj.__dict__[0] = ....
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Make uniq key \end{center}
+\begin{lstlisting}
+def get_uniq_key():
+    return type('Key', (object,) {})
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Passing method from other object \end{center}
+\begin{lstlisting}
+x = {}
+class X(object):
+    __getattr__ = x.__getitem__
+
+attrs = {nama:getattr(obj, name) for name in dir(obj)}
+x = type("_", (object,), attrs)()
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------
+\begin{center} List of all objs in current module \end{center}
+\begin{lstlisting}
+keys = global().keys()
+for name in keys:
+    pass
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------
+\begin{center} Faked module \end{center}
+\begin{lstlisting}
+class MyModule(object):
+    pass
+import sys
+mmod = MyModule()
+sys.modules['mod1'] = mmod
+
+import mod1
+assert mod1 is mmod
+\end{lstlisting}
+
+%-------------------------------------------------------------------------------
+\begin{center} Faked module \end{center}
+\begin{lstlisting}
+    x = X()
+    x = X.__class__.__call__(X)
+    x.test(12) == x.__class__.test.__get__(x)(12)
+\end{lstlisting}
+%-------------------------------------------------------------------------------
+
+\end{document}

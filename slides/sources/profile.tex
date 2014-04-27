@@ -1,0 +1,170 @@
+% python classes slides - profiling and optimization
+% (c) 2014 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Premature optimization is a root of all evil \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Проблемы при профилировании \end{center}
+Скорость работы зависит от множества факторов
+\begin{itemize}
+    \item Статистическая обработка разультатов (делаем 5 тестов, отбрасываем самый медленный и самый быстрый)
+    \item Контролируйте нагрузку на процессор и его тактовую частоту
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Детерминированное и вероятностное профилирование \end{center}
+\begin{itemize}
+    \item Детерминированное - встраивание счетчиков в код
+    \item Вероятностное - периодическая остановка программы и анализ времени останова
+    (периодическая остановка по исчерпанию люого счетчика, а не только времени)
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} top/htop/atop/iotop/nettop/time \& sysinternals \end{center}
+\begin{verbatim}
+% time python some_script.py
+real    0m1.028s
+user    0m0.001s
+sys     0m0.003s
+\end{verbatim}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} timeit \end{center}
+Используется для профилирования быстрых конструкций
+\begin{lstlisting}
+    import timeit
+    print timeit.timeit("a + b", "a,b = 1,2") # 0.0374751091003
+\end{lstlisting}
+ipython - \%timeit expression
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} timeit \end{center}
+\begin{lstlisting}
+    import timeit
+    
+    for pow in range(6, 8):
+        print timeit.timeit("a + b", "a,b = 1,2", number=10 ** pow) / 10 ** pow
+
+    # 2.5 E-8
+    # 2.14E-8
+    # 2.1 E-8
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} timeit \end{center}
+\begin{lstlisting}
+    zero_time = timeit.timeit("pass", "", number=number) / number
+    timeit.timeit(..., number=number) / num - zero_time
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} profile & cProfile \end{center}
+\begin{lstlisting}
+    import re
+    import cProfile
+
+    cProfile.run("re.compile("a|b|" * 100 + "c")")
+\end{lstlisting}
+\begin{verbatim}
+   4913 function calls (4712 primitive calls) in 0.002 seconds
+   Ordered by: standard name
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 <string>:1(<module>)
+        1    0.000    0.000    0.002    0.002 re.py:188(compile)
+        1    0.000    0.000    0.002    0.002 re.py:226(_compile)
+        2    0.000    0.000    0.000    0.000 sre_compile.py:179(_compile_charset)
+        2    0.000    0.000    0.000    0.000 sre_compile.py:208(_optimize_charset)
+      408    0.000    0.000    0.000    0.000 sre_compile.py:25(_identityfunction)
+        1    0.000    0.000    0.000    0.000 sre_compile.py:33(_compile)
+        1    0.000    0.000    0.000    0.000 sre_compile.py:360(_compile_info)
+        2    0.000    0.000    0.000    0.000 sre_compile.py:473(isstring)
+        1    0.000    0.000    0.000    0.000 sre_compile.py:479(_code)
+        1    0.000    0.000    0.002    0.002 sre_compile.py:494(compile)
+      203    0.000    0.000    0.000    0.000 sre_parse.py:127(__len__)
+      404    0.000    0.000    0.000    0.000 sre_parse.py:131(__getitem__)
+\end{verbatim}
+\newpage
+
+%-------------------------------------------------------------------------------
+% \begin{center} profile & cProfile & hotspot \end{center}
+% \begin{lstlisting}
+%     import cProfile
+%     import re
+%     cProfile.run('re.compile("foo|bar")')
+% \end{lstlisting}
+
+%      197 function calls (192 primitive calls) in 0.002 seconds
+
+% Ordered by: standard name
+
+% ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+%      1    0.000    0.000    0.001    0.001 <string>:1(<module>)
+%      1    0.000    0.000    0.001    0.001 re.py:212(compile)
+%      1    0.000    0.000    0.001    0.001 re.py:268(_compile)
+%      1    0.000    0.000    0.000    0.000 sre_compile.py:172(_compile_charset)
+%      1    0.000    0.000    0.000    0.000 sre_compile.py:201(_optimize_charset)
+%      4    0.000    0.000    0.000    0.000 sre_compile.py:25(_identityfunction)
+%    3/1    0.000    0.000    0.000    0.000 sre_compile.py:33(_compile)
+   
+% \newpage
+
+% profile = cProfile.Profile()
+% try:
+%     profile.enable()
+%     result = func(*args, **kwargs)
+%     profile.disable()
+%     return result
+% finally:
+%     profile.print_stats()
+%     profile.dump_stats(fname)
+
+
+% import pstats
+% p = pstats.Stats('restats')
+% p.strip_dirs().sort_stats(-1).print_stats()
+
+
+
+% python -m cProfile [-o output_file] [-s sort_order] myscript.py
+
+
+% %-------------------------------------------------------------------------------
+% pip install pycallgraph
+% pycallgraph graphviz -- ./mypythonscript.py
+
+% from pycallgraph import PyCallGraph
+% from pycallgraph.output import GraphvizOutput
+
+% with PyCallGraph(output=GraphvizOutput()):
+%     code_to_profile()
+
+
+% %-------------------------------------------------------------------------------
+
+% $ sudo apt-get install graphviz
+% $ git clone https://code.google.com/p/jrfonseca.gprof2dot/ gprof2dot
+% $ ln -s "$PWD"/gprof2dot/gprof2dot.py ~/bin
+% $ cd $PROJECT_DIR
+% $ gprof2dot.py -f pstats profile.pstats | dot -Tsvg -o callgraph.svg
+% %-------------------------------------------------------------------------------
+% line_profiler
+% memory usage profilers
+% %-------------------------------------------------------------------------------
+\end{document}
