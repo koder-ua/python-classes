@@ -1,0 +1,8 @@
+pip
+
+winpdb (http://winpdb.org/)
+ipython
+sublime/pydev/pycharm
+pythontutor http://pythontutor.com/
+
+pylint / pychecker / pysonar2(https://github.com/yinwang0/pysonar2)
