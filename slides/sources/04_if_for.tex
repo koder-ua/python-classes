@@ -128,6 +128,32 @@
 \newpage
 
 %-------------------------------------------------------------------------------
+\begin{center} for - цикл по множеству \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+	t = [1, 2, 3]
+	for x in t[:2]:
+		print(x)
+
+	x, y = (1, 2)
+	# x == 1, y == 2
+
+	for idx, val in enumerate(t):
+		# 0 1
+		# 1 2
+		# 2 3
+
+	f = "abc"
+	for v1, v2 in zip(t, f):
+		# 1 'a'
+		# 2 'b'
+		# 3 'c'
+
+	for idx, (v1, v2) in enumerate(zip(t, f)):
+		# ...
+\end{lstlisting}
+\newpage
+%-------------------------------------------------------------------------------
 \begin{center} break \& сontinue как всегда \end{center}
 \begin{itemize}
 	\item \lstinline!break!  выходит из цикла
