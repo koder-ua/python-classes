@@ -180,6 +180,26 @@
 \newpage
 
 %-------------------------------------------------------------------------------
+\begin{center} Функции: рекурсия \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+    def isin(lst, val):
+        for vl in lst:
+            if val == vl:
+                return True
+        return False
+
+    def isin_r(lst, val):
+        if len(lst) == 0:
+            return False
+        if val == lst[0]:
+            return True
+        return isin_r(lst[1:], val)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+
 %level=3
 \begin{center} lambda \end{center}
 \begin{itemize}
