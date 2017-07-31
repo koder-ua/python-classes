@@ -82,8 +82,8 @@ with socket.socket() as s:
 %-------------------------------------------------------------------------------
 \begin{center} БД/DB2 API \end{center}
 \begin{itemize}
-    \item Connection
-    \item Cursor
+    \item Connection (commit/rollback)
+    \item Cursor (execute/fetchone/fetchall/executemany)
     \item Транзакция
 \end{itemize}
 \newpage
@@ -107,13 +107,13 @@ import sqlite3
 
 def prepare(cr):
     try:
-        cr.execute("select key from series limit 1")
+        cr.execute("select key from messages limit 1")
     except sqlite3.OperationalError:
-        cr.execute("create table series (key text primary key, msg text)")
+        cr.execute("create table messages (key text primary key, msg text)")
 
 
 def show_db(cr):
-    cr.execute("select key, msg from series")
+    cr.execute("select key, msg from messages")
     print("\n#-----------------------")
     for key, msg in cr.fetchall():
         print(">>>", key, msg)
@@ -131,14 +131,14 @@ prepare(cr)
 conn.commit()
 
 cr = conn.cursor()
-cr.execute("insert into series values (?, ?)", ("1", "this will disappears"))
+cr.execute("insert into messages values (?, ?)", ("1", "this will disappears"))
 show_db(cr)
 conn.rollback()
 show_db(conn.cursor())
 
 
 cr = conn.cursor()
-cr.execute("insert into series values (?, ?)", ("2", "this will remains"))
+cr.execute("insert into messages values (?, ?)", ("2", "this will remains"))
 show_db(cr)
 conn.commit()
 show_db(conn.cursor())
@@ -167,18 +167,75 @@ def transaction(conn):
 \begin{center} sqlite3 \end{center}
 \begin{lstlisting}
 with transaction(conn) as cr:
-    cr.execute("insert into series values (?, ?)", ("5", "this will also remains"))
+    cr.execute("insert into messages values (?, ?)", ("5", "this will also remains"))
 
 with transaction(conn) as cr:
     show_db(cr)
 
 with transaction(conn) as cr:
-    cr.execute("insert into series values (?, ?)", ("6", "this will not remains"))
+    cr.execute("insert into messages values (?, ?)", ("6", "this will not remains"))
     show_db(cr)
     raise ValueError("")
 
 with transaction(conn) as cr:
     show_db(cr)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} sqlite3 \end{center}
+\begin{lstlisting}
+data = [(str(x), "msg {}".format(x)) for x in range(10, 20)]
+with transaction(conn) as cr:
+    cr.executemany("insert into messages values (?, ?)", data)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} sqlite3 \end{center}
+\begin{lstlisting}
+from sqlalchemy import Column, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class Message(Base):
+    __tablename__ = 'messages'
+    key = Column(String, primary_key=True)
+    msg = Column(String)
+
+    def __str__(self):
+        return "Message({0.key!r}, {0.msg!r})".format(self)
+
+# Base.metadata.create_all(engine)
+\end{lstlisting}
+\newpage
+
+
+%-------------------------------------------------------------------------------
+\begin{center} sqlite3 \end{center}
+\begin{lstlisting}
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+
+engine = create_engine('sqlite:////tmp/data.db', echo=True)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+msg1 = Message(key="101", msg="test1")
+msg2 = Message(key="102", msg="test2")
+session.add_all([msg1, msg2])
+session.commit()
+
+for msg in session.query(Message).all():
+    print(msg) 
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} pymssql \end{center}
+\begin{lstlisting}
+import pymssql
 \end{lstlisting}
 \newpage
 %-------------------------------------------------------------------------------
