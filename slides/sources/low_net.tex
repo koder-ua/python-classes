@@ -1,0 +1,185 @@
+% python classes slides - profiling and optimization
+% (c) 2014 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} TCP level networking \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Стек протоколов \end{center}
+\begin{itemize}
+    \item Ethernet
+    \item IP
+    \item TCP/UDP
+    \item HTTP/FTP/SSH/...
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} ISO vs. ANSI \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} IP \end{center}
+\includegraphics[scale=0.6]{images/ip_header.jpg}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} TCP/UDP \end{center}
+\includegraphics[scale=0.6]{images/tcpheader.jpg}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Python TCP client \end{center}
+\begin{lstlisting}
+import socket
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:  # tcp by default
+    s.connect(('127.0.0.1', 12345))  # ip or hostname
+    s.send("Hello, World!".encode('utf8'))
+
+    # 1
+    print("Recv", s.recv(1024).decode('utf8'))
+
+    # 2
+    # fd = s.makefile()
+    # fd.read()
+\end{lstlisting}
+\newpage
+
+
+%-------------------------------------------------------------------------------
+\begin{center} Python TCP server \end{center}
+\begin{lstlisting}
+import socket
+
+sz = 32
+
+with socket.socket() as s:
+    s.bind(('', 12345))
+    s.listen(1)
+
+    conn, addr = s.accept()
+    print('Connection address:', addr)
+    while True:
+        data = conn.recv(sz)
+        if not data:
+            break
+        print("received data:", data.decode('utf8'))
+        conn.send(data)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} БД/DB2 API \end{center}
+\begin{itemize}
+    \item Connection
+    \item Cursor
+    \item Транзакция
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} sqlite3 \end{center}
+\begin{lstlisting}
+import sqlite3
+
+conn = sqlite3.connect('/tmp/data.db')
+cursor = conn.cursor()
+conn.close()
+
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} sqlite3 \end{center}
+\begin{lstlisting}
+import sqlite3
+
+def prepare(cr):
+    try:
+        cr.execute("select key from series limit 1")
+    except sqlite3.OperationalError:
+        cr.execute("create table series (key text primary key, msg text)")
+
+
+def show_db(cr):
+    cr.execute("select key, msg from series")
+    print("\n#-----------------------")
+    for key, msg in cr.fetchall():
+        print(">>>", key, msg)
+    print("#-----------------------\n")
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} sqlite3 \end{center}
+\begin{lstlisting}
+conn = sqlite3.connect("/tmp/data.db")
+cr = conn.cursor()
+show_db(cr)
+prepare(cr)
+conn.commit()
+
+cr = conn.cursor()
+cr.execute("insert into series values (?, ?)", ("1", "this will disappears"))
+show_db(cr)
+conn.rollback()
+show_db(conn.cursor())
+
+
+cr = conn.cursor()
+cr.execute("insert into series values (?, ?)", ("2", "this will remains"))
+show_db(cr)
+conn.commit()
+show_db(conn.cursor())
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} sqlite3 \end{center}
+\begin{lstlisting}
+import contextlib
+
+@contextlib.contextmanager
+def transaction(conn):
+    cr = conn.cursor()
+    try:
+        yield cr
+    except:
+        conn.rollback()
+        raise
+    conn.commit()
+\end{lstlisting}
+\newpage
+
+
+%-------------------------------------------------------------------------------
+\begin{center} sqlite3 \end{center}
+\begin{lstlisting}
+with transaction(conn) as cr:
+    cr.execute("insert into series values (?, ?)", ("5", "this will also remains"))
+
+with transaction(conn) as cr:
+    show_db(cr)
+
+with transaction(conn) as cr:
+    cr.execute("insert into series values (?, ?)", ("6", "this will not remains"))
+    show_db(cr)
+    raise ValueError("")
+
+with transaction(conn) as cr:
+    show_db(cr)
+\end{lstlisting}
+\newpage
+%-------------------------------------------------------------------------------
+\end{document}
