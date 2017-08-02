@@ -1,0 +1,121 @@
+% (c) 2017 Kostiantyn Danylov aka koder 
+% koder.mail@gmail.com
+% distributed under CC-BY licence
+% http://creativecommons.org/licenses/by/3.0/deed.en
+
+\documentclass{article}
+\input{files/lectures_env}
+\input{files/python_cmds}
+\begin{document}
+\LARGE
+
+%-------------------------------------------------------------------------------
+\begin{center} Paramiko sftp \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+    t = paramiko.Transport((hostname, port))
+    try:
+        t.connect(username=username, password=password)
+        sftp = paramiko.SFTPClient.from_transport(t)
+        sftp.get(source, dest)
+    finally:
+        t.close()
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Paramiko ssh \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+    client = paramiko.SSHClient()
+    client.load_system_host_keys()
+    client.set_missing_host_key_policy(paramiko.WarningPolicy)
+    client.connect(host, username=username,
+                   pkey=paramiko.RSAKey.from_private_key_file(key_file, password=SSH_KEY_PASSWD),
+                   look_for_keys=False)
+    client.connect(host, username=username, password=password)
+    client.exec_command(command)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} HyperV \end{center}
+\begin{itemize}
+    \item WMI
+    \item pywinrm
+    \item IP
+    \item http://antigluk.blogspot.com/2014/04/control-hyper-v-with-python.html
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} WMI \end{center}
+\begin{itemize}
+    \item https://pypi.python.org/pypi/WMI/
+    \item http://timgolden.me.uk/python/wmi/tutorial.html
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} WinRM \end{center}
+\begin{lstlisting}
+import winrm
+s = winrm.Session('windows-host.example.com', auth=('john.smith', 'secret'))
+r = s.run_cmd('ipconfig', ['/all'])
+print(r.status_code)
+print(r.std_out)
+r = s.run_ps(ps_script)
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Ansible installation \end{center}
+\begin{lstlisting}
+# python3 -m venv ansible
+# source ansible/bin/activate
+# pip install 'pywinrm>=0.2.2'
+# pip install ansible
+# ansible --version
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Ansible \end{center}
+\begin{itemize}
+    \item Inventory
+    \item Config
+    \item Playbooks
+\end{itemize}
+\begin{verbatim}
+
+- hosts
+- xxx1.yaml
+- xxx2.yaml
+- group_vars/
+    - HOST_GROUP_NAME1.yml
+    - HOST_GROUP_NAME2.yml
+    - all.yml
+
+\end{verbatim}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Inventory \end{center}
+\vspace{15pt}
+\begin{lstlisting}
+[group1]
+IP_OR_HOSTNAME PARAM=VAL PARAM=VAL
+IP_OR_HOSTNAME2 
+
+[group2]
+IP_OR_HOSTNAME3 PARAM=VAL PARAM=VAL
+IP_OR_HOSTNAME4 
+
+[group3:children]
+group1
+group2
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\end{document}

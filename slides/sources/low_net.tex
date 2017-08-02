@@ -93,18 +93,6 @@ with socket.socket() as s:
 \begin{lstlisting}
 import sqlite3
 
-conn = sqlite3.connect('/tmp/data.db')
-cursor = conn.cursor()
-conn.close()
-
-\end{lstlisting}
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center} sqlite3 \end{center}
-\begin{lstlisting}
-import sqlite3
-
 def prepare(cr):
     try:
         cr.execute("select key from messages limit 1")
