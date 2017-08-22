@@ -1,5 +1,5 @@
 % python classes slides - classes
-% (c) 2014 Kostiantyn Danylov aka koder 
+% (c) 2014 Kostiantyn Danylov aka koder
 % koder.mail@gmail.com
 % distributed under CC-BY licence
 % http://creativecommons.org/licenses/by/3.0/deed.en
@@ -11,15 +11,46 @@
 \LARGE
 
 %-------------------------------------------------------------------------------
-\begin{center}Юнит-тестирование\end{center}
+\begin{center}Юнит-тесты\end{center}
+    Код, который проверяет код, что бы уволить тестировщиков.
+\begin{verbatim}
+    def my_test():
+    	if the_answer_to_the_ultimate_question() != 42:
+            raise SomeError("It does not look like anything")
+\end{verbatim}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Структура\end{center}
 \begin{itemize}
-	\item http://pycheesecake.org/wiki/PythonTestingToolsTaxonomy
-	\item Тестирование: юнит, интеграционное, функциональное, нагрузочное, стресс, ...
-	\item smoke tests vs overnight tests
-	\item Проверки
-	\item Поиск и исполнение тестов
-	\item Моки
-	\item Генерация отчетов и интеграция с системами CI
+    \item Дерево файлов в отдельной папке(tests), которая частично моделирует
+          структуру основного проекта(если только не ява)
+    \item Версионируется вместе с кодом
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Тесты\end{center}
+\begin{itemize}
+    \item Методы в классах или функции
+    \item Инициализация
+	\item Код теста - выполняется действие и результат сверяется с требуемым
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Фреймворк\end{center}
+\begin{itemize}
+    \item Поиск тестов
+    \item Инициализация, контроль исполнения
+	\item Отчеты, взаимодействие с CI/CD
+    \item Библиотека вспомагательных функций
+    \item Контроль логов
+    \item Вызов отладчика по ошибке, etc
+    \item Шедулинг исполнения
+    \item Профилирования
+    \item История исполнения
+    \item ....
 \end{itemize}
 \newpage
 
@@ -27,127 +58,101 @@
 \begin{center}\lstinline!assert & AssertionError!\end{center}
 \begin{itemize}
 	\item AssertionError - lingua franca юнит-тестов
+    \item Все тестирующие ф-ции выбрасывают их, все фреймворки - ловят
 	\item \lstinline!assert expr[, msg] - assert x == 3!
 \end{itemize}
 
 \begin{verbatim}
-	In [3]: x = 1
-	In [4]: y = 2
-	In [5]: assert x == y
-	------------------------
-	AssertionError          Traceback (most recent call last)
-	<ipython-input-5-0578c5880ed0> in <module>()
-	----> 1 assert x == y
-	AssertionError: 
+	x = 1
+	y = 2
+    assert x == y, "x(={}) must be equals y(={})".format(x, y)
+    assert the_answer_to_the_ultimate_question() == 42
 \end{verbatim}
 
-\begin{lstlisting}
-	def test_some_func():
-		assert some_func(1) == 2
-\end{lstlisting}
-
-\newpage
-
 %-------------------------------------------------------------------------------
-\begin{center}unittest\end{center}
-\begin{lstlisting}
-	import unittest
-
-	class TestSome(unittest.TestCase):
-	    def test_simple(self):
-	        x = 1
-	        y = 2
-	        self.assertEquals(x, y)
-
-	    def test_simple2(self):
-	        y = x = 1
-	        self.assertEquals(x, y)
-
-	    def test_simple3(self):
-	        x = 1 / 0
-
-	if __name__ == "__main__":
-	    unittest.main()
-\end{lstlisting}
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center}\lstinline!assert & AssertionError!\end{center}
-\Large
-\begin{verbatim}
-	$ python ut_simplest.py
-	F.E
-	==========================================
-	ERROR: test_simple3 (__main__.TestSome)
-	------------------------------------------
-	Traceback (most recent call last):
-	  File "ut_simplest.py", line 16, in test_simple3
-	    y = 1 / 0
-	ZeroDivisionError: integer division or modulo by zero
-
-	==========================================
-	FAIL: test_simple (__main__.TestSome)
-	------------------------------------------
-	Traceback (most recent call last):
-	  File "ut_simplest.py", line 7, in test_simple
-	    self.assertEquals(x, y)
-	AssertionError: 1 != 2
-
-	------------------------------------------
-	Ran 3 tests in 0.001s
-
-	FAILED (failures=1, errors=1)
-\end{verbatim}
-\LARGE
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center}Тестовые методы\end{center}
+\begin{center}Фреймворки\end{center}
 \begin{itemize}
-	\item \lstinline!self.assertEqual(x, y)!
-	\item \lstinline!self.assertIn(x, set)!
-	\item \lstinline!self.assertRaises(ExcClass, func, params)!, 
-	\item \lstinline!self.assertAlmostEqual(x, y)!
-	\item ....
+	\item unittest - stdlib, тяжелое наследия явы, в 3 починили слегка
+    \item nose - http://nose.readthedocs.io/en/latest/, использует unittest
+	\item pytest - https://docs.pytest.org/en/latest
 \end{itemize}
 
+%-------------------------------------------------------------------------------
+\begin{center}Проверка\end{center}
 \begin{lstlisting}
-def r(x):
-	return 1 / x
-
-class TC(TestCase):
-	def test_r():
-		self.assertRaises(ZeroDivisionError, r, 0)
-		self.assertEquals(r(1), 1)
+    assert response == 250   <<< pytest
+    self.assertEqual(response, 250)  <<< unittest
+    ok(responce) == 250  <<< oktest
 \end{lstlisting}
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center}setUp + tearDown\end{center}
-\begin{lstlisting}
-	class TestSome(unittest.TestCase):
-	    def setUp(self):
-	        self.x = 1
-	        self.y = 1
-
-	    def tearDown(self):
-	    	del self.x
-	    	del self.y
-
-	    def test_simple3(self):
-	        self.assertEquals(self.x, self.y)
-\end{lstlisting}
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center}Поиск тестов\end{center}
+\begin{center}Инициализация и очистка(nose+unittest)\end{center}
 \begin{itemize}
-	\item python -m unittest test\_module1 test\_module2
-	\item python -m unittest test\_module.TestClass
-	\item python -m unittest test\_module.TestClass.test\_method
-	\item python -m unittest discover project\_directory '*\_test.py'
+	\item setUpClass
+    \item setUp
+	\item tearDown
+    \item tearDownClass
 \end{itemize}
 \newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Инициализация pytest\end{center}
+\begin{itemize}
+	\item setup() - module level
+    \item teardown() - module level
+	\item setup\_module(module)
+    \item teardown\_module(module)
+    \item setup\_function(function)
+    \item teardown\_function(function)
+    \item setup\_class(cls)
+    \item teardown\_class(cls)
+\end{itemize}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}pytest fuxtures\end{center}
+\begin{lstlisting}
+@pytest.fixture(params=[v1, v2])
+def resource_setup(request):
+    print("resource_setup")
+    yield (some_data, request.param)
+    print("resource_teardown")
+
+@pytest.mark.slowtest
+def some_test(resource_setup):
+    pass
+\end{lstlisting}
+Совместное использование fuctures
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Поиск и исполнение тестов\end{center}
+\begin{lstlisting}
+$ pytest test_mod.py::test_func
+$ pytest -s test_mod.py::TestClass::test_method
+$ pytest -v -m webtest
+\end{lstlisting}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center}Описывайте записимости явно\end{center}
+\begin{lstlisting}
+def some_test():
+    some_initialization("x", "y", "z")
+    test_code()
+    some_deinitialization()
+
+def some_test2():
+    with some_initialization("x", "y", "z"):
+        test_code()
+
+@require_some_init("x", "y", "z")
+def some_test3():
+    test_code()
+\end{lstlisting}
+\newpage
+
 
 %-------------------------------------------------------------------------------
 \begin{center} \href{http://www.kuwata-lab.com/oktest/oktest-py_users-guide.html}{oktest} \end{center}
@@ -159,16 +164,6 @@ class TC(TestCase):
 		ok([]).is_a(list)
 		ok("/tmp/x.txt").is_file()
 \end{lstlisting}
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center}nose\end{center}
-\begin{itemize}
-	\item Замена unittest
-	\item Плагины
-	\item coverage, parallel test, etc
-	\item CI integration
-\end{itemize}
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -202,42 +197,4 @@ class TC(TestCase):
 		ok(all_unlinked) == ["/tmp/x.tmp"]
 \end{lstlisting}
 \newpage
-
-%-------------------------------------------------------------------------------
-% \begin{center}\end{center}
-% \begin{itemize}
-% 	\item
-% \end{itemize}
-% \newpage
-
-% %-------------------------------------------------------------------------------
-% \begin{center}\end{center}
-% \begin{itemize}
-% 	\item
-% \end{itemize}
-% \newpage
-
-% %-------------------------------------------------------------------------------
-% \begin{center}\end{center}
-% \begin{itemize}
-% 	\item
-% \end{itemize}
-% \newpage
-
-% %-------------------------------------------------------------------------------
-% \begin{center}\end{center}
-% \begin{itemize}
-% 	\item
-% \end{itemize}
-% \newpage
-
-%-------------------------------------------------------------------------------
 \end{document}
-
-
-
-
-
-
-
-
