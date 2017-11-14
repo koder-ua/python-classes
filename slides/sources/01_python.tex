@@ -20,11 +20,22 @@
             \href{https://github.com/koder-ua/python-classes/tree/master/slides/pdf}{github/koder-ua}
 \end{itemize}
 \newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} Кто это \end{center}
+\begin{center} \includegraphics{images/mp_crazy.jpg} \end{center}
+\newpage
+
+%-------------------------------------------------------------------------------
+\begin{center} \Large{Monty Python's flying circus} \end{center}
+\begin{center} \includegraphics{images/montypython.jpg} \end{center}
+\newpage
+
 %-------------------------------------------------------------------------------
 \begin{center} Почему Python (-) \end{center}
 \begin{itemize}
     \item Python достаточно сложен для изучения, особенно если разбираться во всех тонкостях
-    \item Невозможность качественного статического анализа
+    \item Невозможность качественного статического анализа (до 3.5)
     \item Слабая поддержка инструментальными средствами (по сравнению с С++/С\#/Java)
     \item Несколько десятков способов официальных способов выстрелить себе в ногу (и попасть в голову соседу)
     \item Низкая скорость исполнения (по сравнению с компилируемыми языками)
@@ -48,16 +59,8 @@
     \item Все это + интроспекция = pythonic библиотеки 
         (документация по библиотеке умещается на заглавной странице сайта)
     \item Батарейки в комплекте
-    \item Переносимость, обратная совместимость, прогнозируемая и формализованная модель разработки, ...
+    \item Переносимость, обратная совместимость, прогнозируемая и формализованная модель разработки
 \end{itemize}
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center} import antigravity \end{center}
-\begin{itemize}
-    \item \lstinline!import antigravity! (python 2.7+)
-\end{itemize}
-\includegraphics[scale=0.6]{images/antigravity.png}
 \newpage
 
 %-------------------------------------------------------------------------------
@@ -66,7 +69,7 @@
     \item Язык программирования ориентированный на скорость работы программиста и
         быстрое освоение библиотек/легкое использование
     \item Мультипарадигменный - процедурный, ООП, функциональный. Позволяет легко реализовывать другие парадигмы
-    \item Opensource - hg clone http://hg.python.org/cpython
+    \item Opensource - https://github.com/python/cpython
     \item С-подобный минималистичный (учитывая уровень языка) строгий синтаксис
     \item Разрабатывается с конца 80х. В 2001 выходит v2.1 и создается PSF.
     \item Развивается открытым сообществом под руководством Гвидо Ван Россума
@@ -75,19 +78,9 @@
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} Кто это \end{center}
-\begin{center} \includegraphics{images/mp_crazy.jpg} \end{center}
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center} \Large{Monty Python's flying circus} \end{center}
-\begin{center} \includegraphics{images/montypython.jpg} \end{center}
-\newpage
-
-%-------------------------------------------------------------------------------
 \begin{center} Распространение \end{center}
 \begin{itemize}
-    \item ~6-10й язык по популярности (Javascript/VisualBasic/ObjectiveC/PHP)
+    \item ~1-8й язык по популярности
     \item Научные расчеты и постобработка данных
     \item Web
     \item GUI, Системы управления, встраиваемый язык
@@ -97,13 +90,9 @@
 \newpage
 
 %-------------------------------------------------------------------------------
-\begin{center} \includegraphics[scale=0.4]{images/python_ecosystem.eps} \end{center}
-\newpage
-
-%-------------------------------------------------------------------------------
 \begin{center} Версии и реализации \end{center}
 \begin{itemize}
-    \item Две ветви 2.X(2.7.6) и 3.X(3.3.3) 3.4.0 запланирована на 23 февраля
+    \item Две ветви 2.X(2.7.14) и 3.X(3.6.3)/3.7.0a3, 3.7.0 запланирован на 15 Июля 2018
     \item 2.8 (наверное) не будет
     \item Внутри каждой ветви поддерживается полная обратная совместимость (для py файлов)
     \item 3.X (Python 3k) достаточно близка к 2.Х, содержит несовместимые исправления 
@@ -111,7 +100,7 @@
     \item print стал функцией, переработка юникод подсистемы, ввода-вывода и др
     \item Тем не менее любая нетривиальная программа на 2.X должна быть изменена для запуска на 3.X
     \item Все реализации в значительной мере - интерпретаторы
-    \item Jython, PyPy, IronPython, Stackless Python, Py4A, QPython  ....
+    \item PyPy, Jython, IronPython, Stackless Python, Py4A, QPython  ....
     \item Работает на всех распространенных платфрмах - Intel win/lin/mac/bsd/.., Sun, Power, 
     		ARM(Android), Symbian, .....
 \end{itemize}
@@ -121,7 +110,7 @@
 \begin{center} Процесс разработки языка \end{center}
 \begin{itemize}
     \item Формализованный и бюрократический подход к изменениям в языке
-    \item Новые версии каждые 1.5 года
+    \item Новые версии каждые ~1.5 года
     \item Разработка ведется через python-dev \& python-ideas списки рассылки
     \item Все рассылки открытые
     \item Все изменения и предложения описаны в PEP's (Python Enhancement Proposals) 
@@ -143,7 +132,7 @@
 %-------------------------------------------------------------------------------
 \begin{center} Установка windows \end{center}
 \begin{itemize}
-    \item Windows: 2.7.6 с http://www.python.org/download/ 
+    \item Windows: 2.7 с http://www.python.org/download/
     или ActivePython c http://www.activestate.com/activepython/downloads
     \item Почти все библиотеки - http://pypi.python.org/pypi
     \item Ручная установка библиотеки - exe или распаковать zip, и python setup.py install
@@ -262,10 +251,9 @@
 \end{itemize}
 \vspace{15pt}
 \begin{lstlisting}
-    print var1, var2
-    print 1, 2, "34"
-    print x, y, x + y
-    print x, y, x + y, # no new line
+    print(var1, var2)
+    print(1, 2, "34")
+    print(x, y, x + y, end="") # no new line
 \end{lstlisting}
 \newpage
 
