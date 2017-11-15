@@ -1,5 +1,5 @@
 % python classes slides - control statements
-% (c) 2012 Kostiantyn Danylov aka koder 
+% (c) 2012 Kostiantyn Danylov aka koder
 % koder.mail@gmail.com
 % distributed under CC-BY licence
 % http://creativecommons.org/licenses/by/3.0/deed.en
@@ -14,7 +14,7 @@
 \begin{center} Блоки кода \end{center}
 \begin{itemize}
 	\item Блоки ограничивают участок кода, принадлежащий управляющей конструкции
-	\item Начинаются с “:”, которым оканчивается конструкция 
+	\item Начинаются с “:”, которым оканчивается конструкция
 	\item Все строки блока имеют уровень отступа равным начальной строке блока
 	\item Отступы делаются с помошью табуляции или пробелов
 	\item Блоки могут содержать другие блоки (с более глубокими отступами)
@@ -38,7 +38,7 @@
 \begin{lstlisting}
 	Some_contruction:
 		y = 2
-	print y # ok		
+	print y # ok
 \end{lstlisting}
 \newpage
 
@@ -50,9 +50,9 @@
 	    pass # excuted if condition1 is true
 	elif condition2 :
 	    pass # excuted if condition1 is false and condition2 is true
-	#... 
+	#...
 	else:
-	    pass # executed if all conditions is false 
+	    pass # executed if all conditions is false
 \end{lstlisting}
 \newpage
 
@@ -121,7 +121,7 @@
 		sum += x
 	print x  # 99 * 100 / 2
 
-	for i in range(n): # xrange(n)
+	for i in range(n):
 	    pass
 
 \end{lstlisting}
@@ -164,9 +164,9 @@
 %-------------------------------------------------------------------------------
 \begin{center} Нет \end{center}
 \begin{itemize}
-	\item goto 
+	\item goto
 	\item switch + case PEP-3103
-	\item until 
+	\item until
 	\item do + while, do + until
 \end{itemize}
 \newpage
@@ -241,7 +241,7 @@
 %-------------------------------------------------------------------------------
 \begin{center} List comprehension \end{center}
 \begin{lstlisting}
-	# set 
+	# set
 	res = {x ** 0.5 for x in data if x >= 0}
 
 	# dict

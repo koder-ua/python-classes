@@ -1,5 +1,5 @@
 % python classes clides - containers and files
-% (c) 2012 Kostiantyn Danylov aka koder 
+% (c) 2012 Kostiantyn Danylov aka koder
 % koder.mail@gmail.com
 % distributed under CC-BY licence
 % http://creativecommons.org/licenses/by/3.0/deed.en
@@ -33,11 +33,11 @@
 	\item Упорядоченное множество элементов, доступ по номеру
 	\item \lstinline!var = [1, 2, 3]!
 	\item Индексация \lstinline!arr[x]!
-	\item Срезы 
+	\item Срезы
 			\lstinline!arr[frm:to:step]! \\
 			\lstinline![arr[frm], arr[frm + step], ....., ]!
 	\item Отрицательный индекс - отсчет от конца к началу. x[-1]
-	\item Отсутвие индекса - frm $\rightarrow$ 0, to $\rightarrow$ \lstinline!len(x)!, 
+	\item Отсутвие индекса - frm $\rightarrow$ 0, to $\rightarrow$ \lstinline!len(x)!,
 	        step $\rightarrow$ 1
 \end{itemize}
 \newpage
@@ -69,13 +69,13 @@ x[::-1] & == [5, 4, 3, 2, 1, 0] & \\
 	list(range(x)) == [0, ..., x – 1]
 	list(range(x, y, z)) ~= list(range(INF))[x:y:z]
 
-	x[::2] = [2, 2]  
+	x[::2] = [2, 2]
 	x == [2, 4, 2, 6]
 	x[::2] = 2 # TypeError
 	x[:2] = [7] # x == [7, 2, 6]
-	
+
 	del x[1] # x == [7, 6]
-	
+
 	x = [1, None, True, ["123", 2.4]]
 	[1, 2, 3] + ["a", "b"] # [1, 2, 3, "a", "b"]
 \end{lstlisting}
@@ -216,7 +216,7 @@ x[::-1] & == [5, 4, 3, 2, 1, 0] & \\
 	x.get(5, 12) == 12
 	x.clear() # {}
 	x.update(y)
-	dict.fromkeys(keys, val) 
+	dict.fromkeys(keys, val)
 	# {key[0]:val, key[1]:val, ..} default val is None
 \end{lstlisting}
 \newpage
@@ -228,7 +228,7 @@ x[::-1] & == [5, 4, 3, 2, 1, 0] & \\
 \end{itemize}
 \vspace{15pt}
 \begin{lstlisting}
-	x = {1, 2} 
+	x = {1, 2}
 	y = set([2, "a"]) # y == {2, "a"}
 	x & y == x.intersection(y) == {2}
 	x – y == x.difference(y) == {1}
@@ -261,9 +261,9 @@ x[::-1] & == [5, 4, 3, 2, 1, 0] & \\
 \begin{itemize}
 	\item Пребразование к list, tuple, set
 	\item len - количество элементнов
-	\item str.join \lstinline!", ".join(["1", "2", "3"]) == "1, 2, 3"! 
+	\item str.join \lstinline!", ".join(["1", "2", "3"]) == "1, 2, 3"!
 	\item in проверка включения элемента
-	\item Проеобразование контейнера пар к словарю 
+	\item Проеобразование контейнера пар к словарю
 \end{itemize}
 \begin{lstlisting}
     y = [1, 2, 3]
@@ -358,19 +358,19 @@ x[::-1] & == [5, 4, 3, 2, 1, 0] & \\
 
 %-------------------------------------------------------------------------------
 \begin{center} Файлы \end{center}
-
+Модуль io содержит дополнительные классы для работы с воодом-выводом
 \begin{lstlisting}
 	import os
 
-    fd = open(path, mode)
-    mode in {"r", "w", "r+", "a", 
+    fd = open(path, mode[, encoding=...])
+    mode in {"r", "w", "r+", "a",
              "rb", "wb", "rb+", "ab"}
 	fd.read(size) # data str
 	fd.write("data")
 	fd.seek(pos, frm)
-	
+
 	# frm in {os.SEEK_SET, os.SEEK_CUR, os.SEEK_END}
-	
+
 	fd.read() # till the end
 	fd.readline() # untill "\n"
 \end{lstlisting}
@@ -386,18 +386,6 @@ x[::-1] & == [5, 4, 3, 2, 1, 0] & \\
     for line in fd:
         	# do something with line
 \end{lstlisting}
-\newpage
-
-%-------------------------------------------------------------------------------
-\begin{center} Файлы 3.X \end{center}
-\begin{lstlisting}
-    fd = open(path, "r", encoding='utf-8')
-	fd.read(size) # unicode str
-
-    fd = open(path, "rb")
-	fd.read(size) # bytes
-\end{lstlisting}
-Модуль io содержит дополнительные классы для работы с воодом-выводом
 \newpage
 
 %-------------------------------------------------------------------------------
