@@ -38,7 +38,7 @@
 \begin{lstlisting}
 	Some_contruction:
 		y = 2
-	print y # ok
+	print(y) # ok
 \end{lstlisting}
 \newpage
 
@@ -63,13 +63,13 @@
 	x = 12
 	sign = 0
 	if x > 0:
-	    print x, "positive"
+	    print(x, "positive")
 	    sign = 1
 	elif x < 0:
-	    print x, "negative"
+	    print(x, "negative")
 	    sign = -1
 	else:
-	    print x, "== 0"
+	    print(x, "== 0")
 	    sign = 0
 \end{lstlisting}
 \newpage
@@ -80,6 +80,9 @@
 \begin{lstlisting}
 	res = x if x >= 0 else -x
 	# res = (x >= 0 ? x : -x)
+    # old style
+    res = x | y
+    res = x & y
 \end{lstlisting}
 \newpage
 
@@ -94,7 +97,7 @@
 
 	x = 1
 	while x < 100:
-		print x, "less than 100"
+		print(x, "less than 100")
 		x *= 2
 
 	while x < 100:
@@ -103,7 +106,7 @@
 		x += 1
 	else:
 		x = None
-		print "13 have no integer square root"
+		print("13 have no integer square root")
 \end{lstlisting}
 \newpage
 
@@ -210,7 +213,7 @@
 
 	with open(r"C:\xxx.bin", "r") as fd:
 	    for line in fd:
-	    	print line
+	    	print(line)
 
 	with db.cursor() as cur:
 	    curr.execute(update_request_1)
@@ -230,7 +233,7 @@
 
 	data = [-1, -2, -3, 1 , 2, 3, 4]
 
-	print [x ** 0.5 for x in data if x >= 0]
+	print([x ** 0.5 for x in data if x >= 0])
 
 	# [1.0, 1.41.., 1.73.., 2.0]
 
