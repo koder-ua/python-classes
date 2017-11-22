@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fc483e61-e43c-4079-99e7-23fdd7067792" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/slides/sources/00_external_materials.tex" afterPath="$PROJECT_DIR$/slides/sources/00_external_materials.tex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/slides/sources/01_python.tex" afterPath="$PROJECT_DIR$/slides/sources/01_python.tex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/slides/sources/02_basic_data_types.tex" afterPath="$PROJECT_DIR$/slides/sources/02_basic_data_types.tex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/slides/sources/03_containers_and_files.tex" afterPath="$PROJECT_DIR$/slides/sources/03_containers_and_files.tex" />
     </list>
     <ignored path="python-classes.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,7 +23,7 @@
         <entry file="file://$PROJECT_DIR$/slides/sources/00_external_materials.tex">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="754">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -37,7 +33,7 @@
         <entry file="file://$PROJECT_DIR$/slides/sources/01_python.tex">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="6890">
-              <caret line="265" column="29" lean-forward="true" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="29" />
+              <caret line="265" column="29" lean-forward="false" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -56,8 +52,8 @@
       <file leaf-file-name="03_containers_and_files.tex" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/slides/sources/03_containers_and_files.tex">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1014">
-              <caret line="339" column="15" lean-forward="true" selection-start-line="339" selection-start-column="15" selection-end-line="339" selection-end-column="15" />
+            <state relative-caret-position="1170">
+              <caret line="339" column="15" lean-forward="false" selection-start-line="339" selection-start-column="15" selection-end-line="339" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -105,9 +101,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="64" />
-    <option name="y" value="-4" />
-    <option name="width" value="1303" />
-    <option name="height" value="773" />
+    <option name="y" value="-11" />
+    <option name="width" value="3777" />
+    <option name="height" value="2172" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -161,7 +157,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../go/monitor" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -199,6 +195,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="fc483e61-e43c-4079-99e7-23fdd7067792" name="Default" comment="" />
@@ -210,7 +209,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="3777" height="2172" extended-state="6" />
+    <frame x="65" y="24" width="3775" height="2136" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17834912" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -274,7 +273,7 @@
     <entry file="file://$PROJECT_DIR$/slides/sources/00_external_materials.tex">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="754">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -282,7 +281,7 @@
     <entry file="file://$PROJECT_DIR$/slides/sources/01_python.tex">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6890">
-          <caret line="265" column="29" lean-forward="true" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="29" />
+          <caret line="265" column="29" lean-forward="false" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -297,8 +296,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/slides/sources/03_containers_and_files.tex">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1014">
-          <caret line="339" column="15" lean-forward="true" selection-start-line="339" selection-start-column="15" selection-end-line="339" selection-end-column="15" />
+        <state relative-caret-position="1170">
+          <caret line="339" column="15" lean-forward="false" selection-start-line="339" selection-start-column="15" selection-end-line="339" selection-end-column="15" />
           <folding />
         </state>
       </provider>
