@@ -36,6 +36,8 @@ def tokenize(input_fd: io.TextIO) -> Iterator[Tuple[Optional[str], int, int]]:
         ch = input_fd.read(1)
 
         if ch == '':
+            if in_str:
+                raise  ParserError("Unclosed string at the end of file at line {}".format(line_num))
             ch = '\n'   # hack to flush current buffer
             eof_reached = True
 
@@ -50,7 +52,7 @@ def tokenize(input_fd: io.TextIO) -> Iterator[Tuple[Optional[str], int, int]]:
                 line_pos += 1
 
                 if ch not in ESCAPED:
-                    raise  ParserError("Failed to parse at line ...")
+                    raise  ParserError("Failed to parse at line {}".format(line_num))
 
                 curr_buff += ESCAPED[ch]
             elif ch == '"':
@@ -60,7 +62,7 @@ def tokenize(input_fd: io.TextIO) -> Iterator[Tuple[Optional[str], int, int]]:
                 curr_buff = None
                 in_str = False
             elif ch == '\n':
-                raise ParserError("Failed to parse at line ...")
+                raise ParserError("Failed to parse at line {}".format(line_num))
             else:
                 curr_buff += ch
         elif ch == '"':
@@ -89,7 +91,7 @@ def tokenize(input_fd: io.TextIO) -> Iterator[Tuple[Optional[str], int, int]]:
                 token_start_line = line_num
             else:
                 curr_buff += ch
-
+    assert curr_buff is None, "Non flushed token at the end of file"
 
 def typed_tokenize(tokens: Iterator[Tuple[Optional[str], int, int]]) -> Iterator[Tuple[TokenType, int, int]]:
     """
