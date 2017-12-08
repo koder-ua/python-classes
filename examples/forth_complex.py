@@ -1,7 +1,7 @@
 from io import StringIO
 import re
 import inspect
-from typing import Iterator, io, Union, Tuple, Any, List, Callable, Dict
+from typing import Iterator, io, Union, Tuple, Any, List, Callable, Dict, Optional
 
 
 class ParserError(Exception):
@@ -17,12 +17,12 @@ TokenType = Union[Identifier, str, int, float, EOL]
 ESCAPED = {'n': '\n', 't': '\t', '"': '"', '\\': '\\'}
 
 
-def tokenize(input_fd: io.TextIO) -> Iterator[Tuple[str, int, int]]:
+def tokenize(input_fd: io.TextIO) -> Iterator[Tuple[Optional[str], int, int]]:
     """
     Read characters from input file one-by-one and generate stream of tokens with metadata, separated by spaces or ';'
     ';' and \n are replaced by None, meaning end of line
     escaped characters in string literal are unescaped.
-    Generate tuples (Is_string_literal:bool, value:str_or_none, line:int, start_position_in_line:int)
+    Generate tuples (value:str_or_none, line:int, start_position_in_line:int)
     """
     curr_buff = None   # current token or None is no active token
     line_num = 0
@@ -91,7 +91,7 @@ def tokenize(input_fd: io.TextIO) -> Iterator[Tuple[str, int, int]]:
                 curr_buff += ch
 
 
-def typed_tokenize(tokens: Iterator[Tuple[str, int, int]]) -> Iterator[Tuple[TokenType, int, int]]:
+def typed_tokenize(tokens: Iterator[Tuple[Optional[str], int, int]]) -> Iterator[Tuple[TokenType, int, int]]:
     """
     Transform stream of untyped tokens into stream of typed tokens
     Merge subsequent EOL into single EOL
