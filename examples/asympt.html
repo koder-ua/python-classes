@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      .column:first-of-type {float:left}
+      .column:last-of-type {float:right}
+      .split-50 .column:first-of-type {width: 50%}
+      .split-50 .column:last-of-type {width: 50%}
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+```python
+def index(obj: T, container: Iterable[T]) -> int:
+    for idx, val in enumerate(container):
+        if val == obj:
+            return idx
+    raise IndexError(f"Can't found {obj!r} in {container!r}")
+```
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+
+```python
+dis.dis(index)
+```
+
+```
+...
+        >>   10 FOR_ITER                20 (to 32)
+             12 UNPACK_SEQUENCE          2
+             14 STORE_FAST               2 (idx)
+             16 STORE_FAST               3 (val)
+
+  3          18 LOAD_FAST                3 (val)
+             20 LOAD_FAST                0 (obj)
+             22 COMPARE_OP               2 (==)
+             24 POP_JUMP_IF_FALSE       10
+
+  4          26 LOAD_FAST                2 (idx)
+             28 RETURN_VALUE
+             30 JUMP_ABSOLUTE           10
+        >>   32 POP_BLOCK
+...
+```
+---
+class: middle
+```python
+time = 5 * op_time + 11 * op_time * K + K * cmp_time
+Time = y + x * K = y + z * N
+```
+O(N) == Существует такое t, что для любого N верно - Time < t * N + o(N)
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+```python
+def bisect(obj: T, container: Sequence[T],
+           start: int = 0, stop: int = None) -> int:
+
+    stop = len(container) if stop is None else stop
+    if stop - start < 3:
+        return index(obj, container[start: stop]) + start
+    pos = (stop + start) // 2
+    if obj > container[pos]:
+        return bisect(obj, container, pos + 1, stop)
+    return bisect(obj, container, start, pos + 1)
+```
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+
+```python
+def bisect(obj: T, container: Sequence[T],
+           start: int = 0, stop: int = None) -> int:
+
+    stop = len(container) if stop is None else stop
+    if stop - start < 3:
+        return index(obj, container[start: stop]) + start
+    pos = (stop + start) // 2
+    if obj > container[pos]:
+        return bisect(obj, container, pos + 1, stop)
+    return bisect(obj, container, start, pos + 1)
+```
+
+Time = y + x * ln(N) = O(lg N)
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+```python
+def index(obj: T, container: Iterable[T]) -> int:
+    return bisect(obj, sorted(container))
+```
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+
+class: middle
+```python
+def index(obj: T, container: Iterable[T]) -> int:
+    return bisect(obj, sorted(container))
+```
+
+Time = O(N * lg N)
+
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+```python
+def index(obj: T, container: Sequence[T]) -> int:
+    while True:
+        idx = random.randint(0, len(container) - 1)
+        if container[idx] == obj:
+            return idx
+```
+<!---------------------------------------------------------------------------->
+---
+class: middle
+
+```python
+def index(obj: T, container: Sequence[T]) -> int:
+    while True:
+        idx = random.randint(0, len(container) - 1)
+        if container[idx] == obj:
+            return idx
+```
+
+Time = O(N)
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+```python
+def index(obj: T, container: Sequence[T]) -> int:
+    if 0 == len(container):
+        raise IndexError(f"Can't found {obj!r}")
+    if container[0] == obj:
+        return 0
+    return index(obj, container[1:]) + 1
+```
+<!---------------------------------------------------------------------------->
+---
+class: middle
+```python
+def index(obj: T, container: Sequence[T]) -> int:
+    if 0 == len(container):
+        raise IndexError(f"Can't found {obj!r}")
+    if container[0] == obj:
+        return 0
+    return index(obj, container[1:]) + 1
+```
+Time = O(N**2)
+
+<!---------------------------------------------------------------------------->
+---
+class: middle
+Edge cases
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({highlightStyle: 'dracula'});
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
