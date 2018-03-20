@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="koder.css">
+  </head>
+  <body>
+    <textarea id="source">
+
+<!---------------------------------------------------------------------------->
+
+Тетрис
+
+* Какие классы нужны
+
+<!---------------------------------------------------------------------------->
+---
+
+* Поле - хранит состояние клеток и размеры
+* Фигура - хранит свое положение и обрабатывает команды пользователя
+
+???
+
+* Кто проверяет пересечение ?
+<!---------------------------------------------------------------------------->
+---
+```python
+from enum import Enum
+
+class PointType(Enum):
+    FREE = 0
+    BUSY = 1
+    OUT_OF_MAP = 2
+
+
+class Map:
+    def check_point(self, x: int, y: int) -> PointType: pass
+```
+
+???
+
+* Что еще нужно мапу?
+* Добавка точки и проверка сгорания
+* Проверку сгорания будем делать
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Map:
+    def check_point(self, x: int, y: int) -> PointType: pass
+    def add_point(self, x: int, y: int): pass
+    def burn_full_lines(self) -> int: pass
+```
+
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Figure:
+    def __init__(self, x: int, y: int) -> None: pass
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Cmd(Enum):
+    LEFT = 0
+    RIGHT = 1
+    DOWN = 2
+    ROTATE_LEFT = 3
+    ROTATE_RIGHT = 4
+
+
+class Figure:
+    def __init__(self, x: int, y: int) -> None: pass
+    def tick(self): pass
+    def user_cmd(self, cmd: Cmd): pass
+```
+
+???
+
+* Кто кем владеет ?
+* Как фигура проверяет свое состояние
+* Кто исполняет цикл ожидания таймеров и команд от пользователя
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Figure:
+    def tick(self) -> Figure: pass
+    def user_cmd(self, cmd: Cmd) -> Figure: pass
+```
+
+???
+
+* Как конструировать иерархию
+
+<!---------------------------------------------------------------------------->
+---
+```python
+def f(x, y):
+    return 3 * x + y
+
+```
+
+???
+
+* дифференцирование бла-бла-бла
+* как делать
+
+<!---------------------------------------------------------------------------->
+---
+```python
+x = Functor('x')
+y = Functor('y')
+
+c = f(x, y)
+print(c.diff(x))
+
+```
+
+???
+* как достичь
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor:
+    def __init__(self, name):
+        self.name = name
+
+    def __add__(self, other):
+        ...
+
+    def __radd__(self, other):
+        ...
+```
+
+???
+* что в add/radd
+* Они должны возвращать функторы, но функтор у нас принимает переменную
+* Нужна отдельно переменная
+* Нужно описать интерфейс
+
+<!---------------------------------------------------------------------------->
+---
+```python
+import abc
+
+class IFunctor(metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def __add__(self, other) -> 'IFunctor':
+        pass
+
+    @abc.abstractmethod
+    def __radd__(self, other) -> 'IFunctor':
+        pass
+```
+
+???
+* Какие еще методы
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class IFunctor(metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def dwrt(self, var) -> 'IFunctor':
+        pass
+
+    @abc.abstractmethod
+    def __call__(self, **vars):
+        pass
+
+    @abc.abstractmethod
+    def __str__(self) -> str:
+        pass
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Variable(IFunctor):
+    def __init__(self, ...) -> None:
+        ...
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Variable(IFunctor):
+    def __init__(self, name: str) -> None:
+        self.name = name
+
+    def __radd__(self, other) -> IFunctor:
+        ...
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Variable(IFunctor):
+    def __init__(self, name: str) -> None:
+        self.name = name
+
+    def __add__(self, other) -> IFunctor:
+        return Functor('+', self, other)
+
+    def __radd__(self, other) -> IFunctor:
+        ...
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Variable(IFunctor):
+    def __init__(self, name: str) -> None:
+        self.name = name
+
+    def __add__(self, other) -> IFunctor:
+        return Functor('+', self, other)
+
+    def __radd__(self, other) -> IFunctor:
+        return Functor('+', other, self)
+
+    def dwrt(self, var) -> IFunctor:
+        ...
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Variable(IFunctor):
+    def __init__(self, name: str) -> None:
+        self.name = name
+
+    def __add__(self, other) -> IFunctor:
+        return Functor('+', self, other)
+
+    def __radd__(self, other) -> IFunctor:
+        return Functor('+', other, self)
+
+    def dwrt(self, var) -> IFunctor:
+        return 1 if self.name == var.name else 0
+
+    def __call__(self, **vars):
+        ...
+```
+<!---------------------------------------------------------------------------->
+---
+```python
+class Variable(IFunctor):
+    def __init__(self, name: str) -> None:
+        self.name = name
+
+    def __add__(self, other) -> IFunctor:
+        return Functor('+', self, other)
+
+    def __radd__(self, other) -> IFunctor:
+        return Functor('+', other, self)
+
+    def dwrt(self, var) -> IFunctor:
+        return 1 if self.name == var.name else 0
+
+    def __call__(self, **vars):
+        return vars[self.name]
+
+    def __str__(self) -> str:
+        return self.name
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor(IFunctor):
+    def __init__(self, op: str, var1, var2) -> None:
+        ...
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor(IFunctor):
+    def __init__(self, op: str, var1, var2) -> None:
+        self.op = op
+        self.var1 = var1
+        self.var2 = var2
+
+    def __add__(self, other) -> IFunctor:
+        return Functor('+', self, other)
+
+    def __radd__(self, other) -> IFunctor:
+        return Functor('+', other, self)
+
+    def dwrt(self, var) -> IFunctor:
+        ...
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor(IFunctor):
+    def dwrt(self, var) -> IFunctor:
+        if self.op == '+':
+            res = self.var1.dwrt(var) if isinstance(self.var1, IFunctor) else 0
+            return res + (self.var2.dwrt(var) if isinstance(self.var2, IFunctor) else 0)
+        elif:
+            ...
+        raise ValueError(f"Operation {self.op} not supported derivatives")
+
+    def __call__(self, **vars):
+        ...
+
+    def __str__(self) -> str:
+        ...
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor(IFunctor):
+    def __call__(self, **vars):
+        if self.op == '+':
+            res = self.var1(**vars) if isinstance(self.var1, IFunctor) else self.var1
+            return res + (self.var2(**vars) if isinstance(self.var2, IFunctor) else var2)
+        elif:
+            ...
+        raise ValueError(f"Operation {self.op} not calculatable")
+
+
+    def __str__(self) -> str:
+        return f"{self.var1} {self.op} {self.var2}"
+```
+
+???
+
+* Вот эти if isinstance - очень плохо пахнут
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Constant(IFunctor):
+    def __init__(self, val) -> None:
+        self.val = val
+
+    def __add__(self, other) -> IFunctor:
+        return Functor('+', self, other)
+
+    def __radd__(self, other) -> IFunctor:
+        return Functor('+', other, self)
+
+    def dwrt(self, var) -> IFunctor:
+        return self.__class__(0)
+
+    def __call__(self, **vars):
+        return self.val
+
+    def __str__(self) -> str:
+        return f"{self.val}"
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor(IFunctor):
+    def __add__(self, other) -> IFunctor:
+        other = other if isinstance(other, IFunctor) else Constant(other) 
+        return Functor('+', self, other)
+```
+???
+
+* Нового кода довольно много, как его съекономить
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor(IFunctor):
+    def __init__(self, op: str, var1, var2) -> None:
+        self.op = op
+        self.var1 = var1 if isinstance(var2, IFunctor) else Constant(var1)
+        self.var2 = var2 if isinstance(var2, IFunctor) else Constant(var2)
+
+    def __radd__(self, other) -> IFunctor:
+        return Functor('+', self, other)
+
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor(IFunctor):
+    def dwrt(self, var) -> IFunctor:
+        if self.op == '+':
+            res = self.var1.dwrt(var) if isinstance(self.var1, IFunctor) else 0
+            return res + (self.var2.dwrt(var) if isinstance(self.var2, IFunctor) else 0)
+        elif:
+            ...
+        raise ValueError(f"Operation {self.op} not supported derivatives")
+```
+???
+
+* Что не так с dwrt?
+* Давайте делать отделный класс для каждой операции
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Functor(IFunctor):
+    op: Operation
+
+class AddOperation:
+    def drwt(self, ...): ...
+    def __call__(self, ...): ...
+    ...
+
+######################
+
+class Add(IFunctor)...
+
+```
+
+???
+* Сделать отдельно функтор + операции или отдельный функтор для каждой операции?
+* Если отдельные классы, то нужно вынести арифметические операции в базовый класс
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class FunctorBase(IFunctor):
+    def __add__(self, other) -> IFunctor:
+        return Add(self, other)
+
+    def __radd__(self, other) -> IFunctor:
+        return Add(other, self)
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class BinaryFunctorBase(FunctorBase):
+    var1: IFunctor
+    var2: IFunctor
+    op: str
+    calc: Callable[[Any, Any], Any]
+
+    def __init__(self, var1, var2) -> None:
+        self.var1 = var1 if isinstance(var1, IFunctor) else Constant(var1)
+        self.var2 = var2 if isinstance(var2, IFunctor) else Constant(var2)
+
+    def __str__(self) -> str:
+        return f"{self.var1} {self.op} {self.var2}"
+
+    def __call__(self, **vars):
+        return self.calc(self.var1(**vars), self.var2(**vars))
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Add(BinaryFunctorBase):
+    op = '+'
+    calc = operator.add
+
+    def __str__(self) -> str:
+        return f"{self.var1} {self.op} {self.var2}"
+
+    def __call__(self, **vars):
+        return self.calc(self.var1(**vars), self.var2(**vars))
+
+    def dwrt(self, var) -> IFunctor:
+        return self.var1.dwrt(var) + self.var2.dwrt(var)
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class Variable(FunctorBase):
+    ...
+
+class Constant(FunctorBase):
+    ...
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+def f(x):
+    return x + x + x + 1
+
+v1 = Variable('v1')
+
+t = f(v1)
+
+print(f"t = {t}")
+print(f"t(v1=1) = {t(v1=1)}")
+print(f"t(v1=5) = {t(v1=5)}")
+```
+
+```
+ᐅ python functor.py
+t = v1 + v1 + v1 + 1
+t(v1=1) = 4
+t(v1=5) = 16
+```
+
+<!---------------------------------------------------------------------------->
+---
+```python
+import inspect
+
+
+class PluginMeta(type):
+    all_childs = []
+    def __new__(mcls, name, bases, body):
+        print(name, bases)
+        cls = super().__new__(mcls, name, bases, body)
+        if not inspect.isabstract(cls):
+            mcls.all_childs.append(cls)
+        return cls
+
+```
+???
+
+* Тут есть циклическая ссылка, но нам пофиг
+
+<!---------------------------------------------------------------------------->
+---
+```python
+class SomeBase(metaclass=PluginMeta):
+    pass
+
+class SomeChild(SomeBase):
+    pass
+```
+???
+
+* Тут есть циклическая ссылка, но нам пофиг
+
+<!---------------------------------------------------------------------------->
+
+
+    </textarea>
+    <script src="js/remark-latest.min.js" type="text/javascript"></script>
+    <script src="js/MathJax.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({highlightStyle: 'dracula', ratio: '16:9'});
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
