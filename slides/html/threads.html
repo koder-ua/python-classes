@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="koder.css">
+  </head>
+  <body>
+    <textarea id="source">
+
+<!---------------------------------------------------------------------------->
+
+???
+* В CPU много ядер, в компьютере много CPU
+* Память или с общим доступом или NUMA, ресурсы шаренные
+* Процессы
+* MPI, OpenMP, parallel-python, ....
+* hadoop/spark
+* multiprocessing
+
+
+---
+```python
+import multiprocessing
+
+def worker():
+    """worker function"""
+    print 'Worker'
+    return
+
+if __name__ == '__main__':
+    jobs = []
+    for i in range(5):
+        p = multiprocessing.Process(target=worker)
+        jobs.append(p)
+        p.start()
+```
+
+---
+
+```python
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+
+if rank == 0:
+    data = {'a': 7, 'b': 3.14}
+    req = comm.isend(data, dest=1, tag=11)
+    req.wait()
+elif rank == 1:
+    req = comm.irecv(source=0, tag=11)
+    data = req.wait()
+```
+
+???
+* закон амдала
+* синхронизация
+* барьеры
+* Чуть больше ресурсов
+* Часть задач общая и она дублируется
+* Обмен данными медленный (однако OpenMP)
+* Часть этих проблем можно обойти на системе с общей памятью
+
+---
+
+???
+
+* потоки
+* множество потоков исполнения
+* ядра процессоров - отдельные процессоры (*почти)
+
+---
+
+```python
+import threading
+
+def worker():
+    """thread worker function"""
+    print('Worker from thread', threading.current_thread().ident)
+    return
+
+threads = []
+for i in range(5):
+    t = threading.Thread(target=worker)
+    threads.append(t)
+    t.start()
+
+for th in threads:
+    t.join()
+```
+
+---
+```
+Worker from thread 139690361517824
+Worker from thread 139690084742912
+Worker from thread 139690076350208
+Worker from thread 139690084742912
+Worker from thread 139690076350208
+````
+---
+???
+
+Проблемы потоков
+
+* разделяемые ресурсы
+* зависания
+* потеря исключений
+* усложнение отладки
+
+---
+```python
+
+def add(var, x):
+    v = var.get_val()
+    v += x
+    var.set_val(v)
+```
+
+---
+
+???
+sync primitives
+
+* Lock(mutex)
+* Semafore
+* RLock
+* Barrier
+* Event
+* CriticalSection
+* Conditional variable (сигнальная переменная)
+
+---
+```python
+
+from threading import Lock
+
+def add(var, x, lock):
+    with lock:
+        v = var.get_val()
+        v += x
+        var.set_val(v)      
+
+l = Lock()
+v = Var(1)
+add(l, v, 1)
+
+```
+---
+```python
+
+from threading import Lock
+
+class Var:
+    def __init__(self, v):
+        self.lock = Lock()
+        self.v = v
+
+    def __enter__(self):
+        self.lock.acquire()
+
+    def __exit__(self, x, y, z):
+        self.lock.release()
+
+
+def add(var, x):
+    with var:
+        v = var.get_val()
+        v += x
+        var.set_val(v)      
+
+v = Var(1)
+add(l, v, 1)
+
+```
+
+---
+```python
+
+from threading import Condition
+
+########### Consumer ##################### 
+v = SomeCls()
+cv = Condition()  # lock
+with cv:
+    while not v.ready():
+        cv.wait()
+    do_work(v)      
+
+########### Producer ##################### 
+
+with cv:
+    v.set_ready()
+    cv.notify()  # 1
+    cv.notify_all()
+
+```
+
+---
+
+* Semafore
+* RLock
+* Barrier
+* Event
+* CriticalSection
+
+---
+
+???
+issues
+
+* не захватили блокировку
+* не освободили блокировку
+* гонка
+* дедлок
+* инверсия приоритетов
+
+---
+```python
+
+def get_sum(x1: LockedIntVar, x2: LockedIntVar):
+    with x1:
+        v = x1.val()
+
+    with x2:
+        retrun v + x2.val()
+
+
+def move(x1: LockedIntVar, x2: LockedIntVar, delta: int):
+    with x1:
+        x1.add(delta)
+
+    with x2:
+        x2.add(-delta)
+
+```
+
+---
+```python
+
+def get_sum(x1: LockedIntVar, x2: LockedIntVar):
+    with x1:
+        v = x1.val()
+
+    with x2:
+        retrun v + x2.val()
+
+
+def move(x1: LockedIntVar, x2: LockedIntVar, delta: int):
+    with x1:
+        with x2:
+            x1.add(delta)
+            x2.add(-delta)
+
+```
+
+---
+
+queues
+
+---
+
+futures/threadpools
+
+---
+
+???
+* GIL
+* GIL removal
+* etc
+* python thread execution scheme
+---
+
+concurrency is not parallelism
+
+https://www.youtube.com/watch?v=cN_DpYBzKso
+
+
+
+---
+    </textarea>
+    <script src="js/remark-latest.min.js" type="text/javascript"></script>
+    <script src="js/MathJax.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({highlightStyle: 'dracula', ratio: '16:9'});
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>

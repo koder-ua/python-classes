@@ -172,6 +172,24 @@ diff = []
 for v1, v2 in zip(d[1:], d[:-1]):
     diff.append(v2 - v1)
 ```]
+
+
+<!---------------------------------------------------------------------------->
+---
+class: split-50, middle
+.column[```python
+count = 0
+for line in open('file.txt'):
+    if something in line.lower():
+        count += 1
+```]
+---
+class: split-50, middle
+.column[```python
+count = sum(1 for line in open('file.txt') if something in line.lower())
+```]
+
+
 <!---------------------------------------------------------------------------->
 ---
 class: middle
