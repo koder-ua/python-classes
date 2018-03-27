@@ -298,15 +298,96 @@ def move(x1: LockedIntVar, x2: LockedIntVar, delta: int):
 * Внутри захваченной блокировки не вызываются функции, либо вызыватся простые
 
 ---
+???
 План:
 * Гранулярность блокировки vs. уровень параллелизма
 * однопоточный код + блокировки - много потоков
-* симметричные функции потоков в ассиметричные
-* вынос IO в отдельный pool с очередью ответов + отдельный пул для CPU intencive на футурес + центральный поток воркетор
-* queue-based CSP, erlang/go/scala+akka/stackless python
-* функциональный стиль и многопоточность
-* три типа потоков - логика, io-bounded, cpu-bounded
 
+---
+```python
+def crawl(rool_urls: List[str]) -> Iterator[Tuple[str, str]]:
+    used_urls: Set[str] = {}
+    curr_urls = rool_urls[:]
+
+    while urls:
+        url = urls[-1]
+        data = download_url(url)
+
+        yield url, data
+
+        for href in find_hrefs(data):
+            href = abs_url(href, url)
+            if is_beelong_to(href, rool_urls) and url not in used_urls:
+                root_urls.append(href)
+                used_url.add(href)
+```
+???
+
+Перепишем его на многопотоки на локах
+
+---
+```python
+class CrawlThread(Thread):
+    def __init__(self, root_urls: List[str],
+                 curr_urls: List[str], curr_lock: Lock,
+                 used_urls: Set[str], used_lock: Lock,
+                 results: List[Tuple[str, str]], result_lock: Lock) -> None:
+        Thread.__init__(self)
+        self.daemon = True
+        ....
+
+    def run(self):
+        while True:
+            with self.curr_lock:
+                if not self.curr_urls:   <<< BUG
+                    break
+                url = self.curr_urls.pop()
+
+            data = download_url(url)
+            for href in find_hrefs(data):
+                href = abs_url(href, url)
+                if is_beelong_to(href, self.rool_urls):
+                    with self.used_lock:
+                        if url not in self.used_urls:
+                            with self.curr_lock:
+                                self.curr_urls.append(href)
+                            self.used_url.add(href)
+```
+
+---
+```python
+def crawl(rool_urls: List[str], nthreads: int = 32) -> Iterator[Tuple[str, str]]:
+    used_urls: Set[str] = {}
+    curr_urls = rool_urls[:]
+    used_lock = Lock()
+    curr_lock = Lock()
+    results: List[Tuple[str, str]] = []
+    results_lock = Lock()
+
+    ths = [CrawlThread(rool_urls,
+                       curr_urls=curr_urls, curr_lock=curr_lock,
+                       user_urls=used_urls, used_lock=curr_lock,
+                       results=results, results_lock=results_lock)
+           for _ in range(nthreads)]
+
+    for th in ths:
+        th.start()
+
+    any_running = True
+    while any_running:
+        time.sleep(0.1)
+        with results_lock:
+            yield from results
+            # results = [] <<< wrong
+            results.clear()
+
+        any_running = any(th.is_alive() for th in ths)
+```
+???
+
+* преобразование кода в ассиметричные потоки + очереди
+* Для cpython модель потоки + очереди работает плохо из-за синтаксиса
+* go, erlang, scala + akka, stackless python 
 ---
 ```python
 
@@ -336,33 +417,6 @@ def f2():
 * Давайте переформатируем этот код
 * вынесем куски под локом в отдельные функции 
 * Фактически этот код однопоточен
----
-
-```python
-
-def f1_l(x):
-    some_var += x
-
-def f2_1()
-    some_var *= 2
-
-def f2_2()
-    return some_var
-
-def f1():
-    x = 1
-    ...
-    f1_1(x)
-
-
-def f2():
-    f2_1()
-    ...
-
-    r = f2_2()
-
-    r ...
-```
 
 ---
 ```python
@@ -408,12 +462,73 @@ def f2():
 * чуть больше кода, но мы избавились от блокировок (*почти)
 * возможна ситуация, когда два потока висят, ожидая друг друга
 ---
-
 Communicating sequential processes
 
 * нет общих данных
 * потоки обмениваются сообщениями через очереди
 * queues
+* cpu-bounded + io-bounded + logic
+---
+
+```python
+from threading import Lock, Thread, Queue
+from typing import List, Iterator, Tuple
+
+
+def load_thread(iq: Queue, oq: Queue):
+    while True:
+        url = iq.get()
+        if url is None:
+            break
+        try:
+            data = download_url(url)
+            ok = True
+        except Exception as exc:
+            ok = False
+            data = str(exc)
+        oq.put((ok, url, data))
+```
+---
+
+```python
+def crawl(rool_urls: List[str], nthreads: int = 32) -> Iterator[Tuple[str, str]]:
+    used_urls: Set[str] = {}
+    url_q = Queue()
+    res_q = Queue()
+
+    ths = [Thread(target=load_thread, args=(url_q, res_q)) for _ in range(nthreads)]
+    for th in ths:
+        th.daemon = True
+        th.start()
+
+    waiting_urls = len(rool_urls)
+    for url in rool_urls:
+        url_q.put(url)
+```
+
+---
+
+```python
+    while waiting_urls:
+        ok, url, data = res_q.get()
+        waiting_urls -= 1
+        if ok:
+            waiting_urls += 1
+            yield url, data
+            for href in find_hrefs(data):
+                href = abs_url(href, url)
+                if is_beelong_to(href, rool_urls) and url not in used_urls:
+                    url_q.append(href)
+                    used_url.add(href)
+                    waiting_urls += 1
+
+    for url in rool_urls:
+        url_q.put(None)
+
+    for th in ths:
+        th.join()
+```
+
 
 ---
 
@@ -426,9 +541,31 @@ threadpools
 Лимит на количество потоков
 
 ---
-futures
-"будущее" значение
+```python
+from concurrent.futures import ThreadPoolExecutor
+from typing import List, Iterator, Tuple
 
+
+def load_thread(url):
+    return url, download_url(url)
+
+
+def crawl(rool_urls: List[str], nthreads: int = 32) -> Iterator[Tuple[str, str]]:
+    used_urls: Set[str] = {}
+
+    with ThreadPoolExecutor(max_workers=nthreads) as pool:
+        futures = [pool.submit(load_thread, url) for url in rool_urls]
+        while futures:
+            (ready_future,), futures = concurrent.futures.wait(futures,
+                                                               return_when=FIRST_COMPLETED)
+            url, data = ready_future.result()
+            yield url, data
+            for href in find_hrefs(data):
+                href = abs_url(href, url)
+                if is_beelong_to(href, rool_urls) and url not in used_urls:
+                    futures.append(pool.submit(load_thread, href))
+                    used_url.add(href)
+```
 ---
 
 ???
@@ -446,32 +583,6 @@ futures
 * web scapper всеми способами
 * Сначала однопоточный
 * Потом 
-
----
-```python
-class IURLStor:
-    @abc.abstractmethod
-    def store(self, url: str, content: str):
-        pass
-
-def mirror_urls(start_urls: List[str], storage: IURLStor)
-    pass
-
-```
-
----
-```python
-class IURLStor:
-    @abc.abstractmethod
-    def store(self, url: str, content: str):
-        pass
-
-def mirror_urls(start_urls: List[str], stor: Callable[[str, str]])
-    pass
-
-mirror_urls(urls, storage.store)
-
-```
 
 ---
 concurrency is not parallelism
