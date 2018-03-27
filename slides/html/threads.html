@@ -66,7 +66,7 @@ elif rank == 1:
 
 ???
 
-* потоки
+* потоки (потоки владеют стеком)
 * множество потоков исполнения
 * ядра процессоров - отдельные процессоры (*почти)
 
@@ -107,6 +107,7 @@ Worker from thread 139690076350208
 * зависания
 * потеря исключений
 * усложнение отладки
+* усложнение тестировани
 
 ---
 ```python
@@ -116,6 +117,13 @@ def add(var, x):
     v += x
     var.set_val(v)
 ```
+???
+
+* все, что потоки разделяют
+* глобальные переменные
+* статические переменные
+* mock и другие хаки
+* thread safe
 
 ---
 
@@ -123,17 +131,40 @@ def add(var, x):
 sync primitives
 
 * Lock(mutex)
-* Semafore
-* RLock
-* Barrier
-* Event
-* CriticalSection
-* Conditional variable (сигнальная переменная)
+
+---
+Использование блокировок
+```python
+
+from threading import Lock
+
+def add(var, x, lock):
+    lock.acquire()
+    v = var.get_val()
+    v += x
+    var.set_val(v)      
+    lock.release()
+```
 
 ---
 ```python
 
-from threading import Lock
+def add(var, x, lock):
+    lock.acquire()
+    try:
+        v = var.get_val()
+        v += x
+        var.set_val(v)      
+    finally:
+        lock.release()
+
+l = Lock()
+v = Var(1)
+add(l, v, 1)
+
+```
+---
+```python
 
 def add(var, x, lock):
     with lock:
@@ -146,6 +177,7 @@ v = Var(1)
 add(l, v, 1)
 
 ```
+
 ---
 ```python
 
@@ -164,6 +196,7 @@ class Var:
 
 
 def add(var, x):
+    # with var.lock:
     with var:
         v = var.get_val()
         v += x
@@ -202,7 +235,9 @@ with cv:
 * RLock
 * Barrier
 * Event
+
 * CriticalSection
+* RWLock
 
 ---
 
@@ -251,31 +286,196 @@ def move(x1: LockedIntVar, x2: LockedIntVar, delta: int):
         with x2:
             x1.add(delta)
             x2.add(-delta)
-
 ```
 
 ---
 
-queues
+* Захват блокировки снаружи vs захват блокировки внутри
+
+???
+
+* Захват только одной блокировки
+* Внутри захваченной блокировки не вызываются функции, либо вызыватся простые
+
+---
+План:
+* Гранулярность блокировки vs. уровень параллелизма
+* однопоточный код + блокировки - много потоков
+* симметричные функции потоков в ассиметричные
+* вынос IO в отдельный pool с очередью ответов + отдельный пул для CPU intencive на футурес + центральный поток воркетор
+* queue-based CSP, erlang/go/scala+akka/stackless python
+* функциональный стиль и многопоточность
+* три типа потоков - логика, io-bounded, cpu-bounded
+
+---
+```python
+
+l1 = Lock()
+
+
+def f1():
+    x = 1
+    ...
+    with l1:
+        some_var += x
+
+
+def f2():
+    with l1:
+        some_var *= 2
+
+    ...
+
+    with l1:
+        r = some_var
+
+    r ...
+```
+???
+
+* Давайте переформатируем этот код
+* вынесем куски под локом в отдельные функции 
+* Фактически этот код однопоточен
+---
+
+```python
+
+def f1_l(x):
+    some_var += x
+
+def f2_1()
+    some_var *= 2
+
+def f2_2()
+    return some_var
+
+def f1():
+    x = 1
+    ...
+    f1_1(x)
+
+
+def f2():
+    f2_1()
+    ...
+
+    r = f2_2()
+
+    r ...
+```
+
+---
+```python
+
+def some_var_func(q):
+    some_var = 1
+    while True:
+        msg, param = q.get()
+        if msg == '1':
+            some_var += param
+        elif msg == '2':
+            assert param is None
+            some_var *= 2
+        elif msg == '3'
+            assert isinstance(param, Queue)
+            param.put(some_var)
+```
+
+---
+```python
+
+def f1():
+    x = 1
+    ...
+    some_var_q.put(('1', x))
+
+
+def f2():
+    some_var_q.put(('2', None))
+    ...
+
+    q = Queue()
+    some_var_q.put(('3', q))
+    r = q.get()
+
+    r ...
+
+```
+
+???
+* Один лок - один потом + очередь
+* скорость - ок
+* чуть больше кода, но мы избавились от блокировок (*почти)
+* возможна ситуация, когда два потока висят, ожидая друг друга
+---
+
+Communicating sequential processes
+
+* нет общих данных
+* потоки обмениваются сообщениями через очереди
+* queues
 
 ---
 
-futures/threadpools
+* workers
+
+---
+threadpools
+Для обработки задач, которые не требуют коммуникации посередине
+Универсальная модель - 0 дата шаринг, функция + данные
+Лимит на количество потоков
+
+---
+futures
+"будущее" значение
 
 ---
 
 ???
 * GIL
 * GIL removal
+* GIL release
 * etc
 * python thread execution scheme
 ---
 
+* Паттерны и примеры
+
+???
+
+* web scapper всеми способами
+* Сначала однопоточный
+* Потом 
+
+---
+```python
+class IURLStor:
+    @abc.abstractmethod
+    def store(self, url: str, content: str):
+        pass
+
+def mirror_urls(start_urls: List[str], storage: IURLStor)
+    pass
+
+```
+
+---
+```python
+class IURLStor:
+    @abc.abstractmethod
+    def store(self, url: str, content: str):
+        pass
+
+def mirror_urls(start_urls: List[str], stor: Callable[[str, str]])
+    pass
+
+mirror_urls(urls, storage.store)
+
+```
+
+---
 concurrency is not parallelism
-
 https://www.youtube.com/watch?v=cN_DpYBzKso
-
-
 
 ---
     </textarea>
