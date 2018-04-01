@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>pydown</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="css/deck.core.css">
+	<link rel="stylesheet" href="css/deck.status.css">
+	<link rel="stylesheet" href="css/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="css/web-2.0.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="css/horizontal-slide.css">
+
+	<link rel="stylesheet" href="css/md_hl.css">
+	
+	<script src="js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide "><div class="content"><h3>План и цели</h3>
+<div class="codehilite"><pre><span></span>* Sync vs Async
+* Существующие async системы
+* asyncio в сравнении с ними
+* Тесты производительности и наглая лож
+* Выводы
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Sync vs Async</h3>
+<div class="codehilite"><pre><span></span>* Кто переключает контекст?
+* [Concurrency is not parallelism](https://www.youtube.com/watch?v=f6kdp27TYZs)
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Проблемы потоков</h3>
+<div class="codehilite"><pre><span></span>* Гонки
+* Dead and live locks
+* Инверсия приоритетов
+* Переключение контекста в ОС дорого
+* GIL
+* [C10K](http://www.kegel.com/c10k.html)
+* Недетерминизм исполнения
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Настоящие проблемы потоков</h3>
+<div class="codehilite"><pre><span></span>* Любители сырых примитивов синхронизации
+* Непредсказуемость переключений (+плохие шедулеры)
+* Избыточные переключения контекста
+* Отладка, логирование, etc затруднены
+* GIL (+не честное разделение времени, +не работающие приоритеты)
+* (С10M)[https://www.youtube.com/watch?v=73XNtI0w7jA#!]
+* Нельзя шарить данные (например счетчик)
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Настоящие проблемы потоков</h3>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">runner_thread</span><span class="p">():</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">TH_COUNT</span><span class="p">):</span>
+    <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">runner_thread</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t1</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t1</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span>
+<span class="mi">9</span>
+<span class="mi">15</span>
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Ручное переключение потоков</h3>
+<div class="codehilite"><pre><span></span>* Кооперативное - блокирующие, долго исполняющиеся потоки
+* Вытеснящее - нужно писать свой шедулер, недетерминизм
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Две модели асинхронности</h3>
+<div class="codehilite"><pre><span></span>* Реактор
+* Множество акторов
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Erlang</h3>
+<div class="codehilite"><pre><span></span>* (Making reliable distributed systems in the presence of software errors)[http://ftp.nsysu.edu.tw/FreeBSD/ports/distfiles/erlang/armstrong_thesis_2003.pdf]
+* 99.999% &lt; Ericsson AXD301 availability &lt; 99.9999999%
+* Функциональный язык
+* Первый язык с массивной параллельностью
+* Процессы обмениваются сообщениями, никаких разделяемых модифицируемых ресурсов
+* Каждый актор это цикл по обработки сообщений
+* Акторы следят друг за другом
+* Вытесняющая многозадачность
+* Несколько потоков ОС
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Stackless python</h3>
+<div class="codehilite"><pre><span></span>* Erlang для python, но на реакторе
+* +переключение по блокирующим вызовам
+* +python-like sheduler
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Scala + akka</h3>
+<div class="codehilite"><pre><span></span>* Erlang-like
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Haskel, C, ...</h3></div></section>
+<section class="slide "><div class="content"><h3>Python</h3>
+<div class="codehilite"><pre><span></span>* Twisted
+* eventlet, gevent
+* cogen
+* Tornado,....
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>AsyncIO</h3>
+<p>Должен был быть универсальным event loop, для всех библиотек</p></div></section>
+<section class="slide "><div class="content"><h3>AsyncIO</h3>
+<p>Но часть его разработчиков сошли с ума и сделали из него бога (с)</p></div></section>
+<section class="slide "><div class="content"><h3>AsyncIO</h3>
+<div class="codehilite"><pre><span></span>Есть три варианта API для работы с сетью
+
+* Сырые дескрипторы
+* Потоки
+* Протоколы
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>AsyncIO</h3>
+<div class="codehilite"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">tcp_echo_client</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">writer</span><span class="p">):</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">msize</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>  <span class="c1"># not nessesary</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">loop_cls</span><span class="p">()</span>
+
+<span class="n">coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="n">tcp_echo_client</span><span class="p">,</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span>
+<span class="n">server</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">wait_closed</span><span class="p">())</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>AsyncIO raw sock</h3>
+<div class="codehilite"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">client</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="n">sock</span><span class="p">):</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">sock_recv</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">msize</span><span class="p">)</span>
+        <span class="n">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">sock_sendall</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+<span class="n">master_sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+<span class="c1"># setsockopt+bind+listen</span>
+<span class="n">sock</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">master_sock</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="n">sock</span><span class="p">))]</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">))</span>
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>AsyncIO proto</h3>
+<div class="codehilite"><pre><span></span>Look ma I see Twisted!
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">EchoProtocol</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">connection_made</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span> <span class="o">=</span> <span class="n">transport</span>
+
+    <span class="k">def</span> <span class="nf">connection_lost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">data_received</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+<span class="n">coro</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">create_server</span><span class="p">(</span><span class="n">EchoProtocol</span><span class="p">,</span> <span class="o">*</span><span class="n">addr</span><span class="p">)</span>
+<span class="n">server</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">wait_closed</span><span class="p">())</span>
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Где AsyncIO среди других асинхронных систем</h3>
+<div class="codehilite"><pre><span></span>* Lingua franca для асинхронных систем
+* Чистый event loop
+* Минималистичный синхронно/асинхронный API
+* Попытка покрыть API основные виды блокирующих вызовов (сигналы, пайпы, etc)
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>AsyncIO as evloop</h3>
+<div class="codehilite"><pre><span></span>twisted
+* https://github.com/itamarst/txtulip - NO
+* https://glyph.twistedmatrix.com/2014/05/the-report-of-our-death.html
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Проблемы AsyncIO</h3>
+<div class="codehilite"><pre><span></span>* Явные точки блокирующих вызовов - прощай, sqlalchemy
+* Необходимость отдельного API для всего, с чем не работает epoll
+* Нужно переписать все
+* &quot;Просто вынеси в отдельный поток&quot; не всегда работает
+* Сложность контроля уровня параллелизма
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Ложь, Наглая ложь и тесты производительности</h3>
+<div class="codehilite"><pre><span></span>* Постобработка
+* Контроль нагрузки
+* Адекватные результаты
+* Средние + девиация + доверительный интервал для данных
+* Персентили для латентностей
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Тест номер раз</h3>
+<div class="codehilite"><pre><span></span>python3.5 main_new.py --runtime 20 -s 64 127.0.0.1 200 &#39;*&#39;
+          Kmps  stime   utime  
+asyncio    310   5.13   14.90
+selector  1900  12.86    7.10
+thread    1100  46.22   12.59
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>perf для 200 потоков</h3>
+<div class="codehilite"><pre><span></span>&gt; 100% CPU usage
+sudo perf stat python3.5 main_new.py ... threads
+  50287.132418 task-clock (msec)
+     3,645,408 context-switches 
+       965,678 cpu-migrations   
+         5,297 page-faults      
+87,957,887,922 cycles           
+45,364,602,467 instructions     
+ 8,902,403,577 branches         
+   128,403,378 branch-misses
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>perf для 200 потоков</h3>
+<div class="codehilite"><pre><span></span>sudo perf stat -e &#39;syscalls:sys_enter_*&#39; XXX
+
+python3.5 main_new.py ... threads
+messages: 38660
+
+    38,861 syscalls:sys_enter_sendto                                   
+    39,061 syscalls:sys_enter_recvfrom                                   
+3,087,328 syscalls:sys_enter_futex
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>taskset!</h3>
+<div class="codehilite"><pre><span></span>sudo perf stat taskset -c 6 python3.5 main_new.py ... threads
+  20149.498132 task-clock (msec)
+     1,992,539 context-switches 
+            11 cpu-migrations   
+         5,470 page-faults      
+60,754,818,298 cycles           
+47,858,395,058 instructions     
+ 9,076,082,207 branches         
+   109,074,649 branch-misses
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>taskset!</h3>
+<div class="codehilite"><pre><span></span>taskset -c 6 python3.5 main_new.py ... threads
+messages: 2046010
+
+2,046,211 syscalls:sys_enter_sendto                                   
+2,046,411 syscalls:sys_enter_recvfrom                                   
+  163,851 syscalls:sys_enter_futex
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>perf для 200 asyncio</h3>
+<div class="codehilite"><pre><span></span>python3.5 main_new.py ... asyncio
+messages: 406283
+
+406,485 syscalls:sys_enter_sendto                                   
+406,686 syscalls:sys_enter_recvfrom                                   
+  4,395 syscalls:sys_enter_epoll_wait                                   
+406,542 syscalls:sys_enter_mremap                                   
+406,577 syscalls:sys_enter_munmap                                   
+406,670 syscalls:sys_enter_mmap
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>perf для плюсов epoll</h3>
+<div class="codehilite"><pre><span></span>python3.5 main_new.py ... cpp_epoll
+
+messages: 2921753
+
+2,921,954 syscalls:sys_enter_recvfrom                                   
+   14,801 syscalls:sys_enter_epoll_wait                                   
+2,921,955 syscalls:sys_enter_write
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Итоги тестов (оч сырые) - 20 потоков</h3>
+<div class="codehilite"><pre><span></span>                     Kmps  stime  utime  
+asyncio_proto          170  11.9  18.1
+asyncio_sock           140   8.2  21.6
+asyncio                 62   4.2  25.8
+cpp_epoll              440  28.4   1.6
+cpp_poll               600  27.4   2.6
+cpp_th                 340  29.0   1.0
+gevent                 110   8.3  21.6
+selector               320  17.0  13.0
+thread                 290  23.1   6.3
+uvloop_proto           360  20.3   9.7
+uvloop_sock            150   9.4  20.6
+uvloop                 110   7.1  22.9
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Итоги тестов (оч сырые) - 20000 потоков</h3>
+<div class="codehilite"><pre><span></span>                     Kmps  stime  utime
+asyncio_proto          140  12.9  17.7
+asyncio_sock           120   8.4  22.0
+asyncio                 39   3.7  28.2
+cpp_epoll              320  27.8   1.7
+cpp_poll               350  26.9   3.0
+cpp_th                 220  29.0   0.6
+gevent                  99   9.6  20.9
+selector               290  17.5  12.7
+uvloop_proto           300  20.4   9.1
+uvloop_sock            155   9.4  21.0
+uvloop                  63   6.1  24.7
+thread                 190  22.9   7.7
+</pre></div></div></section>
+
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="js/deck.core.js"></script>
+<script src="js/deck.status.js"></script>
+<script src="js/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+</html>

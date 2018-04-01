@@ -1,0 +1,195 @@
+Green(cooperative) threads:
+    erlang
+    C - setjmp/longjmp http://www.1024cores.net/home/lock-free-algorithms/tricks/fibers
+    POSIX makecontext()/swapcontext()
+    Windows fibers - https://msdn.microsoft.com/en-us/library/ms682661%28v=vs.85%29.aspx
+    Boost.Context/Boost.Coroutine
+    Scala/Java + akka
+    golang
+    stackless/gevent/eventlet
+    asyncio
+
+AsyncIO explained:
+    !!! - https://pymotw.com/3/asyncio/index.html
+    https://www.python.org/dev/peps/pep-3156/
+    http://www.snarky.ca/how-the-heck-does-async-await-work-in-python-3-5
+    http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
+    http://sahandsaba.com/understanding-asyncio-node-js-python-3-4.html
+    http://asyncio.org/#talks
+    http://asyncio.org/#blogs
+
+    asyncio + SA - http://asvetlov.blogspot.com/2014/05/aiopgsa.html
+    introduction to async programming http://cs.brown.edu/courses/cs168/f12/handouts/async.pdf
+
+Threads:
+    some python? thread issues on 10k+
+    с большим количеством потоков система становится менее контролируемой, необходимо выделять
+    управляющим потокам повышенный приоритет или выделенные ядра
+    Выделение ядер немного напоминает выделенные сети для администрирования
+    python threads GIL issue (io threads gets less ticks)
+
+    Проблемы:
+        непредсказуемость ответа
+        сложность контроля и мониторинга
+
+Links:
+    gevent http://sdiehl.github.io/gevent-tutorial/
+    написание asyncio вручную - https://www.youtube.com/watch?v=MCs5OvhV9S4
+    GIL приоритизирует CPU-bounded потоки вместо IO-bounded 12:00-https://www.youtube.com/watch?v=MCs5OvhV9S4
+    Problems with threads - http://www.eecs.berkeley.edu/Pubs/TechRpts/2006/EECS-2006-1.pdf
+    Parallelization concepts large review - https://oparu.uni-ulm.de/xmlui/handle/123456789/2450
+
+Posts:
+    http://techspot.zzzeek.org/2015/02/15/asynchronous-python-and-databases/
+    10+k threads http://stackoverflow.com/questions/17593699/tcp-ip-solving-the-c10k-with-the-thread-per-client-approach
+    C10M https://www.youtube.com/watch?v=73XNtI0w7jA#!
+
+Пацаны тестят:
+    http://www.obeythetestinggoat.com/testing-async-asyncio-and-performance.html
+    http://blog.gmludo.eu/2015/02/macro-benchmark-with-django-flask-and-asyncio.html
+    ?? http://klen.github.io/py-frameworks-bench/
+
+асинхронно/синхронная обработка
+
+Глупости:
+    As we know, threads are a bad idea, (for most purposes). Threads make local reasoning
+    difficult, and local reasoning is perhaps the most important thing in software development.
+
+Альтернативы:
+    https://github.com/dabeaz/curio
+
+    go - переключение на блокирующих вызовах и, иногда, на входах в функцию
+
+Что рассказать:
+    Введение - C10k
+    Наиболее известные примеры асинхронных систем: erlang, akka, 
+    невозможно скрыть асинхронную операцию - не будет ORM, ...
+    нет контроля/управления жизненным циклом гринлетов
+    шедулеры для сопроцедур - проблема (но в варианте питона - пофиг, epoll и есть шедулер)
+    yield не маштабируется - чем больше степень вложенности вызовов, тем дороже yield
+
+    вариант массивной параллельности плохо работает с лимитами
+    Асинхронное программирование - зачем, откуда, как соотносится с синхронным
+    Простейшая модель - реактор + cb
+    Синтаксический сахар как способ перейти от кучи 
+
+    http://www.onebigfluke.com/2015/02/asyncio-is-for-composition.html
+    asyncio для массового параллелизма отдельного запроса
+    аналогия с threadpool/future
+    хороший пример - openstack API
+
+Картинки:
+    rrate, sys/req, user/req for low/moderate and heavy loaded systems
+    syscalls/cpu switches with and without affinity
+
+Финальный ссылки:
+    http://techspot.zzzeek.org/2015/02/15/asynchronous-python-and-databases/
+
+Вопросы:
+    откуда в asyncio трейсе mmap
+    как меняется ctxswitch counter при пине потоков
+    как меняется количество системных вызовов/время исполнения по мере увеличения параллельности
+    поддерживают ли twisted/tornado/etc asyncio?
+    Проредить ссылки, выдать базовый набор
+    Что там происходит на 5k потоков
+    Можно ли в питоне эффективно выставлять приоритеты, учитывая GIL
+
+
+def test_yield(level):
+    if level > 0:
+        yield from test_yield(level - 1)
+    else:
+        yield 0
+        yield 1
+        yield 2
+        yield 3
+        yield 4
+
+
+План:
+    Модель сервер-клиент. Потоки
+    Проблемы с потоками при росте их количества
+        отладка, логирование, профилирование, отклик
+        python threads GIL issue (io threads gets less ticks)
+        дороговизна переключений
+        паразитные переключения
+        дедлоки и гонки проблемы не потоков, а программистов
+
+    Сопроцедуры (кооперативная многозадачность)
+    Модели массивно-параллельных систем (CSP)
+        Erlang
+        StacklessPython
+        Scala + akka
+        go
+        Классификация по:
+            жизненному циклу акторов
+            модели взаимодействия
+            модели обработки блокирующего кода
+
+    asyncio:
+        универсальный eventloop для взаимодействия twisted/gevent/etc
+        совсем не модель акторов
+        частое порождение/смерть сопроцедур
+        API иммитирует многопоточную future-модель
+        yeild from based - минимальное API, с перемешанными future/background функциями
+        краткий обзор внутренней модели
+        protocol-based API, look ma, I found twisted
+        BTW yield from - оптимизированна
+
+    Дизайн asyncio - минимальные изменения в питоне без хаков на C уровне
+        задача - легка асинхронная обработкаю Например openstack-api
+
+    Проблемы asyncio - точки асинхронного вызова должны явно маркироваться
+        нельзя их скрыть
+        один и тот-же код не может работать в синхронном и асинхронном режиме
+        системы типа ORM, которые скрывают блокирующие вызовы не могуть так работать
+        пока-пока sqlalchemy
+        проблемы с уровнем паралелизма (ровно так же сложно решаются, как и с потоками)
+
+    Производительность: ложь, наглая ложь и тесты
+        постобработка, слежение за ресурсами, etc
+        сначала по-мелочи: потоки vs asyncio vs selector, utime/stime/iops (sry, no lat)
+        переключения контекста, системные вызовы
+        taskset!
+        еще раз переключения контекста, системные вызовы
+        asyncio-proto
+        uvloop
+
+    Выводы
+        потоки не так плохи
+        asyncio медленный, но шансы есть
+        впрочем мало кому нужны 10+k
+        asyncio действительно полезен для API с большим количеством блокирующих вызовов,
+        но синтаксис результата не очень пока
+
+
+
+B1() -> a
+B2() -> b
+B3() -> c
+
+-------------------------
+
+a = yield from B1()
+b = yield from B2()
+c = yield from B3()
+
+-------------------------
+
+f1 = asyncio.ensure_future(B1())
+f2 = asyncio.ensure_future(B2())
+f3 = asyncio.ensure_future(B3())
+
+loop.run_until_complete(asyncio.wait([f1, f2, f3]))
+
+a = f1.result()
+b = f2.result()
+c = f3.result()
+
+-------------------------
+
+a, b, c = run_all(loop, B1(), B2(), BN3())
+
+
+
+
