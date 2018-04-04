@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="koder.css">
+  </head>
+  <body>
+    <textarea id="source">
+<!---------------------------------------------------------------------------->
+
+DB API
+======
+
+* https://www.python.org/dev/peps/pep-0249/
+
+
+---
+
+```python
+import sqlite
+
+conn = sqlite3.connect("/tmp/test.db")
+cr = conn.cursor()
+
+cr.execute("create TABLE test (id int, msg text)")
+
+cr.execute("INSERT INTO test VALUES (?, ?)", (0, 'some message'))
+
+cr.execute("select * from test")
+cr.fetchall()  # >> [(0, 'some message')]
+
+conn.commit()
+```
+
+---
+```python
+
+class TR:
+	def __init__(self, conn):
+		self.conn = conn
+
+	def __enter__(self):
+		return self.conn.cursor()
+
+	def __exit__(self, clss, exc, tb):
+		if clss is None:
+			self.conn.commit()
+		else:
+			self.conn.rollback()
+```
+
+---
+```python
+from contextlib import contextmanager
+
+@contextmanager
+def TR():
+    """Provide a transactional scope around a series of operations."""
+    session = Session()
+    try:
+        yield session
+        session.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+```
+---
+
+```python
+with TR(conn) as cr:
+	cr.execute(....)
+```
+
+---
+
+* https://github.com/mkleehammer/pyodbc/wiki/Install
+
+```python
+
+url = 'DRIVER={ODBC Driver 11 for SQL Server};' + \
+      'SERVER=test;DATABASE=test;UID=user;PWD=password'
+
+conn = pyodbc.connect(url)
+cursor = conn.cursor()
+cursor.execute("select user_id, user_name from users")
+for row in cursor.fetchall():
+    print(row)
+```
+
+---
+
+ORM
+===
+
+* table -> class
+* table record -> class instance
+* unit of work
+
+---
+
+sqlalchemy
+==========
+
+* raw sql
+* functional language
+* ORM
+
+---
+
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import sessionmaker
+
+
+Base = declarative_base()
+```
+
+---
+```python
+class Car(Base):
+    __tablename__ = "cars"
+ 
+    id = Column(Integer, primary_key=True)
+    name = Column(String)  
+    price = Column(Integer)
+    owner = relationship("Human", back_populates="cars")
+
+
+class Human(Base):
+    __tablename__ = "users"
+ 
+    id = Column(Integer, primary_key=True)
+    name = Column(String)  
+    cars = relationship("Car")
+```
+
+---
+```python
+eng = create_engine('sqlite:///:memory:', echo=True)
+
+Base.metadata.bind = eng        
+Base.metadata.create_all()        
+        
+Session = sessionmaker(bind=eng)
+s = Session()    
+
+```
+
+---
+```python
+hm = Human(name='paul')
+
+s.add_all(hm)
+
+s.add_all(
+   [Car(name='Audi', price=52642, owner=hm), 
+    Car(name='Mercedes', price=57127, owner=hm),
+    Car(name='Citroen', price=21000, owner=hm)])
+s.commit()
+
+for car in sess.query(Car).all():
+    print(f"Name={car.name} {car.price}")
+```
+
+---
+```python
+
+s.query(Car).filter(Car.name.like('%en'))
+"select * from cars where name like '%en'"
+
+s.query(Car).filter(Car.id.in_([2, 4, 6, 8]))
+"select * from cars where id in (2,4,6,8)"
+
+
+s.query(Car).filter(Car.price < 50000).count()
+"select count(*) from cars where price < 50000"
+
+s.query(Car.*, User.name).filter(Car.owner == User.id)
+"select car.*, user.name from cars, users where car.owner == user.id"
+
+q = s.query(Car)
+q.filter(Car.owner.any(User.name == 'paul'))
+"select * from car where car.id in (select id from user where name == 'paul')"
+
+q.all()
+
+```
+
+---
+
+reflection
+==========
+```python
+messages = Table('messages', meta, autoload=True, autoload_with=engine)
+
+meta = MetaData()
+meta.reflect(bind=someengine)
+
+users_table = meta.tables['users']
+addresses_table = meta.tables['addresses']
+```
+
+---
+
+PonyORM
+=======
+
+```python
+from decimal import Decimal
+from datetime import datetime
+
+from pony.converting import str2datetime
+from pony.orm import *
+
+db = Database()
+
+class Customer(db.Entity):
+    email = Required(str, unique=True)
+    password = Required(str)
+    name = Required(str)
+    orders = Set('Order')
+
+select((c.country, count(c)) for c in Customer if c.name == 'paul')
+
+```
+
+    </textarea>
+    <script src="js/remark-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({highlightStyle: 'dracula', ratio: '16:9'});
+    </script>
+  </body>
+</html>
